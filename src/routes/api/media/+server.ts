@@ -1,6 +1,6 @@
 import type { RequestHandler } from './$types';
-import { prisma } from '$lib/server/prisma';
 import { json } from '@sveltejs/kit';
+import { db } from '$lib/server/firebase-admin';
 
 export const GET: RequestHandler = async ({ url }) => {
 	const page = parseInt(url.searchParams.get('page') || '1');
@@ -37,13 +37,13 @@ export const GET: RequestHandler = async ({ url }) => {
 	if (orderby_desc) {
 		orderBy = { ...orderBy, [orderby_desc]: 'desc' };
 	}
+	const snapshot = await db.collection('media').get();
 
-	const images = await prisma.media.findMany({
-		where,
-		take: limit,
-		skip: (page - 1) * limit,
-		orderBy
+	let images: any[] = [];
+	snapshot.forEach((doc_) => {
+		images.push({ ...doc_.data(), id: doc_.id });
 	});
+
 	return json(images);
 };
 
@@ -52,12 +52,31 @@ export const POST: RequestHandler = async ({ request }) => {
 		const data = await request.json();
 		let files = data.map((file: any) => {
 			return {
-        ...file,
-        project:''
-      };
+				...file,
+				project: ''
+			};
 		});
+		let image;
+		console.log({files});
+		
+		try {
+			const batch = db.batch();
 
-		const image = await prisma.media.createMany({ data: files });
+			// Loop through the documents and add them to the batch
+			files.forEach((doc: any) => {
+				console.log({doc});
+				
+				const docRef = db.collection('media').doc(); // Auto-generated document ID
+				batch.set(docRef, doc); // Add document data
+			});
+
+			// Commit the batch
+			image = await batch.commit();
+			console.log('Documents added successfully!');
+		} catch (error) {
+			console.error('Error adding documents:', error);
+		}
+
 		return json(image);
 	} catch (error) {
 		console.error(error);
@@ -67,9 +86,9 @@ export const POST: RequestHandler = async ({ request }) => {
 };
 
 export const DELETE: RequestHandler = async ({ url }) => {
-	const id = url.searchParams.get('id');
+	const id = url.searchParams.get('id')||'';
+	await db.collection("media").doc(id).delete();
 	try {
-		await prisma.media.deleteMany({ where: { id: id as string } });
 		return json({ success: true });
 	} catch (error) {
 		return json({ success: false });

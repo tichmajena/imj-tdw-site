@@ -31,7 +31,7 @@
 	const s = $derived(entry_session.selection?.type);
 	const b = $derived(entry_session.selected_block?.type);
 	let modals = $state(false);
-	let row = $state(false);
+	let row = $state(true);
 	let blockTypes = $state(false);
 	let lightboxEditor = $state(false);
 	let imageGrid = $state([]);
@@ -118,8 +118,8 @@
 	function handle_image_change(imageKey, size = '800x600') {
 		const selected_block_path = entry_session.selected_block_path;
 		const imageUrl = `${$page.data.cloudfront}/fit-in/${size}/${imageKey}`;
-		console.log({imageUrl, selected_block_path});
-		
+		console.log({ imageUrl, selected_block_path });
+
 		if (selected_block_path) {
 			entry_session.set([...selected_block_path, 'image'], imageUrl);
 		}
@@ -155,7 +155,7 @@
 		const session = JSON.stringify(entry_session.entry);
 		console.log({ id, session });
 		const res = await fetch(`/api/pages/?route=${$page.url.pathname.replaceAll('/', '_-_')}`, {
-			method: 'PUT',
+			method: id.trim() ? 'PUT' : 'POST',
 			body: session
 		});
 		const op = await res.json();
@@ -233,7 +233,7 @@
 			</div>
 			<div
 				tabindex="-1"
-				class=" dropdown-content z-[1] mb-2 ml-4 w-52 rounded-box bg-base-content p-2 text-base-100 shadow"
+				class=" dropdown-content rounded-box bg-base-content text-base-100 z-[1] mb-2 ml-4 w-52 p-2 shadow"
 			>
 				<div>
 					<button onclick={() => (selectedBlockType = 'brand')} class="btn btn-ghost btn-xs"
@@ -337,24 +337,23 @@
 	{/if}
 	<!-- Lightbox -->
 	{#if s === 'container' && (b === 'lightbox_grid' || b === 'team_grid')}
-		<div onclick={() => {
-			console.log({lightboxEditor});
-			
-			lightboxEditor = !lightboxEditor
-			}}
-		onkeydown={(e) => {
-			if (e.key === 'Enter') {
-				lightboxEditor = !lightboxEditor;
-			}
-		}}
-		tabindex="0"
-		role="button" class:dropdown-open={lightboxEditor} class="dropdown dropdown-right">
-			<div
-				
-				class="btn btn-circle btn-ghost btn-sm"
-				>
-			
+		<div
+			onclick={() => {
+				console.log({ lightboxEditor });
 
+				lightboxEditor = !lightboxEditor;
+			}}
+			onkeydown={(e) => {
+				if (e.key === 'Enter') {
+					lightboxEditor = !lightboxEditor;
+				}
+			}}
+			tabindex="0"
+			role="button"
+			class:dropdown-open={lightboxEditor}
+			class="dropdown dropdown-right"
+		>
+			<div class="btn btn-circle btn-ghost btn-sm">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					fill="none"
@@ -372,10 +371,9 @@
 			</div>
 			<ul
 				tabindex="-1"
-				class="menu dropdown-content z-[1] mb-2 ml-4 w-52 rounded-box bg-base-content p-2 text-base-100 shadow"
+				class="menu dropdown-content rounded-box bg-base-content text-base-100 z-[1] mb-2 ml-4 w-52 p-2 shadow"
 			>
 				<li>
-					
 					{#if lightboxEditor}
 						<div
 							use:lightboxEditorInit
@@ -538,16 +536,14 @@
 			</button>
 		{/if}
 
-		<div onclick={() => (row = !row)}
-			onkeydown={(e) => {
-				if (e.key === 'Enter') {
-					row = !row;
-				}
-			}}
-			tabindex="0"
-			role="button" class:dropdown-open={row} class="dropdown dropdown-right">
+		<div tabindex="0" role="button" class:dropdown-open={row} class="dropdown dropdown-right">
 			<div
-				
+				onclick={() => (row = !row)}
+				onkeydown={(e) => {
+					if (e.key === 'Enter') {
+						row = !row;
+					}
+				}}
 				class="btn btn-circle btn-ghost btn-sm"
 			>
 				<svg
@@ -567,9 +563,10 @@
 			</div>
 			<ul
 				tabindex="-1"
-				class="menu dropdown-content z-[1] mb-2 ml-4 w-52 rounded-box bg-base-content p-2 text-base-100 shadow"
+				class="menu dropdown-content rounded-box bg-base-content text-base-100 z-[1] mb-2 ml-4 w-52 p-2 shadow"
 			>
 				<li>
+					{row}
 					{#if row}
 						<div transition:slide class="h-full w-full">
 							<!--  -->
@@ -646,7 +643,7 @@
 <input bind:checked={modals} type="checkbox" id="gallaries-modal" class="modal-toggle z-10" />
 <div class="modal">
 	<div class="modal-box relative w-4/5 max-w-none">
-		<label for="gallaries-modal" class="btn btn-circle btn-sm absolute right-2 top-2">✕</label>
+		<label for="gallaries-modal" class="btn btn-circle btn-sm absolute top-2 right-2">✕</label>
 		<!-- <div class="tabs">
 			<button
 				class:tab-active={galleryTab === 'unsplash'}
@@ -751,4 +748,3 @@
 		display: none; /* Safari and Chrome */
 	}
 </style>
-

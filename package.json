@@ -55,11 +55,10 @@
 		"@aws-sdk/client-sesv2": "^3.782.0",
 		"@aws-sdk/s3-request-presigner": "^3.782.0",
 		"@googlemaps/js-api-loader": "^1.16.8",
-		"@prisma/client": "^6.5.0",
 		"blurhash": "^2.0.5",
 		"fast-blurhash": "^1.1.4",
-		"prisma": "^6.5.0",
+		"firebase": "^11.6.0",
+		"firebase-admin": "^13.2.0",
 		"svelte-youtube-lite": "^1.2.1"
 	}
 }
-

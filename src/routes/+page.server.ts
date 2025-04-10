@@ -1,4 +1,3 @@
-import { prisma } from '$lib/server/prisma';
 import type { PageServerLoad, Actions } from './$types';
 
 export const load = (async ({ fetch }) => {
@@ -191,14 +190,21 @@ export const load = (async ({ fetch }) => {
 			}
 		]
 	};
-	const page = await prisma.page.findFirst({ where: { route: '/' ,project:""} });
+	let route = '/'.replaceAll('/','_-_');
+	const page = await getPage(route);
 	let entry = JSON.parse(page?.entry || JSON.stringify(page_json));
 	entry = { ...entry, id: page?.id || '' };
 	async function getGallery() {
 		const res = await fetch('/api/media');
 		const media = await res.json();
+		console.log({ media });
+		return media ;
+	}
+	async function getPage(route:string) {
+		const res = await fetch('/api/page?route='+route);
+		const page = await res.json();
 		// console.log({ media });
-		return media;
+		return page;
 	}
 	return { gallery: getGallery(), entry: entry };
 }) satisfies PageServerLoad;
