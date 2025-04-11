@@ -302,19 +302,19 @@
 >
 	<!--  -->
 	{#if !confirmImage}
-		<div class="absolute right-3 top-12 z-0">
+		<div class="absolute right-3 bottom-3 z-0">
 			<button
 				on:click={() => {
 					dispatch('modal');
 				}}
 				id="button"
-				class="btn btn-circle btn-sm hidden p-3 group-hover:block"
+				class="btn btn-circle btn-sm hidden p-1.5 group-hover:block"
 			>
 				<IconCamera />
 			</button>
 		</div>
 	{:else}
-		<div class="absolute right-3 top-12 z-0">
+		<div class="t absolute right-3 bottom-3 z-0">
 			<button
 				class:loading={loaders.save && !featuredSaveCheck}
 				class:-mt-1={loaders.save && !featuredSaveCheck}

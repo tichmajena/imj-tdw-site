@@ -1,12 +1,13 @@
 <script lang="ts">
-	import '../app.css';
+	import '$src/app.css';
 	import '$lib/styles/spacing.css';
 	import '$lib/styles/colors.css';
 	import '$lib/styles/shadows.css';
-	import Nav from './Nav.svelte';
+	import '@fontsource/roboto/200.css';
+	import '@fontsource/roboto/300.css';
+	import '@fontsource/roboto/400.css';
+	import '@fontsource/roboto/700.css';
 	let { children, data } = $props();
 </script>
 
-<Nav url={data.url} socials={data.socials}>
-	{@render children()}
-</Nav>
+{@render children()}

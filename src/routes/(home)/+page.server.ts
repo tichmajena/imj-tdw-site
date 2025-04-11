@@ -1,0 +1,35 @@
+import { page_json } from '$src/lib/server/utils';
+import type { PageServerLoad, Actions } from './$types';
+
+export const load = (async ({ fetch }) => {
+	let route = '/'.replaceAll('/', '_-_');
+	const page = await getPage(route);
+	let entry = JSON.parse(page?.entry || JSON.stringify(page_json));
+	entry = { ...entry, id: page?.id || '' };
+	async function getGallery() {
+		const res = await fetch('/api/media');
+		const media = await res.json();
+		console.log({ media });
+		return media;
+	}
+	async function getPage(route: string) {
+		const res = await fetch('/api/page?route=' + route);
+		const page = await res.json();
+		// console.log({ media });
+		return page;
+	}
+	return { gallery: getGallery(), entry: entry };
+}) satisfies PageServerLoad;
+
+export const actions: Actions = {
+	setTheme: ({ url, cookies }) => {
+		const theme = url.searchParams.get('theme');
+
+		if (theme) {
+			cookies.set('colortheme', theme, {
+				path: '/',
+				maxAge: 60 * 60 * 24 * 365
+			});
+		}
+	}
+};

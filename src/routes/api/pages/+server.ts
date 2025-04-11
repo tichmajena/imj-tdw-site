@@ -13,7 +13,9 @@ export const PUT: RequestHandler = async ({ request, locals, url }) => {
 
 	try {
 		let page = { entry: JSON.stringify(session) };
-		const newPage = db.collection('pages').doc(session.id).set(page,{merge:true});
+		console.log({ page___: page });
+
+		const newPage = db.collection('pages').doc(session.id).set(page, { merge: true });
 		return json({ success: true, page: newPage });
 	} catch (error) {
 		console.error(error);

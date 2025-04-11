@@ -17,6 +17,15 @@ importers:
       '@aws-sdk/s3-request-presigner':
         specifier: ^3.782.0
         version: 3.782.0
+      '@fontsource/inter':
+        specifier: ^5.2.5
+        version: 5.2.5
+      '@fontsource/open-sans':
+        specifier: ^5.2.5
+        version: 5.2.5
+      '@fontsource/roboto':
+        specifier: ^5.2.5
+        version: 5.2.5
       '@googlemaps/js-api-loader':
         specifier: ^1.16.8
         version: 1.16.8
@@ -896,6 +905,15 @@ packages:
 
   '@firebase/webchannel-wrapper@1.0.3':
     resolution: {integrity: sha512-2xCRM9q9FlzGZCdgDMJwc0gyUkWFtkosy7Xxr6sFgQwn+wMNIWd7xIvYNauU1r64B5L5rsGKy/n9TKJ0aAFeqQ==}
+
+  '@fontsource/inter@5.2.5':
+    resolution: {integrity: sha512-kbsPKj0S4p44JdYRFiW78Td8Ge2sBVxi/PIBwmih+RpSXUdvS9nbs1HIiuUSPtRMi14CqLEZ/fbk7dj7vni1Sg==}
+
+  '@fontsource/open-sans@5.2.5':
+    resolution: {integrity: sha512-f0Ww6H+LB6GXA8UCgqs90h4djVttu3quH/1+wkfUY8b09mG1ESn4ACRBHYY78bsoeDXpaCyZh7eoGROBWplvAQ==}
+
+  '@fontsource/roboto@5.2.5':
+    resolution: {integrity: sha512-70r2UZ0raqLn5W+sPeKhqlf8wGvUXFWlofaDlcbt/S3d06+17gXKr3VNqDODB0I1ASme3dGT5OJj9NABt7OTZQ==}
 
   '@google-cloud/firestore@7.11.0':
     resolution: {integrity: sha512-88uZ+jLsp1aVMj7gh3EKYH1aulTAMFAp8sH/v5a9w8q8iqSG27RiWLoxSAFr/XocZ9hGiWH1kEnBw+zl3xAgNA==}
@@ -4380,6 +4398,12 @@ snapshots:
       tslib: 2.8.1
 
   '@firebase/webchannel-wrapper@1.0.3': {}
+
+  '@fontsource/inter@5.2.5': {}
+
+  '@fontsource/open-sans@5.2.5': {}
+
+  '@fontsource/roboto@5.2.5': {}
 
   '@google-cloud/firestore@7.11.0':
     dependencies:

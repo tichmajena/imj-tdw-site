@@ -43,6 +43,7 @@ export const GET: RequestHandler = async ({ url }) => {
 	snapshot.forEach((doc_) => {
 		images.push({ ...doc_.data(), id: doc_.id });
 	});
+	console.log({ images });
 
 	return json(images);
 };
@@ -57,15 +58,15 @@ export const POST: RequestHandler = async ({ request }) => {
 			};
 		});
 		let image;
-		console.log({files});
-		
+		console.log({ files });
+
 		try {
 			const batch = db.batch();
 
 			// Loop through the documents and add them to the batch
 			files.forEach((doc: any) => {
-				console.log({doc});
-				
+				console.log({ doc });
+
 				const docRef = db.collection('media').doc(); // Auto-generated document ID
 				batch.set(docRef, doc); // Add document data
 			});
@@ -86,8 +87,8 @@ export const POST: RequestHandler = async ({ request }) => {
 };
 
 export const DELETE: RequestHandler = async ({ url }) => {
-	const id = url.searchParams.get('id')||'';
-	await db.collection("media").doc(id).delete();
+	const id = url.searchParams.get('id') || '';
+	await db.collection('media').doc(id).delete();
 	try {
 		return json({ success: true });
 	} catch (error) {

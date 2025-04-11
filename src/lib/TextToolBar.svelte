@@ -152,8 +152,9 @@
 	async function handle_save_session() {
 		saving = true;
 		const id = entry_session.entry.id;
-		const session = JSON.stringify(entry_session.entry);
-		console.log({ id, session });
+		const session = JSON.stringify({ ...entry_session.entry, id });
+		console.log({ id, session, method: id.trim() ? 'PUT' : 'POST' });
+
 		const res = await fetch(`/api/pages/?route=${$page.url.pathname.replaceAll('/', '_-_')}`, {
 			method: id.trim() ? 'PUT' : 'POST',
 			body: session

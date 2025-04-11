@@ -8,10 +8,10 @@
 	import EntrySession from '$lib/EntrySession.svelte';
 	import TextToolBar from '$lib/TextToolBar.svelte';
 	import { getContext } from 'svelte';
-	import Icon from '../lib/Icon.svelte';
+	import Icon from '$lib/Icon.svelte';
 	import { slide } from 'svelte/transition';
-	import ArtworkImage from '../lib/components/ArtworkImage.svelte';
-	import Gallery from '../lib/components/Gallery.svelte';
+	import ArtworkImage from '$lib/components/ArtworkImage.svelte';
+	import Gallery from '$lib/components/Gallery.svelte';
 	import SliderTest from '$lib/components/SliderTest.svelte';
 	import BlockTest from '$lib/components/BlockTest.svelte';
 	import ViewTransition from '$lib/components/ViewTransition.svelte';
@@ -116,9 +116,10 @@
 		<TextToolBar {entry_session} />
 	{/if}
 
-	<!-- <div class="container-2xl mx-auto h-[70vh] w-full overflow-hidden pr-40">
-		<img src={packhouse_img} class="h-full w-full object-cover" alt="" />
-	</div> -->
+	<div class="relative mx-auto w-full overflow-hidden">
+		<img src="/images/home-sample.jpg" class="h-full w-full object-cover" alt="" />
+		<div class="absolute inset-0 bg-black/80"></div>
+	</div>
 
 	<!-- <div class="container mx-auto flex w-full justify-center overflow-hidden">
 		<video muted autoplay loop disablepictureinpicture>
