@@ -8,6 +8,23 @@ declare global {
 		// interface PageState {}
 		// interface Platform {}
 	}
+
+	type Project = {
+		id?: string;
+		title: string;
+		type: string;
+		year: number;
+		description: string;
+		services: string[];
+		images: {
+			id: string;
+			key: string;
+			title: string;
+		}[];
+		featured_image: string;
+		index: number;
+		is_featured: boolean;
+	};
 }
 
 export {};

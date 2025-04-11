@@ -61,8 +61,9 @@
 	const img2 = siteUrl + '/images/seo/logo-4x3.jpg';
 	const img3 = siteUrl + '/images/seo/logo-1x1.jpg';
 	const siteTitle = '';
-	const metaTitle = '';
-	const metadescription = '';
+	const metaTitle = 'Troika Design Workshop - Delivering the future of the built environment';
+	const metadescription =
+		'We are a collective of diverse paths imbued with rich architectural perspectives. Everything we design and bring to life is greatly informed by our relentless pursuit of delivering the futur of the built environment. It is this desire and drive that anchors TDW to excell.';
 	const telephone = '';
 	const facebookPage = '';
 	const twitterHandle = '';
