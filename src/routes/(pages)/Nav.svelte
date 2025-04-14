@@ -28,7 +28,7 @@
 	<input bind:checked={showMenuBool} id="menu-toggle" type="checkbox" class="drawer-toggle peer" />
 	<div class="z-10 flex h-32 w-full items-center bg-black peer-checked:fixed">
 		<div class="container mx-auto flex flex-row items-center justify-between p-5">
-			<a href="/" class="text-4xl font-bold">tdw</a>
+			<a href="/" class="text-4xl font-bold"><Logo></Logo></a>
 			<div class="flex flex-row items-center space-x-2">
 				<div class="peer-checked:hidden">
 					<Socials />
