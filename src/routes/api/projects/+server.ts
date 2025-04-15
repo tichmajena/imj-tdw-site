@@ -23,9 +23,17 @@ export const POST: RequestHandler = async ({ request }) => {
 	await db.collection('projects').add(project);
 	return json({ success: true });
 };
+
+export const PUT: RequestHandler = async ({ request, url }) => {
+	let project = await request.json();
+	let id = url.searchParams.get('id') as string;
+
+	await db.collection('projects').doc(id).set(project, { merge: true });
+	return json({ success: true });
+};
+
 export const DELETE: RequestHandler = async ({ url }) => {
 	let id = url.searchParams.get('id') as string;
-	console.table({ id });
 
 	await db.collection('projects').doc(id).delete();
 	return new Response();

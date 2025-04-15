@@ -21,20 +21,23 @@
 		index: 1,
 		is_featured: false
 	};
-	let projects = $state([project_sample, project_sample]);
-
-	$inspect(form);
+	let projects = $state(data.projects.map((p: Project) => ({ ...p, edit: false })));
 </script>
 
 <div
-	class="container mx-auto flex w-full flex-col space-y-6 space-x-3 pt-20 md:flex-row md:space-y-0"
+	class="container mx-auto flex w-full flex-col space-y-6 space-x-0 pt-20 md:flex-row md:space-y-0 md:space-x-10 lg:space-x-20"
 >
 	<div class="flex w-full md:w-1/2">
-		<form action="?/createProject" class="mb-3 flex flex-col" method="POST">
+		<form
+			enctype="multipart/form-data"
+			action="?/createProject"
+			class="mb-3 flex w-full flex-col"
+			method="POST"
+		>
 			<h2 class="mb-4 text-3xl">Create Project</h2>
 			<label for="title">Project Title</label><input
 				id="title"
-				class="input input-primary mb-3"
+				class="input input-primary mb-3 w-full"
 				name="title"
 				type="text"
 				placeholder="Project Title"
@@ -42,7 +45,7 @@
 			/>
 			<label for="type">Project Type</label><input
 				id="type"
-				class="input input-primary mb-3"
+				class="input input-primary mb-3 w-full"
 				name="type"
 				type="text"
 				required
@@ -50,7 +53,7 @@
 			/>
 			<label for="year">Year</label><input
 				id="year"
-				class="input input-primary mb-3"
+				class="input input-primary mb-3 w-full"
 				name="year"
 				type="text"
 				placeholder="Year"
@@ -58,14 +61,14 @@
 			/>
 			<label for="description">Description</label><textarea
 				id="description"
-				class="textarea textarea-primary mb-3"
+				class="textarea textarea-primary mb-3 w-full"
 				name="description"
 				placeholder="Description"
 				required
 			></textarea>
 			<label for="services">Services</label><textarea
 				id="services"
-				class="textarea textarea-primary mb-3"
+				class="textarea textarea-primary mb-3 w-full"
 				name="services"
 				placeholder="Services"
 				required
@@ -82,6 +85,7 @@
 				id="images"
 				class="file-input mb-3"
 				name="images"
+				multiple
 				type="file"
 			/>
 			<button class="btn btn-primary">Create</button>
@@ -89,26 +93,120 @@
 	</div>
 
 	<div class="w-full md:w-1/2">
-		{#each data.projects as project}
-			{@render project_card(project)}
+		{#each projects as project, i}
+			{@render project_card(project, i)}
 		{:else}
 			MuDataBase hamuna zvinu
 		{/each}
 	</div>
 </div>
 
-{#snippet project_card(item: Project)}
-	<div class="card bg-base-100 w-96 shadow-sm">
+{#snippet project_card(item: Project, i: number)}
+	<div class="card bg-base-300 mb-4 shadow-sm md:w-md lg:w-lg">
 		<figure>
-			<img src="/images/{item.featured_image}" alt="Shoes" />
+			<img src="{data.cloudfront}/{item.featured_image}" alt={item.title} />
 		</figure>
+		<div class="mt-2 flex w-full flex-wrap">
+			{#each item.images as image}
+				<img
+					class="mr-1 mb-1 size-24 object-cover"
+					src="{data.cloudfront}/fit-in/150x150/{image}"
+					alt=""
+				/>
+			{/each}
+		</div>
 		<div class="card-body">
-			<h2 class="card-title">{item.title}</h2>
-			<p>
-				{item.description}
-			</p>
+			{#if !item.edit}
+				<h2 class="card-title">{item.title}</h2>
+				<p>
+					Year: {item.year}
+				</p>
+				<p>
+					Type: {item.type}
+				</p>
+				<p class="mb-2">
+					{item.description}
+				</p>
+				SERVICES:
+				<ul class="mb-4 list-disc pl-6">
+					{#each item.services as service}
+						<li>{service}</li>
+					{/each}
+				</ul>
+			{:else}
+				<form
+					enctype="multipart/form-data"
+					action="?/updateProject"
+					class="mb-3 flex w-full flex-col"
+					method="POST"
+				>
+					<input type="text" name="id" hidden value={item.id} />
+					<h2 class="mb-4 text-2xl">Edit Project</h2>
+					<label for="title">Project Title</label><input
+						id="title"
+						class="input input-primary mb-3 w-full"
+						name="title"
+						type="text"
+						value={item.title}
+						placeholder="Project Title"
+						required
+					/>
+					<label for="type">Project Type</label><input
+						id="type"
+						class="input input-primary mb-3 w-full"
+						name="type"
+						type="text"
+						value={item.type}
+						required
+						placeholder="Project Type"
+					/>
+					<label for="year">Year</label><input
+						id="year"
+						class="input input-primary mb-3 w-full"
+						name="year"
+						type="text"
+						value={item.year}
+						placeholder="Year"
+						required
+					/>
+					<label for="description">Description</label><textarea
+						id="description"
+						class="textarea textarea-primary mb-3 w-full"
+						name="description"
+						value={item.description}
+						placeholder="Description"
+						required
+					></textarea>
+					<label for="services">Services</label><textarea
+						id="services"
+						class="textarea textarea-primary mb-3 w-full"
+						name="services"
+						value={item.services.join('\r\n')}
+						placeholder="Services"
+						required
+					></textarea>
+
+					<label for="featured_image">Featured image</label><input
+						id="featured_image"
+						class="file-input mb-3"
+						name="featured_image"
+						type="file"
+					/>
+
+					<label for="images">Gallery</label><input
+						id="images"
+						class="file-input mb-3"
+						name="images"
+						multiple
+						type="file"
+					/>
+					<button class="btn btn-primary">Update</button>
+				</form>
+			{/if}
 			<div class="card-actions justify-end">
-				<button class="btn btn-primary">Edit</button>
+				<button onclick={() => (projects[i].edit = !projects[i].edit)} class="btn btn-primary"
+					>{projects[i].edit ? 'Cancel' : 'Edit'}</button
+				>
 				<form action="?/deleteProject" method="POST">
 					<input type="text" hidden name="id" value={item.id} />
 					<button class="btn btn-error">Delete</button>

@@ -3,7 +3,10 @@
 declare global {
 	namespace App {
 		// interface Error {}
-		// interface Locals {}
+		interface Locals {
+			cloudfront: string | null;
+			theme: string | null;
+		}
 		// interface PageData {}
 		// interface PageState {}
 		// interface Platform {}
@@ -24,6 +27,17 @@ declare global {
 		featured_image: string;
 		index: number;
 		is_featured: boolean;
+		edit?: boolean;
+	};
+
+	type team = {
+		id?: string;
+		name: string;
+		position: string;
+		department?: string;
+		content?: string;
+		image?: string;
+		edit?: boolean;
 	};
 }
 

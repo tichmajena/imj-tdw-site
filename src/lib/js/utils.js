@@ -55,3 +55,15 @@ export function toTitleCase(str) {
     (text) => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase()
   );
 }
+/**
+ * 
+ * @param {number} size 
+ * @returns 
+ */
+export function formatFileSize(size) {
+	return size > 1024
+		? size > 1048576
+			? Math.round(size / 1048576) + 'mb'
+			: Math.round(size / 1024) + 'kb'
+		: size + 'b';
+}
