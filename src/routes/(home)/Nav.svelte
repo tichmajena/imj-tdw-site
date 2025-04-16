@@ -15,6 +15,7 @@
 	import Socials from '../Socials.svelte';
 	import Menu from '../Menu.svelte';
 	import Footer from '../Footer.svelte';
+	import IconPlus from '$icons/IconPlus.svelte';
 	let { children, socials, url } = $props();
 
 	let title = '',
@@ -34,7 +35,7 @@
 					<Socials />
 				</div>
 
-				<label class="btn btn-ghost btn-primary" for="menu-toggle">+</label>
+				<label class="ml-4 inline-flex" for="menu-toggle"><IconPlus /></label>
 			</div>
 		</div>
 	</div>
