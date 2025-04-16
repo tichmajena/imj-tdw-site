@@ -5,7 +5,7 @@
 	import IconX from '$icons/IconX.svelte';
 </script>
 
-<a href={'/'} class="ml-4 inline-flex size-8"><IconInstagram /></a>
-<a href={'/'} class="ml-4 inline-flex size-8"><IconHouzz /></a>
-<a href={'/'} class="ml-4 inline-flex size-8"><IconX /></a>
-<a href={'/'} class="ml-4 inline-flex size-8"><IconLinkedin /></a>
+<a href={'/'} class="ml-4 inline-flex size-6"><IconInstagram /></a>
+<a href={'/'} class="ml-4 inline-flex size-6"><IconHouzz /></a>
+<a href={'/'} class="ml-4 inline-flex size-6"><IconX /></a>
+<a href={'/'} class="ml-4 inline-flex size-6"><IconLinkedin /></a>

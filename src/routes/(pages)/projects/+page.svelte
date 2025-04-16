@@ -19,7 +19,7 @@
 	<Svedit {entry_session} editable={dev} class="flex-column">
 		<div class="container mx-auto px-6 py-10">
 			<div class="w-full md:w-2/3">
-				<Text path={['title']} class="mb-4 text-3xl font-bold text-green-800 md:text-4xl" />
+				<Text path={['title']} class="mb-4 text-3xl md:text-4xl" />
 				<Text path={['subtitle']} class="text-xl md:text-2xl" />
 			</div>
 		</div>

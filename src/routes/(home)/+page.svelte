@@ -185,7 +185,7 @@
 		<!-- NOTE: non-editable island must have contenteditable="false" and contain some text content, otherwise invalid selections occur. -->
 		<div class="container mx-auto px-6 py-10">
 			<div class="w-full md:w-2/3">
-				<Text path={['title']} class="mb-4 text-3xl font-bold text-green-800 md:text-4xl" />
+				<Text path={['title']} class="mb-4 text-3xl md:text-4xl" />
 				<!-- <Text path={['subtitle']} class="text-xl md:text-2xl" />-->
 			</div>
 		</div>
@@ -220,7 +220,7 @@
 			</div>
 		</div>-->
 	</Svedit>
-	<div class="relative mx-auto w-full overflow-hidden">
+	<div class="relative container mx-auto mb-20 overflow-hidden">
 		<div class="flex w-full space-x-6">
 			{#each data.projects as project}
 				<ProjectCard {project}></ProjectCard>
