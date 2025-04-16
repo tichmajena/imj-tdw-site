@@ -10,13 +10,11 @@ export const load = (async ({ fetch }) => {
 	async function getGallery() {
 		const res = await fetch('/api/media');
 		const media = await res.json();
-		console.log({ media });
 		return media;
 	}
 	async function getPage(route: string) {
 		const res = await fetch('/api/page?route=' + route);
 		const page = await res.json();
-		// console.log({ media });
 		return page;
 	}
 

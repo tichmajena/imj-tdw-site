@@ -24,6 +24,7 @@
 	import { dev } from '$app/environment';
 	// import HeroSlide from '$lib/components/HeroSlide.svelte';
 	import StoryVideo from '$lib/StoryVideo.svelte';
+	import TeamCard from '$src/lib/cards/TeamCard.svelte';
 
 	let { data }: { data: PageDate } = $props();
 	let page_json = $state(data.entry);
@@ -146,21 +147,15 @@
 					<ListBlock {block} {path} />
 				{:else if block.type === 'text'}
 					<Text {path} class="heading1 m-0" />
-				{:else}
-					<UnknownBlock {block} {path} />
 				{/if}
 			{/snippet}
 		</Container>
-		<div contenteditable="false" class="container mx-auto pt-20">
-			<div class="mx-auto w-2/3">
-				<div class="mb-4 text-center text-3xl font-bold text-green-800 md:text-4xl">Heading</div>
-				<div path={['subtitle']} class="text-center text-xl text-green-800 md:text-2xl">
-					This is text under the heading
-				</div>
-			</div>
-		</div>
 	</Svedit>
-
+	<div class=" grid-col-1 container mx-auto mb-20 grid gap-4 md:grid-cols-3 lg:grid-cols-4">
+		{#each data.teamData as member}
+			<TeamCard {member}></TeamCard>
+		{/each}
+	</div>
 	<!-- <button onclick={test} class="btn">Test</button>
   
       <hr />

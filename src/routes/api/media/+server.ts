@@ -43,7 +43,6 @@ export const GET: RequestHandler = async ({ url }) => {
 	snapshot.forEach((doc_) => {
 		images.push({ ...doc_.data(), id: doc_.id });
 	});
-	console.log({ images });
 
 	return json(images);
 };

@@ -118,7 +118,6 @@
 	function handle_image_change(imageKey, size = '800x600') {
 		const selected_block_path = entry_session.selected_block_path;
 		const imageUrl = `${$page.data.cloudfront}/fit-in/${size}/${imageKey}`;
-		console.log({ imageUrl, selected_block_path });
 
 		if (selected_block_path) {
 			entry_session.set([...selected_block_path, 'image'], imageUrl);

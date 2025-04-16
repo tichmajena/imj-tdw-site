@@ -1,6 +1,16 @@
+import { db } from '$src/lib/server/firebase-admin';
 import type { PageServerLoad } from './$types';
 
 export const load = (async ({ fetch }) => {
+	const snapshots = await db.collection('pages').where('route', '==', '/projects').get();
+
+	const naughtyPages = [];
+	snapshots.forEach((doc) => {
+		naughtyPages.push(doc.id);
+	});
+
+	console.log(naughtyPages);
+
 	const page_json = {
 		id: '',
 		type: 'page',
@@ -11,6 +21,7 @@ export const load = (async ({ fetch }) => {
 
 	let route = '/projects'.replaceAll('/', '_-_');
 	const page = await getPage(route);
+
 	let entry = JSON.parse(page?.entry || JSON.stringify(page_json));
 	const res = await fetch('/api/projects');
 	const projectData = await res.json();
@@ -18,13 +29,11 @@ export const load = (async ({ fetch }) => {
 	async function getGallery() {
 		const res = await fetch('/api/media');
 		const media = await res.json();
-		console.log({ media });
 		return media;
 	}
 	async function getPage(route: string) {
 		const res = await fetch('/api/page?route=' + route);
 		const page = await res.json();
-		// console.log({ media });
 		return page;
 	}
 	return { projectData, entry };
