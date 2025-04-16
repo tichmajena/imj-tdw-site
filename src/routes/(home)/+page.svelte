@@ -3,8 +3,8 @@
 	import StoryBlock from '$lib/StoryBlock.svelte';
 	import ListBlock from '$lib/ListBlock.svelte';
 	import UnknownBlock from '$lib/UnknownBlock.svelte';
-	import Svedit from '$lib/Svedit.svelte';
 	import Container from '$lib/Container.svelte';
+	import Svedit from '$lib/Svedit.svelte';
 	import EntrySession from '$lib/EntrySession.svelte';
 	import TextToolBar from '$lib/TextToolBar.svelte';
 	import { getContext } from 'svelte';
@@ -22,12 +22,14 @@
 	import { dev } from '$app/environment';
 	// import HeroSlide from '$lib/components/HeroSlide.svelte';
 	import StoryVideo from '$lib/StoryVideo.svelte';
+	import ProjectCard from '$lib/cards/ProjectCard.svelte';
 
 	let { data } = $props();
 	let page_json = $state(data.entry);
 	let showLightbox = $state(false);
 	let lightboxStart = $state(-1);
 	let Uploader;
+	console.log(data.projects);
 
 	let entry_session = new EntrySession(page_json);
 	let galleryTab = 'aws';
@@ -184,10 +186,10 @@
 		<div class="container mx-auto px-6 py-10">
 			<div class="w-full md:w-2/3">
 				<Text path={['title']} class="mb-4 text-3xl font-bold text-green-800 md:text-4xl" />
-				<Text path={['subtitle']} class="text-xl md:text-2xl" />
+				<!-- <Text path={['subtitle']} class="text-xl md:text-2xl" />-->
 			</div>
 		</div>
-		<Container class="body flex-column gap-y-10" path={['body']}>
+		<!-- <Container class="body flex-column gap-y-10" path={['body']}>
 			{#snippet block(block, path)}
 				{#if block.type === 'story'}
 					<StoryBlock {block} {path} />
@@ -207,17 +209,24 @@
 					<UnknownBlock {block} {path} />
 				{/if}
 			{/snippet}
-		</Container>
-		<div contenteditable="false" class="container mx-auto pt-20">
+		</Container>-->
+		<!--<div contenteditable="false" class="container mx-auto pt-20">
+
 			<div class="mx-auto w-2/3">
 				<div class="mb-4 text-center text-3xl font-bold text-green-800 md:text-4xl">Heading</div>
 				<div path={['subtitle']} class="text-center text-xl text-green-800 md:text-2xl">
 					This is text under the heading
 				</div>
 			</div>
-		</div>
+		</div>-->
 	</Svedit>
-
+	<div class="relative mx-auto w-full overflow-hidden">
+		<div class="flex w-full space-x-6">
+			{#each data.projects as project}
+				<ProjectCard {project}></ProjectCard>
+			{/each}
+		</div>
+	</div>
 	<!-- <button onclick={test} class="btn">Test</button>
   
       <hr />

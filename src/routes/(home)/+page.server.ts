@@ -6,6 +6,7 @@ export const load = (async ({ fetch }) => {
 	const page = await getPage(route);
 	let entry = JSON.parse(page?.entry || JSON.stringify(page_json));
 	entry = { ...entry, id: page?.id || '' };
+
 	async function getGallery() {
 		const res = await fetch('/api/media');
 		const media = await res.json();
@@ -18,7 +19,12 @@ export const load = (async ({ fetch }) => {
 		// console.log({ media });
 		return page;
 	}
-	return { gallery: getGallery(), entry: entry };
+
+	const res = await fetch('/api/projects');
+	const projects = await res.json();
+	console.log({ projects });
+
+	return { gallery: getGallery(), entry, projects };
 }) satisfies PageServerLoad;
 
 export const actions: Actions = {
