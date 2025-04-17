@@ -1,7 +1,13 @@
 import { S3Client } from '@aws-sdk/client-s3';
-import { SESv2Client, ListContactListsCommand } from '@aws-sdk/client-sesv2';
+import { SESv2Client, SendEmailCommand } from '@aws-sdk/client-sesv2';
 
-import { AWS_BUCKET_NAME, AWS_ACCESSKEY, AWS_REGION, AWS_SECRETKEY } from '$env/static/private';
+import {
+	AWS_BUCKET_NAME,
+	AWS_ACCESSKEY,
+	AWS_REGION,
+	AWS_SECRETKEY,
+	EMAIL_TO
+} from '$env/static/private';
 
 const REGION = AWS_REGION;
 const ACCESS_KEY = AWS_ACCESSKEY;
@@ -66,6 +72,44 @@ export async function signedURL(key, bucket = BUCKET) {
 		}; // expires in seconds
 	} catch (error) {
 		console.error(':::Zvadhakwa', error);
+		return null;
+	}
+}
+
+/**
+ *
+ * @param {{body:string, subject:string}} payload
+ * @returns
+ */
+export async function sendMail(payload) {
+	// a client can be shared by different commands.
+
+	const params = {
+		Content: {
+			Simple: {
+				Body: {
+					Text: {
+						Data: payload.body
+					}
+				},
+				Subject: {
+					Data: payload.subject
+				}
+			}
+		},
+		Destination: {
+			ToAddresses: [EMAIL_TO]
+		},
+		FromEmailAddress: 'your-verified-email@example.com' // Replace with a verified email in SES
+	};
+	const client = new SESv2Client({ region: REGION });
+
+	const command = new SendEmailCommand(params);
+	try {
+		const data = await client.send(command);
+		return data;
+	} catch (error) {
+		console.error(':::Error sending mail', error);
 		return null;
 	}
 }

@@ -35,8 +35,6 @@
 	let entry_session = new EntrySession(page_json);
 	let galleryTab = 'aws';
 
-	// $inspect(entry_session.entry);
-
 	let modals = $state(false);
 	let row = $state(false);
 

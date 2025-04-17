@@ -29,32 +29,10 @@
 	let showLightbox = $state(false);
 	let lightboxStart = $state(-1);
 	let Uploader;
-	console.log(data.projects);
 
 	let entry_session = new EntrySession(page_json);
 	let galleryTab = 'aws';
 
-	// $inspect(entry_session.entry);
-
-	function test() {
-		console.log(entry_session.entry);
-		console.log(entry_session);
-		page_json.body.push({
-			type: 'story',
-			layout: 1,
-			editable: false,
-			image: '/images/github.svg',
-			title: ['Star us on GitHub', []],
-			description: [
-				'Please star Svedit on GitHub or watch the repo to be notified about updates. Svedit is made by Michael Aufreiter and Johannes Mutter and is licensed under the MIT License.',
-				[
-					[0, 28, 'link', { href: 'https://github.com/michael/svedit/', target: '_blank' }],
-					[95, 112, 'link', { href: 'https://michaelaufreiter.com', target: '_blank' }],
-					[117, 132, 'link', { href: 'https://mutter.co', target: '_blank' }]
-				]
-			]
-		});
-	}
 	let modals = $state(false);
 	let row = $state(false);
 
