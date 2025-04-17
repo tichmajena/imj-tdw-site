@@ -1,5 +1,6 @@
-import { page_json_clean } from '$src/lib/server/utils';
+import { page_json_clean } from '$lib/server/utils';
 import type { Actions, PageServerLoad } from './$types';
+import { sendMail } from '$lib/server/aws';
 
 export const load = (async ({ fetch }) => {
 	async function getGallery() {
@@ -27,9 +28,14 @@ export const actions: Actions = {
 		const formData = await request.formData();
 		const contactData = Object.fromEntries(formData);
 		console.log(contactData);
-		let fullMessage = `Name: ${contactData.name}\nEmail: ${contactData.email}\r\n\r\nMessage:\n${contactData.message}`;
-		console.log(fullMessage);
+		let body = `Name: ${contactData.name}\nEmail: ${contactData.email}\r\n\r\nMessage:\n${contactData.message}`;
 
-		return;
+		const result = await sendMail({ body, subject: 'From TDW Website' });
+		console.log({ result });
+		if (result === null) {
+			return { success: false, data: contactData };
+		} else {
+			return { success: true };
+		}
 	}
 };

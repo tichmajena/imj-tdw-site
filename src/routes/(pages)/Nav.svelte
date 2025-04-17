@@ -70,7 +70,7 @@
 	{#snippet footer()}
 		<footer
 			data-theme={page.data.theme}
-			class="footer sm:footer-horizontal text-base-content p-10 data-[theme=dark]:bg-[#0C0B0B] data-[theme=light]:bg-[#4C4948]"
+			class="footer sm:footer-horizontal text-base-content py-24 data-[theme=dark]:bg-[#0C0B0B] data-[theme=light]:bg-[#4C4948]"
 		>
 			<Footer />
 		</footer>

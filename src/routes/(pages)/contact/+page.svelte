@@ -11,8 +11,9 @@
 	import Field from '$src/lib/components/Field.svelte';
 	import TextArea from '$src/lib/components/TextArea.svelte';
 	import Socials from '$src/routes/Socials.svelte';
+	import { slide } from 'svelte/transition';
 
-	let { data }: { data: PageData } = $props();
+	let { data, form }: { data: PageData; form: any } = $props();
 	let entry_session = new EntrySession(data.entry);
 
 	const siteUrl = 'https://troikadesignworkshop.com';
@@ -64,9 +65,40 @@
 		>
 			<div class="w-full md:w-2/3">
 				<form method="POST">
-					<Field label="Your Name" name="name" id="name"></Field>
-					<Field label="Email Address" name="email" id="email"></Field>
-					<TextArea label="Message" name="message" id="message"></TextArea>
+					<Field required {form} label="Your Name" name="name" id="name"></Field>
+					<Field required {form} label="Email Address" name="email" id="email"></Field>
+					<TextArea required {form} label="Message" name="message" id="message"></TextArea>
+					{#if form && form.success === true}
+						<div
+							transition:slide
+							class=" border-success content-success bg-success-content text-success my-6 rounded-lg border-2 p-8 text-center text-xl"
+						>
+							Message sent successfully!
+						</div>
+					{:else if form && form.success === false}
+						<div
+							transition:slide
+							class=" border-error content-error bg-error-content text-error my-6 rounded-lg border-2 p-8 text-center text-xl"
+						>
+							<span class="flex items-center justify-center"
+								><svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke-width="1.5"
+									stroke="currentColor"
+									class="-mt-1 mr-4 size-8"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
+									/>
+								</svg>
+								<span> An error has occurred. </span>
+							</span>
+						</div>
+					{/if}
 					<button
 						class="btn btn-xl btn-primary btn-outline rounded-xl border-white font-thin text-white hover:bg-stone-900"
 					>

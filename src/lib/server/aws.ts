@@ -1,5 +1,6 @@
 import { S3Client } from '@aws-sdk/client-s3';
 import { SESv2Client, SendEmailCommand } from '@aws-sdk/client-sesv2';
+import type { SendEmailCommandInput } from '@aws-sdk/client-sesv2';
 
 import {
 	AWS_BUCKET_NAME,
@@ -30,11 +31,7 @@ const config = {
 	signatureVersion: 'v4'
 };
 
-/**
- *
- * @param {string} key
- */
-export async function PresignedGET(key, bucket = BUCKET) {
+export async function PresignedGET(key: string, bucket = BUCKET) {
 	const { PutObjectCommand } = await import('@aws-sdk/client-s3');
 	const { getSignedUrl } = await import('@aws-sdk/s3-request-presigner');
 
@@ -49,11 +46,7 @@ export async function PresignedGET(key, bucket = BUCKET) {
 	}
 }
 
-/**
- *
- * @param {string} key
- */
-export async function signedURL(key, bucket = BUCKET) {
+export async function signedURL(key: string, bucket = BUCKET) {
 	console.log(':::Signing', key, bucket);
 	const { PutObjectCommand, GetObjectCommand, DeleteObjectCommand } = await import(
 		'@aws-sdk/client-s3'
@@ -76,15 +69,10 @@ export async function signedURL(key, bucket = BUCKET) {
 	}
 }
 
-/**
- *
- * @param {{body:string, subject:string}} payload
- * @returns
- */
-export async function sendMail(payload) {
+export async function sendMail(payload: { body: string; subject: string }) {
 	// a client can be shared by different commands.
 
-	const params = {
+	const params: SendEmailCommandInput = {
 		Content: {
 			Simple: {
 				Body: {
@@ -100,16 +88,25 @@ export async function sendMail(payload) {
 		Destination: {
 			ToAddresses: [EMAIL_TO]
 		},
-		FromEmailAddress: 'your-verified-email@example.com' // Replace with a verified email in SES
+		FromEmailAddress: EMAIL_TO // Replace with a verified email in SES
 	};
-	const client = new SESv2Client({ region: REGION });
+	const client = new SESv2Client({
+		credentials: {
+			accessKeyId: ACCESS_KEY,
+			secretAccessKey: SECRET
+			//sessionToken: crypto.randomUUID()
+		},
+		region: REGION
+	});
 
 	const command = new SendEmailCommand(params);
 	try {
+		console.log({ payload, command });
+
 		const data = await client.send(command);
 		return data;
 	} catch (error) {
-		console.error(':::Error sending mail', error);
+		console.error(':::Error sending mail', error.$response);
 		return null;
 	}
 }

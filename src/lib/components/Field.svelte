@@ -4,13 +4,13 @@
 		name,
 		value = '',
 		label,
-		labelClasses,
+		//labelClasses,
 		required = false,
-		autocomplete = false,
+		//autocomplete = false,
 		form
 	} = $props();
 
-	const message = form?.message[name];
+	const message = form?.message?.[name];
 </script>
 
 <div class="form-control relative mb-5">
@@ -18,6 +18,7 @@
 		placeholder={label}
 		type="text"
 		{name}
+		{required}
 		class:error-input={message?.code === 'error'}
 		class:warning-input={message?.code === 'warning'}
 		class:success-input={message?.code === 'success'}

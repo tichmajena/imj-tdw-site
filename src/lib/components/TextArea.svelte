@@ -6,7 +6,7 @@
 		required = false,
 		autocomplete = false;
 	export let form;
-	const message = form?.message[name];
+	const message = form?.message?.[name];
 </script>
 
 <div class="form-control relative mb-5">
