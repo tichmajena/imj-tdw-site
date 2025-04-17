@@ -4,10 +4,10 @@ import type { PageServerLoad } from './$types';
 export const load = (async ({ fetch }) => {
 	let route = '/about'.replaceAll('/', '_-_');
 	const page = await getPage(route);
-	console.log({ page });
 
 	const getTeam = await fetch('/api/members');
 	const teamData = await getTeam.json();
+	console.log({ teamData });
 
 	let entry = JSON.parse(page?.entry || JSON.stringify(page_json));
 	entry = { ...entry, id: page?.id || '' };

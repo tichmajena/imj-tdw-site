@@ -17,7 +17,7 @@
 		<TextToolBar {entry_session} />
 	{/if}
 	<Svedit {entry_session} editable={dev} class="flex-column">
-		<div class="container mx-auto py-10">
+		<div class="container mx-auto px-5 py-10">
 			<div class="w-full md:w-2/3">
 				<Text path={['title']} class="mb-4 text-3xl font-thin md:text-6xl" />
 				<Text path={['subtitle']} class="text-xl font-thin md:text-4xl" />
@@ -25,8 +25,8 @@
 		</div>
 	</Svedit>
 
-	<div class="w-full pt-6 pb-20">
-		<div class="container mx-auto flex flex-col space-x-6 md:flex-row">
+	<div class="w-full px-5 pt-6 pb-20">
+		<div class="container mx-auto grid w-full grid-cols-1 gap-6 md:grid-cols-3">
 			{#each data.projectData as project}
 				<ProjectCard {project}></ProjectCard>
 			{/each}

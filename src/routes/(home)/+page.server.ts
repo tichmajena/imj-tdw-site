@@ -21,7 +21,6 @@ export const load = (async ({ fetch }) => {
 	async function getProjects() {
 		const res = await fetch('/api/projects');
 		const projects = await res.json();
-		console.log({ projects });
 		return projects;
 	}
 
