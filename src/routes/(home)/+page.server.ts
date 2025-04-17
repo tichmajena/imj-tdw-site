@@ -22,6 +22,7 @@ export const load = (async ({ fetch }) => {
 		const res = await fetch('/api/projects');
 		const projects = await res.json();
 		console.log({ projects });
+		//await timeout(3000);
 		return projects;
 	}
 
@@ -40,3 +41,7 @@ export const actions: Actions = {
 		}
 	}
 };
+
+async function timeout(ms: number) {
+	return new Promise((resolve) => setTimeout(resolve, ms));
+}

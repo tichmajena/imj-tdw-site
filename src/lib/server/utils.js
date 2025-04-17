@@ -39,3 +39,11 @@ export const page_json = {
 		}
 	]
 };
+
+export 	const page_json_clean = JSON.stringify({
+	id: '',
+	type: 'page',
+	title: ['Title', []],
+	subtitle: ['A  for building rich content editors with Svelte 5', [[24, 44, 'emphasis']]],
+	body: []
+});

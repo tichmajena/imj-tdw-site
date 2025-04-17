@@ -37,46 +37,28 @@
 
 	// $inspect(entry_session.entry);
 
-	function test() {
-		console.log(entry_session.entry);
-		console.log(entry_session);
-		page_json.body.push({
-			type: 'story',
-			layout: 1,
-			editable: false,
-			image: '/images/github.svg',
-			title: ['Star us on GitHub', []],
-			description: [
-				'Please star Svedit on GitHub or watch the repo to be notified about updates. Svedit is made by Michael Aufreiter and Johannes Mutter and is licensed under the MIT License.',
-				[
-					[0, 28, 'link', { href: 'https://github.com/michael/svedit/', target: '_blank' }],
-					[95, 112, 'link', { href: 'https://michaelaufreiter.com', target: '_blank' }],
-					[117, 132, 'link', { href: 'https://mutter.co', target: '_blank' }]
-				]
-			]
-		});
-	}
 	let modals = $state(false);
 	let row = $state(false);
 
-	const siteUrl = 'https://www..net';
+	const siteUrl = 'https://troikadesignworkshop.com';
 	const img1 = siteUrl + '/images/seo/logo-16x9.jpg';
 	const img2 = siteUrl + '/images/seo/logo-4x3.jpg';
 	const img3 = siteUrl + '/images/seo/logo-1x1.jpg';
-	const siteTitle = '';
-	const metaTitle = '';
+	const siteTitle = 'Troika Design Workshop';
+	const metaTitle = 'About Us';
 	const metadescription = '';
-	const telephone = '';
-	const facebookPage = '';
-	const twitterHandle = '';
-	const linkedinProfile = '';
-	const address = {
-		street: '',
-		city: '',
-		region: '',
-		country: ''
-	};
 </script>
+
+<svelte:head>
+	<meta charset="utf-8" />
+	<meta name="description" content={metadescription} />
+	<!-- <meta
+		name="google-site-verification"
+		content="+nxGUDJ4QpAZ5l9Bsjdi102tLVC21AIh5d1Nl23908vVuFHs34="
+	/> -->
+	<title>{metaTitle}</title>
+	<!-- <meta name="robots" content="noindex,nofollow" /> -->
+</svelte:head>
 
 <OpenGraph
 	{siteTitle}
@@ -87,20 +69,6 @@
 	squareImage={{ url: img3, alt: '' }}
 	ogLanguage={'en-ZW'}
 />
-<!-- <SEO
-	{siteUrl}
-	{siteTitle}
-	services={[]}
-	branches={[]}
-	{metadescription}
-	{metaTitle}
-	images={[img1, img2, img3]}
-	{telephone}
-	{facebookPage}
-	{twitterHandle}
-	{address}
-	{linkedinProfile}
-/> -->
 
 <!-- <ViewTransition></ViewTransition> -->
 {#if showLightbox}

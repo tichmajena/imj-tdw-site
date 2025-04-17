@@ -58,23 +58,23 @@
 	let modals = $state(false);
 	let row = $state(false);
 
-	const siteUrl = 'https://www..net';
+	const siteUrl = 'https://www.troikadesignworkshop.net';
 	const img1 = siteUrl + '/images/seo/logo-16x9.jpg';
 	const img2 = siteUrl + '/images/seo/logo-4x3.jpg';
 	const img3 = siteUrl + '/images/seo/logo-1x1.jpg';
-	const siteTitle = '';
+	const siteTitle = 'Troika Design Workshop';
 	const metaTitle = 'Troika Design Workshop - Delivering the future of the built environment';
 	const metadescription =
 		'We are a collective of diverse paths imbued with rich architectural perspectives. Everything we design and bring to life is greatly informed by our relentless pursuit of delivering the futur of the built environment. It is this desire and drive that anchors TDW to excell.';
-	const telephone = '';
-	const facebookPage = '';
-	const twitterHandle = '';
-	const linkedinProfile = '';
+	const telephone = '+263 8677 111 484';
+	const facebookPage = data.socials.facebook;
+	const twitterHandle = data.socials.x;
+	const linkedinProfile = data.socials.linkedin;
 	const address = {
-		street: '',
-		city: '',
-		region: '',
-		country: ''
+		street: '1 Princess Drive',
+		city: 'Newlands',
+		region: 'Harare',
+		country: 'Zimbabwe'
 	};
 </script>
 
@@ -122,8 +122,8 @@
 	<div class="relative mx-auto h-screen w-full overflow-hidden">
 		<img src="/images/home-sample.jpg" class="h-full w-full object-cover" alt="" />
 		<div class="absolute inset-0 bg-black/80"></div>
-		<div class="absolute bottom-0 w-full px-5">
-			<div class="container mx-auto mb-40 text-4xl font-thin text-white md:text-6xl">
+		<div class="absolute bottom-0 w-full">
+			<div class="container mx-auto mb-40 px-5 text-4xl font-thin text-white md:text-6xl">
 				committed to delivering<br />the <span transition:fade class="font-bold">futur</span> of the
 				built<br />environment
 			</div>

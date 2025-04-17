@@ -6,11 +6,12 @@ export const load = (async ({ locals, url }) => {
 		url: url.pathname,
 
 		socials: {
-			facebook: '',
-			instagram: '',
-			linkedin: '',
-			x: '',
-			youtube: ''
+			facebook: 'https://www.facebook.com/TDWZW/',
+			instagram: 'https://www.instagram.com/troikadesignzw_/',
+			linkedin: 'https://www.linkedin.com/company/troika-design-workshop-zimbabwe',
+			x: 'https://twitter.com/troikadesignzw?lang=en',
+			youtube: 'https://www.youtube.com/@troikadesignworkshop2612',
+			houzz: 'https://www.houzz.com/pro/celestkunaka/troika-design-workshop'
 		}
 	};
 }) satisfies LayoutServerLoad;

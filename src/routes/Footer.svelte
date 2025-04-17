@@ -1,3 +1,8 @@
+<script>
+	import { page } from '$app/state';
+	import { dataURItoBlob } from '$src/lib/js/utils';
+</script>
+
 <div class="flex-flex-col container mx-auto px-5">
 	<div class="mb-20 text-white">
 		<div class="mb-8 block text-4xl font-thin md:text-6xl">Let's work together</div>
@@ -24,9 +29,24 @@
 		<a class="link link-hover text-stone-400 hover:text-white"
 			>© Copyright Troika Design Workshop {new Date().getFullYear()}</a
 		>
-		<a class="link link-hover text-stone-400 hover:text-white">Visit Turnbury</a>
-		<a class="link link-hover text-stone-400 hover:text-white">X (formely Twitter)</a>
-		<a class="link link-hover text-stone-400 hover:text-white">Linkedin</a>
-		<a class="link link-hover text-stone-400 hover:text-white">instagram</a>
+		<a href="https://turnbury.co.zw" class="link link-hover text-stone-400 hover:text-white"
+			>Visit Turnbury</a
+		>
+		<a href={page.data.socials.x} class="link link-hover text-stone-400 hover:text-white">X</a>
+		<a href={page.data.socials.linkedin} class="link link-hover text-stone-400 hover:text-white"
+			>Linkedin</a
+		>
+		<a href={page.data.socials.instagram} class="link link-hover text-stone-400 hover:text-white"
+			>Instagram</a
+		>
+		<a href={page.data.socials.facebook} class="link link-hover text-stone-400 hover:text-white"
+			>Facebook</a
+		>
+		<a href={page.data.socials.youtube} class="link link-hover text-stone-400 hover:text-white"
+			>Youtube</a
+		>
+		<a href={page.data.socials.houzz} class="link link-hover text-stone-400 hover:text-white"
+			>Houzz</a
+		>
 	</nav>
 </div>

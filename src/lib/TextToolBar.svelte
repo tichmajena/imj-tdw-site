@@ -162,6 +162,7 @@
 		saving = false;
 		if (op.success) {
 			saved = true;
+			if (!id.trim()) window.location.reload();
 		} else {
 			savedError = true;
 		}

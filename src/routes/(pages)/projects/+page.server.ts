@@ -2,15 +2,6 @@ import { db } from '$src/lib/server/firebase-admin';
 import type { PageServerLoad } from './$types';
 
 export const load = (async ({ fetch }) => {
-	const snapshots = await db.collection('pages').where('route', '==', '/projects').get();
-
-	const naughtyPages = [];
-	snapshots.forEach((doc) => {
-		naughtyPages.push(doc.id);
-	});
-
-	console.log(naughtyPages);
-
 	const page_json = {
 		id: '',
 		type: 'page',
@@ -23,6 +14,8 @@ export const load = (async ({ fetch }) => {
 	const page = await getPage(route);
 
 	let entry = JSON.parse(page?.entry || JSON.stringify(page_json));
+	entry = { ...entry, id: page?.id || '' };
+
 	const res = await fetch('/api/projects');
 	const projectData = await res.json();
 
