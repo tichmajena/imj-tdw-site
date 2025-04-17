@@ -8,6 +8,7 @@
 	import { dev } from '$app/environment';
 	import Text from '$src/lib/Text.svelte';
 	import OpenGraph from '$src/lib/components/OpenGraph.svelte';
+	import DownloadCard from '$src/lib/cards/DownloadCard.svelte';
 
 	let { data }: { data: PageData } = $props();
 	let entry_session = new EntrySession(data.entry);
@@ -55,11 +56,24 @@
 		</div>
 	</Svedit>
 
+	<div class="w-full pt-6 pb-6">
+		<div class="container mx-auto mb-6 px-5">
+			<h3 class="text-xl font-thin md:text-4xl">Futur Build</h3>
+		</div>
+		<div class=" container mx-auto mb-20 grid grid-cols-2 gap-8 px-5 md:grid-cols-3 lg:grid-cols-4">
+			{#each { length: 3 } as _}
+				<DownloadCard />
+			{/each}
+		</div>
+	</div>
 	<div class="w-full pt-6 pb-20">
-		<div class="container mx-auto flex flex-col space-x-6 md:flex-row">
-			<!-- {#each data.projectData as project}
-				<ProjectCard {project}></ProjectCard>
-			{/each} -->
+		<div class="container mx-auto mb-6 px-5">
+			<h3 class="text-xl font-thin md:text-4xl">Corporate Information</h3>
+		</div>
+		<div class=" container mx-auto mb-20 grid grid-cols-2 gap-8 px-5 md:grid-cols-3 lg:grid-cols-4">
+			{#each { length: 3 } as _}
+				<DownloadCard />
+			{/each}
 		</div>
 	</div>
 </div>
