@@ -60,7 +60,7 @@
 	</div>
 	<!-- {#if showMenu} -->
 	<div
-		class="fixed inset-0 top-32 z-10 hidden bg-black transition-all duration-600 peer-checked:flex"
+		class="fixed inset-0 top-32 z-10 hidden bg-black transition-all duration-600 peer-checked:block"
 	>
 		<Menu />
 	</div>
