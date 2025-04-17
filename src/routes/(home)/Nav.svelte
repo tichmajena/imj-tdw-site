@@ -16,6 +16,7 @@
 	import Menu from '../Menu.svelte';
 	import Footer from '../Footer.svelte';
 	import IconPlus from '$icons/IconPlus.svelte';
+	import IconMinus from '$icons/IconMinus.svelte';
 	let { children, socials, url } = $props();
 
 	let title = '',
@@ -23,25 +24,43 @@
 		slug = '';
 	let showMenu = $state(false);
 	let showMenuBool = $state(false);
+
+	$effect(() => {
+		page.data.url.pathname;
+		page.data.theme;
+		showMenuBool = false;
+		showMenu = false;
+	});
 </script>
 
-<div data-theme={page.data.theme} class="!bg-base-100">
+<div
+	data-theme={page.data.theme}
+	class="data-[theme=dark]:!bg-[#161515] data-[theme=light]:bg-gray-100"
+>
 	<input bind:checked={showMenuBool} id="menu-toggle" type="checkbox" class="drawer-toggle peer" />
 	<div class="absolute z-10 flex h-32 w-full items-center peer-checked:fixed peer-checked:bg-black">
 		<div class="container mx-auto flex flex-row items-center justify-between px-5 py-5">
 			<a href="/" class="text-4xl font-bold"><Logo></Logo></a>
 			<div class="flex flex-row items-center space-x-2">
-				<div class="space-x-6">
-					<Socials />
-				</div>
+				{#if !showMenuBool}
+					<div class="hidden space-x-6 md:flex">
+						<Socials />
+					</div>
+				{/if}
 
-				<label class="ml-4 inline-flex" for="menu-toggle"><IconPlus /></label>
+				<label class="ml-10 inline-flex pt-4 text-gray-500 hover:text-white" for="menu-toggle">
+					{#if showMenuBool}
+						<IconMinus class="size-10" />
+					{:else}
+						<IconPlus class="size-10" />
+					{/if}
+				</label>
 			</div>
 		</div>
 	</div>
 	<!-- {#if showMenu} -->
 	<div
-		class="fixed inset-0 top-32 z-10 hidden bg-black transition-all duration-600 peer-checked:block"
+		class="fixed inset-0 top-32 z-10 hidden bg-black transition-all duration-600 peer-checked:flex"
 	>
 		<Menu />
 	</div>
@@ -51,92 +70,7 @@
 	{@render footer()}
 
 	{#snippet footer()}
-		<!-- <footer class=" -mt-1 w-full bg-[#006838] p-10 text-white">
-			<div class="footer container mx-auto">
-				<nav>
-					<h6 class="footer-title">Contact</h6>
-					<div class="flex flex-col text-xs">
-						<div class="flex w-fit flex-row space-x-6">
-							<div class="w-6">
-								<Location />
-							</div>
-							<div class="mx-2 text-lg font-medium">
-								<a
-									href="https://maps.app.goo.gl/F3Lx27MAjX8Y8WfN6"
-									target="_blank"
-									class="text-sm text-white no-underline"
-									rel="noreferrer"
-								>
-									Stand 479 Pomona, Harare Drive<br /> Harare, Zimbabwe
-								</a>
-							</div>
-						</div>
-						<div class="flex w-fit flex-row space-x-6">
-							<div class="w-6">
-								<Telephone />
-							</div>
-							<div class="mx-2 text-lg font-medium">
-								<a class="text-sm text-white no-underline" href="tel:+263 771 387 703">
-									+263 771 387 703
-								</a><br />
-								<a class="text-sm text-white no-underline" href="tel:+263 771 637 769">
-									+263 771 637 769
-								</a><br />
-								<a class="text-sm text-white no-underline" href="tel:+263 771 600 124">
-									+263 771 600 124
-								</a><br />
-							</div>
-						</div>
-						<div class="flex w-fit flex-row space-x-6">
-							<div class="w-6">
-								<Mail />
-							</div>
-							<div class="mx-2 text-lg font-medium">
-								<a class="text-sm text-white no-underline" href="mailto:info@.net">
-									info@.net
-								</a>
-							</div>
-						</div>
-						<div class="flex w-fit flex-row space-x-6">
-							<div class="w-6">
-								<Clock />
-							</div>
-							<div class="mx-2 text-lg font-medium">
-								<div class="text-sm text-white no-underline">Mon-Fri 8:00 AM - 5:00 PM</div>
-							</div>
-						</div>
-					</div>
-				</nav>
-				<nav>
-					<h6 class="footer-title">About</h6>
-					<a href="/about" class="link-hover link text-[--light]">About</a>
-				</nav>
-				<nav>
-					<h6 class="footer-title">Company</h6>
-					<a href="/" class="link-hover link text-[--light]">Home</a>
-					<a href="/about" class="link-hover link text-[--light]">Approach</a>
-					<a href="/about" class="link-hover link text-[--light]">Our Story</a>
-					<a href="/about" class="link-hover link text-[--light]">Team</a>
-					<a href="/contact" class="link-hover link text-[--light]">Contact</a>
-				</nav>
-
-				<nav>
-					<h6 class="footer-title">Social</h6>
-					<div class="grid grid-flow-col gap-4 text-[--light]">
-						<a aria-label="instagram" href={socials.instagram} target="_blank">
-							<IconInstagram />
-						</a>
-						<a aria-label="youtube" href={socials.youtube} target="_blank">
-							<IconYoutube />
-						</a>
-						<a aria-label="facebook" href={socials.facebook} target="_blank">
-							<IconFacebook />
-						</a>
-					</div>
-				</nav>
-			</div>
-		</footer> -->
-		<footer class="bg-base-300 text-base-content py-24">
+		<footer class="text-base-content bg-[#0A0A09] py-24">
 			<Footer />
 		</footer>
 	{/snippet}

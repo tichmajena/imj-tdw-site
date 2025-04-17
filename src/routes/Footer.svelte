@@ -1,7 +1,9 @@
 <div class="flex-flex-col container mx-auto px-5">
-	<div class="mb-20">
+	<div class="mb-20 text-white">
 		<div class="mb-8 block text-4xl font-thin md:text-6xl">Let's work together</div>
-		<button class="btn btn-xl btn-primary btn-outline rounded-xl border-white font-thin text-white">
+		<button
+			class="btn btn-xl btn-primary btn-outline rounded-xl border-white font-thin text-white hover:bg-stone-900"
+		>
 			<span>Enquire</span><svg
 				xmlns="http://www.w3.org/2000/svg"
 				fill="none"
@@ -19,10 +21,12 @@
 		</button>
 	</div>
 	<nav class="flex flex-col space-y-3 font-thin md:flex-row md:space-y-0 md:space-x-6 lg:space-x-8">
-		<a class="link link-hover">© Copyright Troika Design Workshop {new Date().getFullYear()}</a>
-		<a class="link link-hover">Visit Turnbury</a>
-		<a class="link link-hover">X (formely Twitter)</a>
-		<a class="link link-hover">Linkedin</a>
-		<a class="link link-hover">instagram</a>
+		<a class="link link-hover text-stone-400 hover:text-white"
+			>© Copyright Troika Design Workshop {new Date().getFullYear()}</a
+		>
+		<a class="link link-hover text-stone-400 hover:text-white">Visit Turnbury</a>
+		<a class="link link-hover text-stone-400 hover:text-white">X (formely Twitter)</a>
+		<a class="link link-hover text-stone-400 hover:text-white">Linkedin</a>
+		<a class="link link-hover text-stone-400 hover:text-white">instagram</a>
 	</nav>
 </div>

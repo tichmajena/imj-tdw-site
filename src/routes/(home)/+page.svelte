@@ -9,7 +9,7 @@
 	import TextToolBar from '$lib/TextToolBar.svelte';
 	import { getContext } from 'svelte';
 	import Icon from '$lib/Icon.svelte';
-	import { slide } from 'svelte/transition';
+	import { fade, slide } from 'svelte/transition';
 	import ArtworkImage from '$lib/components/ArtworkImage.svelte';
 	import Gallery from '$lib/components/Gallery.svelte';
 	import SliderTest from '$lib/components/SliderTest.svelte';
@@ -119,13 +119,13 @@
 		<TextToolBar {entry_session} />
 	{/if}
 
-	<div class="relative mx-auto max-h-screen w-full overflow-hidden">
+	<div class="relative mx-auto h-screen w-full overflow-hidden">
 		<img src="/images/home-sample.jpg" class="h-full w-full object-cover" alt="" />
 		<div class="absolute inset-0 bg-black/80"></div>
 		<div class="absolute bottom-0 w-full px-5">
-			<div class="container mx-auto mb-20 text-4xl font-thin text-white md:mb-40 md:text-6xl">
-				committed to delivering<br />the <span class="font-bold">futur</span> of the built<br
-				/>environment
+			<div class="container mx-auto mb-40 text-4xl font-thin text-white md:text-6xl">
+				committed to delivering<br />the <span transition:fade class="font-bold">futur</span> of the
+				built<br />environment
 			</div>
 		</div>
 	</div>

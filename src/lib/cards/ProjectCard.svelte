@@ -6,7 +6,7 @@
 
 <a
 	href="/projects/{project.id}"
-	class="group relative flex aspect-[3/4.3] w-full cursor-pointer flex-col overflow-hidden"
+	class="group relative flex aspect-[3/4.3] w-full cursor-pointer flex-col overflow-hidden text-white"
 >
 	<img
 		src="{page.data.cloudfront}/{project.featured_image}"
