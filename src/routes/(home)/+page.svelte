@@ -119,9 +119,15 @@
 		<TextToolBar {entry_session} />
 	{/if}
 
-	<div class="relative mx-auto w-full overflow-hidden">
+	<div class="relative mx-auto max-h-screen w-full overflow-hidden">
 		<img src="/images/home-sample.jpg" class="h-full w-full object-cover" alt="" />
 		<div class="absolute inset-0 bg-black/80"></div>
+		<div class="absolute bottom-0 w-full px-5">
+			<div class="container mx-auto mb-20 text-4xl font-thin text-white md:mb-40 md:text-6xl">
+				committed to delivering<br />the <span class="font-bold">futur</span> of the built<br
+				/>environment
+			</div>
+		</div>
 	</div>
 
 	<!-- <div class="container mx-auto flex w-full justify-center overflow-hidden">
@@ -183,9 +189,9 @@
         <Text path={['subtitle']} class="heading3" />
       </div> -->
 		<!-- NOTE: non-editable island must have contenteditable="false" and contain some text content, otherwise invalid selections occur. -->
-		<div class="container mx-auto px-6 py-10">
+		<div class="container mx-auto px-5 py-10">
 			<div class="w-full md:w-2/3">
-				<Text path={['title']} class="mb-4 text-3xl md:text-4xl" />
+				<Text path={['title']} class="mb-4 text-3xl font-thin md:text-4xl" />
 				<!-- <Text path={['subtitle']} class="text-xl md:text-2xl" />-->
 			</div>
 		</div>
@@ -220,11 +226,17 @@
 			</div>
 		</div>-->
 	</Svedit>
-	<div class="relative container mx-auto mb-20 overflow-hidden">
-		<div class="flex w-full space-x-6">
-			{#each data.projects as project}
-				<ProjectCard {project}></ProjectCard>
-			{/each}
+	<div class="relative container mx-auto mb-20 overflow-hidden px-5">
+		<div class="grid w-full grid-cols-1 gap-6 md:grid-cols-3">
+			{#await data.projects}
+				{#each { length: 3 } as _}
+					<div class="h-96 w-full animate-pulse bg-gray-600"></div>
+				{/each}
+			{:then projects_}
+				{#each projects_ as project}
+					<ProjectCard {project}></ProjectCard>
+				{/each}
+			{/await}
 		</div>
 	</div>
 	<!-- <button onclick={test} class="btn">Test</button>

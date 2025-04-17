@@ -18,11 +18,14 @@ export const load = (async ({ fetch }) => {
 		return page;
 	}
 
-	const res = await fetch('/api/projects');
-	const projects = await res.json();
-	console.log({ projects });
+	async function getProjects() {
+		const res = await fetch('/api/projects');
+		const projects = await res.json();
+		console.log({ projects });
+		return projects;
+	}
 
-	return { gallery: getGallery(), entry, projects };
+	return { gallery: getGallery(), entry, projects: getProjects() };
 }) satisfies PageServerLoad;
 
 export const actions: Actions = {

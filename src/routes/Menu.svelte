@@ -1,15 +1,25 @@
+<script>
+	import { slide } from 'svelte/transition';
+	import Socials from './Socials.svelte';
+	let menuItems = [
+		{ href: '/about', text: 'About' },
+		{ href: '/projects', text: 'Projects' },
+		{ href: '/downloads', text: 'downloads' },
+		{ href: '/services', text: 'Services' },
+		{ href: '/contact', text: 'Contact' },
+		{ href: '/', text: 'Vistit Turnbury' }
+	];
+</script>
+
 <nav class="container mx-auto mt-24 flex w-full flex-col items-end md:flex-row">
 	<ul class="mb-8 flex w-full flex-col space-y-8 pl-4 text-4xl md:mb-0 md:w-1/2">
-		<li><a href="/about" class=" font-light transition-all hover:font-bold">About Us</a></li>
-		<li><a href="/projects" class=" font-light transition-all hover:font-bold">Projects</a></li>
-		<li><a href="/about" class=" font-light transition-all hover:font-bold">Downloads</a></li>
-		<li><a href="/about" class=" font-light transition-all hover:font-bold">Careers</a></li>
-		<li><a href="/about" class=" font-light transition-all hover:font-bold">Contacts</a></li>
-		<li><a href="/about" class=" font-light transition-all hover:font-bold">Visit Turnbury</a></li>
+		{#each menuItems as { href, text }, i}
+			<li transition:slide={{ duration: 200, delay: 100 * i }}>
+				<a {href} class="font-light transition-all hover:font-bold">{text}</a>
+			</li>
+		{/each}
 	</ul>
-	<div class=" w-full md:w-1/2">
-		<button class="btn btn-ghost btn-primary">[-]</button>
-		<button class="btn btn-ghost btn-primary">X</button>
-		<button class="btn btn-ghost btn-primary">in</button>
+	<div class=" -mb-3 w-full space-x-6 md:w-1/2">
+		<Socials />
 	</div>
 </nav>

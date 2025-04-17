@@ -17,7 +17,7 @@
 		<TextToolBar {entry_session} />
 	{/if}
 	<Svedit {entry_session} editable={dev} class="flex-column">
-		<div class="container mx-auto px-6 py-10">
+		<div class="container mx-auto py-10">
 			<div class="w-full md:w-2/3">
 				<Text path={['title']} class="mb-4 text-3xl md:text-4xl" />
 				<Text path={['subtitle']} class="text-xl md:text-2xl" />
