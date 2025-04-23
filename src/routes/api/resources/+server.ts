@@ -20,6 +20,7 @@ export const GET: RequestHandler = async () => {
 
 export const POST: RequestHandler = async ({ request }) => {
 	let resource = await request.json();
+
 	await db.collection('resources').add(resource);
 	return json({ success: true });
 };

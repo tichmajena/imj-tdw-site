@@ -1,4 +1,8 @@
-<a href="/downloads">
+<script>
+	let { resource } = $props();
+</script>
+
+<a href={resource.url}>
 	<div
 		class="relative aspect-[3/3.6] w-full border-2 border-slate-600 transition-all duration-400 hover:bg-stone-300"
 	>
@@ -21,5 +25,5 @@
 			</svg>
 		</div>
 	</div>
-	<div class="mt-3">Futur Build Issue 2</div>
+	<div class="mt-3">{resource.title}</div>
 </a>
