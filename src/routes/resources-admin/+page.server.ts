@@ -1,4 +1,4 @@
-import { AWS_BUCKET_NAME2 } from '$env/static/private';
+import { AWS_BUCKET_NAME, AWS_BUCKET_NAME2 } from '$env/static/private';
 import { formatFileSize } from '$src/lib/js/utils';
 import type { PageServerLoad, Actions } from './$types';
 import { ResourceSchema } from '$lib/js/zod';
@@ -15,11 +15,25 @@ export const actions: Actions = {
 		let formEntries = await request.formData();
 		let formData = Object.fromEntries(formEntries);
 		let file = formEntries.get('file');
-
+		formData = { ...formData, type: 'url' };
 		//upload files
 		if (file instanceof File && file.size) {
+			let arry = file.name.split('.');
+			let lastIndex = arry.length - 1;
+			let ext = arry[lastIndex];
 			// - getting signed url for AWS_BUCKET2
-			const res = await fetch(`/api/signing?bucket=${AWS_BUCKET_NAME2}`, {
+
+			let bucket = '';
+			let type = '';
+			if (ext === 'jpg' || ext === 'jpeg' || ext === 'png') {
+				bucket = AWS_BUCKET_NAME;
+				type = 'image';
+			} else {
+				bucket = AWS_BUCKET_NAME2;
+				type = 'file';
+			}
+
+			const res = await fetch(`/api/signing?bucket=${bucket}`, {
 				body: file.name,
 				method: 'POST'
 			});
@@ -29,10 +43,6 @@ export const actions: Actions = {
 			// - save media meta-data to database
 
 			if (res2.ok === true) {
-				let arry = file.name.split('.');
-				let lastIndex = arry.length - 1;
-				let ext = arry[lastIndex];
-
 				const metaDataObject = {
 					ext: ext,
 					key: file.name,
@@ -49,7 +59,7 @@ export const actions: Actions = {
 					body: JSON.stringify([metaDataObject])
 				});
 
-				formData = { ...formData, file: file.name, ext };
+				formData = { ...formData, file: file.name, ext, type };
 			}
 		}
 
@@ -61,7 +71,8 @@ export const actions: Actions = {
 			url: formData.url,
 			category: formData.category,
 			file: file?.size ? formData.file : '',
-			ext: formData.ext || ''
+			ext: formData.ext || '',
+			type: formData.type
 		};
 		try {
 			ResourceSchema.parse(body);

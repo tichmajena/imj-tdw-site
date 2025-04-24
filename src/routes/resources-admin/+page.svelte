@@ -21,7 +21,6 @@
 			return newObj;
 		})
 	);
-	console.log($state.snapshot(resources));
 </script>
 
 <div
@@ -64,8 +63,8 @@
 				name="category"
 				id="category"
 			>
-				<option value="futur">Futur</option>
-				<option value="coporate">Coporate</option>
+				<option value="futur-build">Futur-build</option>
+				<option value="corporate">Corporate</option>
 				<option value="video">Video</option>
 				<option value="news">News</option>
 			</select>
@@ -130,8 +129,8 @@
 							id="category"
 							value={resource.category}
 						>
-							<option value="futur">Futur</option>
-							<option value="coporate">Coporate</option>
+							<option value="futur-build">Futur-build</option>
+							<option value="corporate">Corporate</option>
 							<option value="video">Video</option>
 							<option value="news">News</option>
 						</select>

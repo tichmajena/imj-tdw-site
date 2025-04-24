@@ -7,5 +7,6 @@ export const ResourceSchema = z.object({
 	url: z.string(),
 	category: z.string(),
 	file: z.string(),
-	ext: z.string()
+	ext: z.string(),
+	type: z.string()
 });

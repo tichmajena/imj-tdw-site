@@ -19,5 +19,20 @@ export const load = (async ({ fetch }) => {
 	let entry = JSON.parse(page?.entry || page_json_clean);
 	entry = { ...entry, id: page?.id || '' };
 
-	return { entry, gallery: getGallery() };
+	let resp = await fetch('/api/resources');
+	let downloads = await resp.json();
+	console.log({ downloads });
+
+	const futurBuild = downloads.filter((item) => {
+		return item.category === 'futur-build';
+	});
+	console.log({ futurBuild });
+
+	const corporate = downloads.filter((item) => {
+		return item.category === 'corporate';
+	});
+
+	console.log({ corporate });
+
+	return { entry, gallery: getGallery(), downloads: { corporate, futurBuild } };
 }) satisfies PageServerLoad;
