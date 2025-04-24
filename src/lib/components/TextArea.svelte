@@ -18,7 +18,7 @@
 		class:error-input={message?.code === 'error'}
 		class:warning-input={message?.code === 'warning'}
 		class:success-input={message?.code === 'success'}
-		class="peer border-base-content focus:border-primary w-full rounded-lg border bg-transparent py-3 pl-3 text-base placeholder-transparent transition-all focus:outline focus:outline-none"
+		class="peer border-base-content focus:border-primary w-full border bg-transparent py-3 pl-3 text-base placeholder-transparent transition-all focus:outline focus:outline-none"
 	></textarea>
 	<label
 		for={id}

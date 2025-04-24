@@ -11,7 +11,7 @@
 	import Gallery from './Gallery.svelte';
 
 	import { encode } from 'blurhash';
-	import { dataURItoBlob } from '$lib/js/utils';
+	import { dataURItoBlob } from '$src/lib/js/utils';
 
 	let data;
 

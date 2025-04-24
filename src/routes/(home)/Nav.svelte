@@ -6,7 +6,7 @@
 	import Telephone from '$icons/IconPhone.svelte';
 	import Location from '$icons/IconMap.svelte';
 	import Clock from '$icons/IconClock.svelte';
-	import { toTitleCase } from '$lib/js/utils';
+	import { toTitleCase } from '$src/lib/js/utils';
 	import IconInstagram from '$icons/IconInstagram.svelte';
 	import IconYoutube from '$icons/IconYoutube.svelte';
 	import IconFacebook from '$icons/IconFacebook.svelte';
@@ -35,7 +35,7 @@
 
 <div
 	data-theme={page.data.theme}
-	class="data-[theme=dark]:!bg-[#161515] data-[theme=light]:bg-gray-100"
+	class="data-[theme=dark]:!bg-[#161515] data-[theme=light]:bg-white"
 >
 	<input bind:checked={showMenuBool} id="menu-toggle" type="checkbox" class="drawer-toggle peer" />
 	<div class="absolute z-10 flex h-32 w-full items-center peer-checked:fixed peer-checked:bg-black">

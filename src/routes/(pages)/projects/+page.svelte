@@ -55,8 +55,8 @@
 		</div>
 	</Svedit>
 
-	<div class="w-full px-5 pt-6 pb-20">
-		<div class="container mx-auto grid w-full grid-cols-1 gap-6 md:grid-cols-3">
+	<div class="w-full pt-6 pb-20">
+		<div class="container mx-auto grid w-full grid-cols-1 gap-6 px-5 md:grid-cols-3">
 			{#each data.projectData as project}
 				<ProjectCard {project}></ProjectCard>
 			{/each}

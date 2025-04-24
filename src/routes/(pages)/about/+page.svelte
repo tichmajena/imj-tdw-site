@@ -117,7 +117,20 @@
 			{/snippet}
 		</Container>
 	</Svedit>
-	<div class=" grid-col-1 container mx-auto mb-20 grid gap-4 px-5 md:grid-cols-3 lg:grid-cols-4">
+	{#if dev}
+		<div class="container mx-auto mb-12 px-5">
+			{#each { length: 3 }}
+				<div class="collapse-plus border-base-content collapse rounded-none border-t">
+					<input type="radio" name="my-accordion-3" />
+					<div class="collapse-title px-0 text-2xl font-thin">How do I create an account?</div>
+					<div class="collapse-content px-0 text-lg font-thin">
+						Click the "Sign Up" button in the top right corner and follow the registration process.
+					</div>
+				</div>
+			{/each}
+		</div>
+	{/if}
+	<div class=" grid-col-1 container mx-auto mb-20 grid gap-8 px-5 md:grid-cols-3 lg:grid-cols-4">
 		{#each data.teamData as member}
 			<TeamCard {member}></TeamCard>
 		{/each}

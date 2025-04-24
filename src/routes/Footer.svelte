@@ -6,7 +6,8 @@
 <div class="flex-flex-col container mx-auto px-5">
 	<div class="mb-20 text-white">
 		<div class="mb-8 block text-4xl font-thin md:text-6xl">Let's work together</div>
-		<button
+		<a
+			href="/contact"
 			class="btn btn-xl btn-primary btn-outline rounded-xl border-white font-thin text-white hover:bg-stone-900"
 		>
 			<span>Enquire</span><svg
@@ -23,7 +24,7 @@
 					d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
 				/>
 			</svg>
-		</button>
+		</a>
 	</div>
 	<nav class="flex flex-col space-y-3 font-thin md:flex-row md:space-y-0 md:space-x-6 lg:space-x-8">
 		<a class="link link-hover text-stone-400 hover:text-white"

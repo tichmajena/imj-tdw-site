@@ -100,7 +100,7 @@
 						</div>
 					{/if}
 					<button
-						class="btn btn-xl btn-primary btn-outline rounded-xl border-white font-thin text-white hover:bg-stone-900"
+						class="btn btn-xl btn-primary btn-outline rounded-none font-thin hover:bg-stone-900"
 					>
 						<span>Send</span><svg
 							xmlns="http://www.w3.org/2000/svg"
