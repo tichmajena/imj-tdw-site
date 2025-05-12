@@ -121,7 +121,8 @@ export const actions: Actions = {
 			description: project.description.replaceAll('\r\n', ' '),
 			services: project.services.split('\r\n'),
 			index: 1,
-			is_featured: false
+			is_featured: false,
+			images: JSON.parse(project.currentImages as string)
 		};
 
 		for (const file of featured) {
@@ -156,7 +157,9 @@ export const actions: Actions = {
 				body = { ...body, featured_image: file.name };
 			}
 		}
-
+		if (project.replace) {
+			body.images = [];
+		}
 		for (const file of gallery) {
 			if (file instanceof File && file.size) {
 				//get signed url for the image
@@ -186,9 +189,13 @@ export const actions: Actions = {
 					};
 					await fetch('/api/media', { method: 'POST', body: JSON.stringify([metaDataObject]) });
 				}
+
+				body.images.push(file.name);
 			}
+
 			// body.images.push(file.name);
 		}
+		console.log(body);
 
 		let res = await fetch(`/api/projects?id=${project.id}`, {
 			method: 'PUT',
