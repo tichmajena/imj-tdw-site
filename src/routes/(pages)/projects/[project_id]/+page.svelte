@@ -31,11 +31,20 @@
 		</div>
 	</div>
 	<div class="container mx-auto px-5">
-		<div class="carousel carousel-center w-full space-x-4 p-4">
+		<div class="carousel carousel-center w-full space-x-4">
 			{#each project.images as image}
-				<div class="carousel-item">
-					<img src="{data.cloudfront}/fit-in/1280x720/{image}" class="" alt={project.title} />
-				</div>
+				{#if image === project.featured_image}
+					<div class="carousel-item">
+						<img src="{data.cloudfront}/fit-in/1280x720/{image}" class="" alt={project.title} />
+					</div>
+				{/if}
+			{/each}
+			{#each project.images as image}
+				{#if image !== project.featured_image}
+					<div class="carousel-item">
+						<img src="{data.cloudfront}/fit-in/1280x720/{image}" class="" alt={project.title} />
+					</div>
+				{/if}
 			{/each}
 		</div>
 	</div>

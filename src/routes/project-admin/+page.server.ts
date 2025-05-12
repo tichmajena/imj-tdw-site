@@ -1,8 +1,15 @@
 import { AWS_BUCKET_NAME } from '$env/static/private';
 import { formatFileSize } from '$src/lib/js/utils';
+import { db } from '$src/lib/server/firebase-admin';
 import type { PageServerLoad, Actions } from './$types';
 
 export const load = (async ({ fetch }) => {
+	let images = [];
+	//
+	for (let i = 0; i < 11; i++) {
+		images.push('chase-dental-0' + (i + 1) + '.jpg');
+	}
+	// await db.collection('projects').doc('KgPO5VoDxOswT6IaRtae').set({ images }, { merge: true });
 	let res = await fetch('/api/projects', { method: 'GET' });
 	let projects = await res.json();
 	return { projects };

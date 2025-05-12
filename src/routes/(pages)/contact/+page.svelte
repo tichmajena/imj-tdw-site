@@ -121,7 +121,7 @@
 				</form>
 			</div>
 			<div class="w-full md:w-1/3">
-				<div>Address</div>
+				<div>9 Maiden Drive, Newlands, Harare, Zimbabwe</div>
 				<Socials></Socials>
 			</div>
 		</div>
