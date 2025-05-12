@@ -1,7 +1,12 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
+	import { invalidate } from '$app/navigation';
 	import type { PageData } from './$types';
 
 	let { data, form }: { data: PageData; form: any } = $props();
+	let loaders = $state({ edit: false, create: false, delete: false });
+	let status = $state({ edit: false, create: false, delete: false });
+
 	let project_sample = {
 		title: 'Gtel',
 		type: 'Office Building',
@@ -22,6 +27,21 @@
 		is_featured: false
 	};
 	let projects = $state(data.projects.map((p: Project) => ({ ...p, edit: false })));
+
+	let categories = ['project', 'community'];
+
+	async function handleEditForm(e) {
+		loaders.edit = true;
+		return async ({ update }) => {
+			await invalidate('/project-admin');
+			await update();
+			loaders.edit = false;
+			status.edit = true;
+			setTimeout(() => {
+				status.edit = false;
+			}, 2000);
+		};
+	}
 </script>
 
 <div
@@ -73,6 +93,16 @@
 				placeholder="Services"
 				required
 			></textarea>
+			<label for="category">Category</label><select
+				id="category"
+				class="textarea textarea-primary mb-3 w-full"
+				name="category"
+				required
+			>
+				{#each categories as category}
+					<option value={category}>{category}</option>
+				{/each}
+			</select>
 
 			<label for="featured_image">Featured image</label><input
 				id="featured_image"
@@ -139,8 +169,10 @@
 					action="?/updateProject"
 					class="mb-3 flex w-full flex-col"
 					method="POST"
+					use:enhance={handleEditForm}
 				>
 					<input type="text" name="id" hidden value={item.id} />
+					<input type="text" name="currentImages" hidden value={JSON.stringify(item.images)} />
 					<h2 class="mb-4 text-2xl">Edit Project</h2>
 					<label for="title">Project Title</label><input
 						id="title"
@@ -200,7 +232,18 @@
 						multiple
 						type="file"
 					/>
-					<button class="btn btn-primary">Update</button>
+					<label for="replace">Replace Gallery</label><input
+						id="replace"
+						class="checkbox checkbox-primary mb-3"
+						name="replace"
+						type="checkbox"
+					/>
+
+					<button class:btn-success={status.edit === true} class="btn btn-primary"
+						>{#if status.edit}Updated Successfully!{:else}Update{/if}
+						<span class:hidden={loaders.edit === false} class="loading loading-spinner"
+						></span></button
+					>
 				</form>
 			{/if}
 			<div class="card-actions justify-end">
