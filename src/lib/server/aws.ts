@@ -72,6 +72,15 @@ export async function signedURL(key: string, bucket = BUCKET) {
 export async function sendMail(payload: { body: string; subject: string }) {
 	// a client can be shared by different commands.
 
+	const client = new SESv2Client({
+		credentials: {
+			accessKeyId: ACCESS_KEY,
+			secretAccessKey: SECRET
+			//sessionToken: crypto.randomUUID()
+		},
+		region: REGION
+	});
+
 	const params: SendEmailCommandInput = {
 		Content: {
 			Simple: {
@@ -90,14 +99,6 @@ export async function sendMail(payload: { body: string; subject: string }) {
 		},
 		FromEmailAddress: EMAIL_TO // Replace with a verified email in SES
 	};
-	const client = new SESv2Client({
-		credentials: {
-			accessKeyId: ACCESS_KEY,
-			secretAccessKey: SECRET
-			//sessionToken: crypto.randomUUID()
-		},
-		region: REGION
-	});
 
 	const command = new SendEmailCommand(params);
 	try {

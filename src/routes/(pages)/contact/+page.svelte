@@ -12,6 +12,7 @@
 	import TextArea from '$src/lib/components/TextArea.svelte';
 	import Socials from '$src/routes/Socials.svelte';
 	import { slide } from 'svelte/transition';
+	import { onMount, tick } from 'svelte';
 
 	let { data, form }: { data: PageData; form: any } = $props();
 	let entry_session = new EntrySession(data.entry);

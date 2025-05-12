@@ -104,7 +104,7 @@
 {#snippet project_card(item: Project, i: number)}
 	<div class="card bg-base-300 mb-4 shadow-sm md:w-md lg:w-lg">
 		<figure>
-			<img src="{data.cloudfront}/{item.featured_image}" alt={item.title} />
+			<img src="{data.cloudfront}/fit-in/800x600/{item.featured_image}" alt={item.title} />
 		</figure>
 		<div class="mt-2 flex w-full flex-wrap">
 			{#each item.images as image}

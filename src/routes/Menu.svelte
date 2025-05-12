@@ -7,9 +7,9 @@
 		{ href: '/about', text: 'About' },
 		{ href: '/projects', text: 'Projects' },
 		{ href: '/downloads', text: 'Downloads' },
-		// { href: '/services', text: 'Services' },
+		{ href: '/community', text: 'In the Community' },
 		{ href: '/contact', text: 'Contact' },
-		{ href: '/', text: 'Vistit Turnbury' }
+		{ href: '/', text: 'Visit Turnbury' }
 	];
 </script>
 

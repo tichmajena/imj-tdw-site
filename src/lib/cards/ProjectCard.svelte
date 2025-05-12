@@ -9,7 +9,7 @@
 	class="group relative flex aspect-[3/4.3] w-full cursor-pointer flex-col overflow-hidden text-white"
 >
 	<img
-		src="{page.data.cloudfront}/{project.featured_image}"
+		src="{page.data.cloudfront}/fit-in/800x600/{project.featured_image}"
 		alt=""
 		class="absolute inset-0 h-full w-full scale-110 object-cover transition-all duration-250 group-hover:md:-translate-x-5"
 	/>
