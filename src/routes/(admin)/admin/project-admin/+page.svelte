@@ -1,8 +1,7 @@
-../project-admin/$types
-
+<script lang="ts">
 	import { enhance } from '$app/forms';
 	import { invalidate } from '$app/navigation';
-	import type { PageData } from '../project-admin/$types';
+	import type { PageData } from './project-admin/$types';
 
 	let { data, form }: { data: PageData; form: any } = $props();
 	let loaders = $state({ edit: false, create: false, delete: false });
