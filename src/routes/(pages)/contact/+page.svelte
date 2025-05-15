@@ -56,11 +56,13 @@
 			<div class="w-full md:w-2/3">
 				<Text
 					editable={data.user.exists === true}
+					element="h1"
 					path={['title']}
 					class="mb-4 text-3xl font-thin md:text-6xl"
 				/>
 				<Text
 					editable={data.user.exists === true}
+					element="p"
 					path={['subtitle']}
 					class="text-xl font-thin md:text-4xl"
 				/>
