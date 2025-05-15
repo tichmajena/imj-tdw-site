@@ -2,8 +2,21 @@ import { db } from '$src/lib/server/firebase-admin';
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
-export const GET: RequestHandler = async () => {
-	let zvinhu = await db.collection('projects').get();
+export const GET: RequestHandler = async ({ url }) => {
+	const cat = url.searchParams.get('category') || 'project';
+	const status = url.searchParams.get('status') || 'published';
+	console.log();
+
+	let zvinhu: any = [];
+	if (cat === 'all') {
+		zvinhu = await db.collection('projects').get();
+	} else {
+		zvinhu = await db
+			.collection('projects')
+			.where('status', '==', status)
+			.where('category', '==', cat)
+			.get();
+	}
 	let projects: any[] = [];
 
 	zvinhu.forEach(extractor);

@@ -1,6 +1,6 @@
 import { FIREBASE_ADMIN } from '$env/static/private';
 import admin from 'firebase-admin';
-import {initializeFirestore} from "firebase-admin/firestore";
+import { initializeFirestore } from 'firebase-admin/firestore';
 
 var serviceAccount = JSON.parse(FIREBASE_ADMIN);
 export const app = admin.initializeApp({
@@ -8,3 +8,4 @@ export const app = admin.initializeApp({
 });
 
 export const db = initializeFirestore(app);
+export default admin;

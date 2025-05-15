@@ -240,7 +240,11 @@
 					/>
 
 					<button class:btn-success={status.edit === true} class="btn btn-primary"
-						>{#if status.edit}Updated Successfully!{:else}Update{/if}
+						>{#if status.edit}Updated Successfully!{:else if loaders.edit}
+							Updating...
+						{:else}
+							Update
+						{/if}
 						<span class:hidden={loaders.edit === false} class="loading loading-spinner"
 						></span></button
 					>

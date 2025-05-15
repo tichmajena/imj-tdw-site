@@ -7,7 +7,7 @@ export const load = (async ({ fetch }) => {
 
 	const getTeam = await fetch('/api/members');
 	const teamData = await getTeam.json();
-	console.log({ teamData });
+	// console.log({ teamData });
 
 	let entry = JSON.parse(page?.entry || JSON.stringify(page_json));
 	entry = { ...entry, id: page?.id || '' };

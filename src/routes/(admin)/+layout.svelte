@@ -3,6 +3,6 @@
 	let { children, data } = $props();
 </script>
 
-<Nav url={data.url} socials={data.socials}>
+<Nav user={data.user} url={data.url} socials={data.socials}>
 	{@render children()}
 </Nav>

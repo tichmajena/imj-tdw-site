@@ -6,6 +6,7 @@ declare global {
 		interface Locals {
 			cloudfront: string | null;
 			theme: string | null;
+			user: any;
 		}
 		// interface PageData {}
 		// interface PageState {}

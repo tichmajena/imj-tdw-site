@@ -81,11 +81,11 @@
 	/>
 {/if}
 <div class="demo-wrapper">
-	{#if dev}
+	{#if data.user.exists === true}
 		<TextToolBar {entry_session} />
 	{/if}
 
-	<Svedit {entry_session} editable={dev} class="flex-column">
+	<Svedit {entry_session} editable={data.user.exists === true} class="flex-column">
 		<!-- <div class="flex-column container mx-auto w-full gap-y-10 p-10">
        
         <Text path={['subtitle']} class="heading3" />
@@ -93,8 +93,16 @@
 		<!-- NOTE: non-editable island must have contenteditable="false" and contain some text content, otherwise invalid selections occur. -->
 		<div class="container mx-auto px-5 py-10">
 			<div class="w-full md:w-2/3">
-				<Text path={['title']} class="mb-4 text-3xl font-thin md:text-6xl" />
-				<Text path={['subtitle']} class="text-xl font-thin md:text-4xl" />
+				<Text
+					editable={data.user.exists === true}
+					path={['title']}
+					class="mb-4 text-3xl font-thin md:text-6xl"
+				/>
+				<Text
+					editable={data.user.exists === true}
+					path={['subtitle']}
+					class="text-xl font-thin md:text-4xl"
+				/>
 			</div>
 		</div>
 		<Container class="body flex-column gap-y-10" path={['body']}>

@@ -2,10 +2,10 @@
 	let {
 		id,
 		name,
-		value = '',
+		value = $bindable(),
+		required = false,
 		label,
 		//labelClasses,
-		required = false,
 		//autocomplete = false,
 		form
 	} = $props();
@@ -18,8 +18,9 @@
 		placeholder={label}
 		type="text"
 		{name}
-		{required}
 		{id}
+		bind:value
+		{required}
 		class:error-input={message?.code === 'error'}
 		class:warning-input={message?.code === 'warning'}
 		class:success-input={message?.code === 'success'}

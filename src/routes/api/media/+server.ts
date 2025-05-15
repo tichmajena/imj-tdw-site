@@ -57,14 +57,14 @@ export const POST: RequestHandler = async ({ request }) => {
 			};
 		});
 		let image;
-		console.log({ files });
+		//console.log({ files });
 
 		try {
 			const batch = db.batch();
 
 			// Loop through the documents and add them to the batch
 			files.forEach((doc: any) => {
-				console.log({ doc });
+				//console.log({ doc });
 
 				const docRef = db.collection('media').doc(); // Auto-generated document ID
 				batch.set(docRef, doc); // Add document data
@@ -72,7 +72,7 @@ export const POST: RequestHandler = async ({ request }) => {
 
 			// Commit the batch
 			image = await batch.commit();
-			console.log('Documents added successfully!');
+			//console.log('Documents added successfully!');
 		} catch (error) {
 			console.error('Error adding documents:', error);
 		}

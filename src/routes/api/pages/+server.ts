@@ -9,11 +9,11 @@ export const GET: RequestHandler = async () => {
 export const PUT: RequestHandler = async ({ request, locals, url }) => {
 	const session = await request.json();
 	const route = url.searchParams.get('route')?.replaceAll('_-_', '/') || '';
-	console.log({ route });
+	//console.log({ route });
 
 	try {
 		let page = { entry: JSON.stringify(session) };
-		console.log({ page___: page });
+		//console.log({ page___: page });
 
 		const newPage = db.collection('pages').doc(session.id).set(page, { merge: true });
 		return json({ success: true, page: newPage });
@@ -25,7 +25,7 @@ export const PUT: RequestHandler = async ({ request, locals, url }) => {
 export const POST: RequestHandler = async ({ request, locals, url }) => {
 	const session = await request.json();
 	const route = url.searchParams.get('route')?.replaceAll('_-_', '/') || '';
-	console.log({ route });
+	//console.log({ route });
 
 	try {
 		let page = { entry: JSON.stringify(session), status: 'published', route, project: 'tdw' };

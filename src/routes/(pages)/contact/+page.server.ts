@@ -27,11 +27,11 @@ export const actions: Actions = {
 	default: async ({ request, fetch }) => {
 		const formData = await request.formData();
 		const contactData = Object.fromEntries(formData);
-		console.log(contactData);
+		// console.log(contactData);
 		let body = `Name: ${contactData.name}\nEmail: ${contactData.email}\r\n\r\nMessage:\n${contactData.message}`;
 
 		const result = await sendMail({ body, subject: 'From TDW Website' });
-		console.log({ result });
+		// console.log({ result });
 		if (result === null) {
 			return { success: false, data: contactData };
 		} else {

@@ -38,6 +38,9 @@
 						<li>
 							<a href="/admin/resources-admin">Resources</a>
 						</li>
+						<li>
+							<a class="btn btn-primary" href="/logout">Logout</a>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -57,6 +60,9 @@
 			</li>
 			<li>
 				<a href="/admin/resources-admin">Resources</a>
+			</li>
+			<li>
+				<a class="btn" href="/logout">Logout</a>
 			</li>
 		</ul>
 	</div>

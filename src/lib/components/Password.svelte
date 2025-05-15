@@ -1,27 +1,24 @@
 <script>
-	export let id,
-		name,
-		value = '',
-		label,
-		required,
-		autocomplete;
-	export let form;
+	let { id, name, value = $bindable(), label, required, form, autocomplete } = $props();
 
 	const message = form?.message[name];
 
-	let see;
+	let see = $state(false);
 </script>
 
 <div class="form-control relative mb-5">
-	<textarea
+	<input
 		placeholder={label}
 		type={see ? 'text' : 'password'}
-		{...$$props}
+		{name}
+		{id}
+		bind:value
+		{required}
 		class:error-input={message?.code === 'error'}
 		class:warning-input={message?.code === 'warning'}
 		class:success-input={message?.code === 'success'}
-		class="peer border-base-content focus:border-primary h-12 w-full rounded-lg border bg-transparent py-3 pl-3 text-base placeholder-transparent transition-all focus:outline focus:outline-none"
-	></textarea>
+		class="peer border-base-content focus:border-primary h-12 w-full rounded-none border bg-transparent py-3 pl-3 text-base placeholder-transparent transition-all focus:outline focus:outline-none"
+	/>
 	<label
 		for={id}
 		class:error-label={message?.code === 'error'}
@@ -31,7 +28,7 @@
 		>{label}</label
 	>
 	<button
-		on:click={() => {
+		onclick={() => {
 			see = !see;
 		}}
 		type="button"

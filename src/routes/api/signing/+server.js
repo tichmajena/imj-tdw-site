@@ -5,9 +5,9 @@ import { json } from '@sveltejs/kit';
 export async function POST({ request, url }) {
 	const key = await request.text();
 	const bucket = url.searchParams.get('bucket') || undefined;
-	console.log({ key, bucket });
+	//console.log({ key, bucket });
 	const urls = await signedURL(key, bucket);
-	console.log({ urls });
+	//console.log({ urls });
 	if (urls) {
 		return json(urls);
 	} else {

@@ -18,7 +18,7 @@
 	import IconPlus from '$icons/IconPlus.svelte';
 	import IconMinus from '$icons/IconMinus.svelte';
 	import AdminNav from './AdminNav.svelte';
-	let { children, socials, url } = $props();
+	let { children, socials, url, user } = $props();
 
 	let title = '',
 		image = '',
@@ -66,9 +66,13 @@
 	</div>
 	<!-- {/if} -->
 	<div class="w-full">
-		<AdminNav>
+		{#if user?.exists}
+			<AdminNav>
+				{@render children()}
+			</AdminNav>
+		{:else}
 			{@render children()}
-		</AdminNav>
+		{/if}
 	</div>
 	{@render footer()}
 
