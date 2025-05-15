@@ -11,8 +11,14 @@
 	import Field from '$src/lib/components/Field.svelte';
 	import TextArea from '$src/lib/components/TextArea.svelte';
 	import Socials from '$src/routes/Socials.svelte';
+	import Mail from '$icons/IconMail.svelte';
+	import Telephone from '$icons/IconPhone.svelte';
+	import Location from '$icons/IconMap.svelte';
+	import Clock from '$icons/IconClock.svelte';
 	import { slide } from 'svelte/transition';
 	import { onMount, tick } from 'svelte';
+	import { enhance } from '$app/forms';
+	import Email from '$src/lib/components/Email.svelte';
 
 	let { data, form }: { data: PageData; form: any } = $props();
 	let entry_session = new EntrySession(data.entry);
@@ -24,6 +30,16 @@
 	const siteTitle = 'Troika Design Workshop';
 	const metaTitle = 'Contact Us';
 	const metadescription = '';
+
+	let sending = $state(false);
+
+	async function handleSend() {
+		sending = true;
+		return async ({ update }) => {
+			await update();
+			sending = false;
+		};
+	}
 </script>
 
 <svelte:head>
@@ -75,64 +91,146 @@
 			class="container mx-auto flex flex-col-reverse space-y-6 px-5 md:flex-row md:space-y-0 md:space-x-12 lg:space-x-20"
 		>
 			<div class="w-full md:w-2/3">
-				<form method="POST">
-					<Field required {form} label="Your Name" name="name" id="name"></Field>
-					<Field required {form} label="Email Address" name="email" id="email"></Field>
-					<TextArea required {form} label="Message" name="message" id="message"></TextArea>
-					{#if form && form.success === true}
-						<div
-							transition:slide
-							class=" border-success content-success bg-success-content text-success my-6 rounded-lg border-2 p-8 text-center text-xl"
+				{#key form}
+					<form use:enhance={handleSend} method="POST">
+						<Field
+							--label-bg-dark="#161515"
+							--label-bg-light="white"
+							required
+							{form}
+							value={form?.fields?.['name'] || ''}
+							label="Your Name"
+							name="name"
+							id="name"
+						></Field>
+						<Email
+							--label-bg-dark="#161515"
+							--label-bg-light="white"
+							required
+							{form}
+							value={form?.fields?.['email'] || ''}
+							label="Email Address"
+							name="email"
+							id="email"
+						></Email>
+						<TextArea
+							--label-bg-dark="#161515"
+							--label-bg-light="white"
+							required
+							{form}
+							value={form?.fields?.['message'] || ''}
+							label="Message"
+							name="message"
+							id="message"
+						></TextArea>
+						{#if form && form.success === true}
+							<div
+								transition:slide
+								class=" border-success content-success bg-success-content text-success my-6 rounded-lg border-2 p-8 text-center text-xl"
+							>
+								Message sent successfully!
+							</div>
+						{:else if form && form.success === false}
+							<div
+								transition:slide
+								class=" border-error content-error bg-error-content text-error my-6 rounded-lg border-2 p-8 text-center text-xl"
+							>
+								<span class="flex items-center justify-center"
+									><svg
+										xmlns="http://www.w3.org/2000/svg"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke-width="1.5"
+										stroke="currentColor"
+										class="-mt-1 mr-4 size-8"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
+										/>
+									</svg>
+									<span> An error has occurred. </span>
+								</span>
+							</div>
+						{/if}
+						<button
+							class="btn btn-xl btn-primary btn-outline rounded-none font-thin hover:bg-stone-900"
 						>
-							Message sent successfully!
-						</div>
-					{:else if form && form.success === false}
-						<div
-							transition:slide
-							class=" border-error content-error bg-error-content text-error my-6 rounded-lg border-2 p-8 text-center text-xl"
-						>
-							<span class="flex items-center justify-center"
-								><svg
+							<span>Send</span>
+							{#if sending}
+								<span class="loading loading-spinner"></span>
+							{:else}
+								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
 									viewBox="0 0 24 24"
 									stroke-width="1.5"
 									stroke="currentColor"
-									class="-mt-1 mr-4 size-8"
+									class="size-6"
 								>
 									<path
 										stroke-linecap="round"
 										stroke-linejoin="round"
-										d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
+										d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
 									/>
 								</svg>
-								<span> An error has occurred. </span>
-							</span>
-						</div>
-					{/if}
-					<button
-						class="btn btn-xl btn-primary btn-outline rounded-none font-thin hover:bg-stone-900"
-					>
-						<span>Send</span><svg
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke-width="1.5"
-							stroke="currentColor"
-							class="size-6"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-							/>
-						</svg>
-					</button>
-				</form>
+							{/if}
+						</button>
+					</form>
+				{/key}
 			</div>
-			<div class="w-full md:w-1/3">
-				<div>9 Maiden Drive, Newlands, Harare, Zimbabwe</div>
-				<Socials></Socials>
+
+			<div class="flex w-full flex-col md:w-1/3 lg:w-1/2">
+				<div class="flex w-fit flex-row space-x-4">
+					<div class="w-6">
+						<Location />
+					</div>
+					<div class="mx-2 text-lg">
+						<a
+							href="https://maps.app.goo.gl/9y9DfyKFjgNxtzbdA"
+							target="_blank"
+							class="text-base-content no-underline"
+							rel="noreferrer"
+						>
+							9 Maiden Drive,<br />Newlands,<br /> Harare, Zimbabwe
+						</a>
+					</div>
+				</div>
+				<div class="flex w-fit flex-row space-x-4">
+					<div class="w-6">
+						<Telephone />
+					</div>
+					<div class="mx-2 text-lg">
+						<a class="text-base-content no-underline" href="tel:+263 8677 008 490">
+							+263 8677 008 490
+						</a><br />
+						<a class="text-base-content no-underline" href="tel:+263 077 435 5470">
+							+263 077 435 5470
+						</a><br />
+					</div>
+				</div>
+				<div class="flex w-fit flex-row space-x-4">
+					<div class="w-6">
+						<Mail />
+					</div>
+					<div class="mx-2 text-lg">
+						<a class="text-base-content no-underline" href="mailto:info@troikadesignworkshop.com">
+							info@troikadesignworkshop.com
+						</a>
+					</div>
+				</div>
+				<div class="flex w-fit flex-row space-x-4">
+					<div class="w-6">
+						<Clock />
+					</div>
+					<div class="mx-2 text-lg">
+						<div class="text-base-content">Mon-Fri 8:00 AM - 5:00 PM</div>
+					</div>
+				</div>
+				<div class="mt-6 flex">
+					<Socials></Socials>
+				</div>
 			</div>
 		</div>
 	</div>

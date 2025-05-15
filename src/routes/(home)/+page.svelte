@@ -23,6 +23,7 @@
 	// import HeroSlide from '$lib/components/HeroSlide.svelte';
 	import StoryVideo from '$lib/StoryVideo.svelte';
 	import ProjectCard from '$lib/cards/ProjectCard.svelte';
+	import heroImage from '$lib/assets/home-sample.jpg?enhanced';
 
 	let { data } = $props();
 	let page_json = $state(data.entry);
@@ -93,18 +94,19 @@
 	/>
 {/if}
 <div class="demo-wrapper">
+	<h1 class="sr-only">Troika Design Workshop</h1>
 	{#if data.user.exists}
 		<TextToolBar {entry_session} />
 	{/if}
 
 	<div class="relative mx-auto h-screen w-full overflow-hidden">
-		<img src="/images/home-sample.jpg" class="h-full w-full object-cover" alt="" />
+		<enhanced:img src={heroImage} class="h-full w-full object-cover" alt="" />
 		<div class="absolute inset-0 bg-black/80"></div>
 		<div class="absolute bottom-0 w-full">
-			<div class="container mx-auto mb-40 px-5 text-4xl font-thin text-white md:text-6xl">
+			<h2 class="container mx-auto mb-40 px-5 text-4xl font-thin text-white md:text-6xl">
 				committed to delivering<br />the <span transition:fade class="font-bold">futur</span> of the
 				built<br />environment
-			</div>
+			</h2>
 		</div>
 	</div>
 
@@ -171,6 +173,7 @@
 			<div class="w-full md:w-2/3">
 				<Text
 					editable={data.user.exists === true}
+					element="h2"
 					path={['title']}
 					class="mb-4 text-3xl font-thin md:text-4xl"
 				/>

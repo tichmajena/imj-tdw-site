@@ -1,30 +1,38 @@
 <script>
-	let { value = $bindable(), label, id, form, name, ...restProps } = $props();
+	let {
+		id,
+		name,
+		value = $bindable(),
+		required = false,
+		label,
+		//labelClasses,
+		//autocomplete = false,
+		form
+	} = $props();
 	$inspect(name);
 	$inspect(form);
 	const message = form?.messages?.[name];
 </script>
 
 <div class="form-control relative mb-5">
-	<textarea
+	<input
 		placeholder={label}
-		rows="4"
-		type="text"
-		{id}
+		type="email"
 		{name}
+		{id}
 		bind:value
-		{...restProps}
+		{required}
 		class:error-input={message?.code === 'error'}
 		class:warning-input={message?.code === 'warning'}
 		class:success-input={message?.code === 'success'}
-		class="peer border-base-content focus:border-primary w-full border bg-transparent py-3 pl-3 text-base placeholder-transparent transition-all focus:ring-0 focus:outline focus:outline-none"
-	></textarea>
+		class="peer border-base-content focus:border-primary h-12 w-full border bg-transparent py-3 pl-3 text-base placeholder-transparent transition-all focus:ring-0 focus:outline focus:outline-none"
+	/>
 	<label
 		for={id}
 		class:error-label={message?.code === 'error'}
 		class:warning-label={message?.code === 'warning'}
 		class:success-label={message?.code === 'success'}
-		class="field-label peer-placeholder-shown:text-base-contentt bg-base-100 text-base-content peer-focus:text-primary absolute -top-2.5 left-3 px-1 text-sm transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:left-2 peer-placeholder-shown:text-base peer-focus:-top-2.5 peer-focus:left-3 peer-focus:text-sm"
+		class="field-label peer-placeholder-shown:text-base-contentt text-base-content peer-focus:text-primary absolute -top-2.5 left-3 px-1 text-sm transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:left-2 peer-placeholder-shown:text-base peer-focus:-top-2.5 peer-focus:left-3 peer-focus:text-sm"
 		>{label}</label
 	>
 	{#if message}

@@ -10,7 +10,10 @@
 		form
 	} = $props();
 
-	const message = form?.message?.[name];
+	$inspect(name);
+	$inspect(form);
+
+	const message = form?.messages?.[name];
 </script>
 
 <div class="form-control relative mb-5">
@@ -24,7 +27,7 @@
 		class:error-input={message?.code === 'error'}
 		class:warning-input={message?.code === 'warning'}
 		class:success-input={message?.code === 'success'}
-		class="peer border-base-content focus:border-primary h-12 w-full border bg-transparent py-3 pl-3 text-base placeholder-transparent transition-all focus:outline focus:outline-none"
+		class="peer border-base-content focus:border-primary h-12 w-full border bg-transparent py-3 pl-3 text-base placeholder-transparent transition-all focus:ring-0 focus:outline focus:outline-none"
 	/>
 	<label
 		for={id}
@@ -88,12 +91,12 @@
 		@apply focus:border-success;
 	}
 
-	/* :global(.drawer[data-theme='dark']) .field-label {
+	:global(.page-wrapper[data-theme='dark']) .field-label {
 		background-color: var(--label-bg-dark);
-		color: var(--label-dark);
+		/* color: var(--label-dark); */
 	}
-	:global(.drawer[data-theme='light']) .field-label {
+	:global(.page-wrapper[data-theme='light']) .field-label {
 		background-color: var(--label-bg-light);
-		color: var(--label-light);
-	} */
+		/* color: var(--label-light); */
+	}
 </style>

@@ -1,6 +1,9 @@
 import { page_json_clean } from '$lib/server/utils';
 import type { Actions, PageServerLoad } from './$types';
 import { sendMail } from '$lib/server/aws';
+import { ContactMessage } from '$src/lib/js/zod';
+import { zodValidationErrors } from '$src/lib/js/utils';
+import { fail } from '@sveltejs/kit';
 
 export const load = (async ({ fetch }) => {
 	async function getGallery() {
@@ -28,6 +31,12 @@ export const actions: Actions = {
 		const formData = await request.formData();
 		const contactData = Object.fromEntries(formData);
 		// console.log(contactData);
+		try {
+			ContactMessage.parse(contactData);
+		} catch (error) {
+			const messages: any = zodValidationErrors(error);
+			return fail(401, { messages, success: false, fields: contactData });
+		}
 		let body = `Name: ${contactData.name}\nEmail: ${contactData.email}\r\n\r\nMessage:\n${contactData.message}`;
 
 		const result = await sendMail({ body, subject: 'From TDW Website' });

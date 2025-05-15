@@ -5,7 +5,6 @@ import type { RequestHandler } from './$types';
 export const GET: RequestHandler = async ({ url }) => {
 	const cat = url.searchParams.get('category') || 'project';
 	const status = url.searchParams.get('status') || 'published';
-	console.log();
 
 	let zvinhu: any = [];
 	if (cat === 'all') {

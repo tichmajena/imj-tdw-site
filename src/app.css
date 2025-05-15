@@ -6,3 +6,20 @@
 body {
 	font-family: 'Roboto', sans-serif;
 }
+
+/* #81b941 */
+
+@plugin 'daisyui/theme' {
+	name: 'light';
+	default: true;
+	prefersdark: false;
+	color-scheme: 'light';
+	--color-primary: oklch(0.72 0.1614 130.85);
+}
+@plugin 'daisyui/theme' {
+	name: 'dark';
+	default: false;
+	prefersdark: false;
+	color-scheme: 'dark';
+	--color-primary: oklch(0.72 0.1614 130.85);
+}
