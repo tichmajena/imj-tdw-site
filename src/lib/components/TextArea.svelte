@@ -1,5 +1,5 @@
 <script>
-	let { value = $bindable(), label, id, form, name, ...restProps } = $props();
+	let { value = $bindable(), label, id, form, name, required, ...restProps } = $props();
 	$inspect(name);
 	$inspect(form);
 	const message = form?.messages?.[name];
@@ -12,6 +12,7 @@
 		type="text"
 		{id}
 		{name}
+		{required}
 		bind:value
 		{...restProps}
 		class:error-input={message?.code === 'error'}
@@ -25,7 +26,7 @@
 		class:warning-label={message?.code === 'warning'}
 		class:success-label={message?.code === 'success'}
 		class="field-label peer-placeholder-shown:text-base-contentt bg-base-100 text-base-content peer-focus:text-primary absolute -top-2.5 left-3 px-1 text-sm transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:left-2 peer-placeholder-shown:text-base peer-focus:-top-2.5 peer-focus:left-3 peer-focus:text-sm"
-		>{label}</label
+		>{label} {required ? '*' : '(optional)'}</label
 	>
 	{#if message}
 		<div

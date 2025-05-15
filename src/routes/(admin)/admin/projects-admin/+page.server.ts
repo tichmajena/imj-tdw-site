@@ -6,18 +6,19 @@ import type { PageServerLoad, Actions } from './$types';
 export const load = (async ({ fetch }) => {
 	let res = await fetch('/api/projects?category=all');
 	let projects = await res.json();
+	projects = projects.sort((a, b) => a.createdAt > b.createdAt);
 	return { projects };
 }) satisfies PageServerLoad;
 
 export const actions: Actions = {
 	createProject: async ({ request, fetch }) => {
 		let dataEntries = await request.formData();
-		let project = Object.fromEntries(dataEntries);
+		let project = Object.fromEntries(dataEntries) as any as Project & { services: string };
 
 		const featured = dataEntries.getAll('featured_image') as File[];
 		const gallery = dataEntries.getAll('images') as File[];
 
-		let body = {
+		let body: Project = {
 			title: project.title,
 			type: project.type,
 			year: +project.year,
@@ -103,12 +104,12 @@ export const actions: Actions = {
 	},
 	updateProject: async ({ request, fetch }) => {
 		let dataEntries = await request.formData();
-		let project = Object.fromEntries(dataEntries);
+		let project = Object.fromEntries(dataEntries) as { [key: string]: string };
 
 		const featured = dataEntries.getAll('featured_image') as File[];
 		const gallery = dataEntries.getAll('images') as File[];
 
-		let body = {
+		let body: Project = {
 			title: project.title,
 			type: project.type,
 			year: +project.year,
@@ -204,7 +205,7 @@ export const actions: Actions = {
 		let dataEntries = await request.formData();
 		let id = dataEntries.get('id') as string;
 
-		await fetch(`api/projects?id=${id}`, { method: 'DELETE' });
+		await fetch(`/api/projects?id=${id}`, { method: 'DELETE' });
 		return {
 			success: true
 		};

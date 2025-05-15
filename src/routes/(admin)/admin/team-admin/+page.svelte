@@ -3,52 +3,61 @@
 	import { slide } from 'svelte/transition';
 	import type { PageData } from './$types';
 	import placeholder from '$lib/assets/placeholder-3.png';
+	import Field from '$src/lib/components/Field.svelte';
+	import TextArea from '$src/lib/components/TextArea.svelte';
 
-	let { data }: { data: PageData } = $props();
+	let { data, form }: { data: PageData; form: any } = $props();
 
 	let members = $state(data.members.map((eachMember: team) => ({ ...eachMember, edit: false })));
 </script>
 
 <div class="w-full">
-	<div class="flex-co container mx-auto flex flex-col md:flex-row">
-		<div class="w-full p-3 md:w-1/2">
+	<div class="flex-co container mx-auto flex flex-col px-5 md:flex-row">
+		<div class="w-full md:w-1/2">
 			<form class="flex flex-col" action="?/create" method="POST" enctype="multipart/form-data">
 				<h2 class="mb-4 text-2xl">Add Member</h2>
-				<label for="fullName">Full Name</label><input
-					id="fullName"
+				<Field
+					--label-bg-dark="#161515"
+					--label-bg-light="white"
 					name="fullname"
-					class="input input-primary mb-3 w-full"
-					type="text"
-					placeholder="Full Name"
+					label="Full name"
+					id="fullname"
+					{form}
 					required
 				/>
-				<label for="position">Position</label><input
-					id="position"
+				<Field
+					--label-bg-dark="#161515"
+					--label-bg-light="white"
 					name="position"
-					class="input input-primary mb-3 w-full"
-					type="text"
-					placeholder="Position"
+					label="Position"
+					id="position"
+					{form}
 					required
 				/>
-				<label for="department">Department</label><input
-					id="department"
+				<Field
+					--label-bg-dark="#161515"
+					--label-bg-light="white"
 					name="department"
-					class="input input-primary mb-3 w-full"
-					type="text"
-					placeholder="Department"
+					label="Department"
+					id="department"
+					{form}
 				/>
+
 				<label for="image">Image</label><input
 					id="image"
 					name="image"
-					class="file-input file-input-primary mb-3 w-full"
+					class="file-input file-input-primary mb-3 w-full rounded-none"
 					type="file"
 				/>
-				<label for="bio">Bio</label><textarea
+
+				<TextArea
+					--label-bg-dark="#161515"
+					--label-bg-light="white"
 					id="bio"
 					name="bio"
-					class="textarea textarea-primary mb-3 w-full"
-					placeholder="Bio"
-				></textarea>
+					label="Bio"
+					{form}
+				/>
 				<button class="btn btn-primary">Submit</button>
 			</form>
 		</div>

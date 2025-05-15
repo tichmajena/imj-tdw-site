@@ -12,6 +12,11 @@ declare global {
 		// interface PageState {}
 		// interface Platform {}
 	}
+	// image: {
+	// 	id: string;
+	// 	key: string;
+	// 	title: string;
+	// }
 
 	type Project = {
 		id?: string;
@@ -20,12 +25,8 @@ declare global {
 		year: number;
 		description: string;
 		services: string[];
-		images: {
-			id: string;
-			key: string;
-			title: string;
-		}[];
-		featured_image: string;
+		images: string[];
+		featured_image?: string;
 		index: number;
 		is_featured: boolean;
 		edit?: boolean;

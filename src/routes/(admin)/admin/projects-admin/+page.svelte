@@ -1,11 +1,14 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { invalidate } from '$app/navigation';
+	import Field from '$src/lib/components/Field.svelte';
+	import TextArea from '$src/lib/components/TextArea.svelte';
+	import { slide } from 'svelte/transition';
 	import type { PageData } from './$types';
 
 	let { data, form }: { data: PageData; form: any } = $props();
-	let loaders = $state({ edit: false, create: false, delete: false });
-	let status = $state({ edit: false, create: false, delete: false });
+	let loaders = $state({ edit: false, create: false, delete: false, trash: false });
+	let status = $state({ edit: false, create: false, delete: false, trash: false });
 
 	let project_sample = {
 		title: 'Gtel',
@@ -42,10 +45,49 @@
 			}, 2000);
 		};
 	}
+
+	async function handleCreateForm(e) {
+		loaders.create = true;
+		return async ({ update }) => {
+			//await invalidate('/project-admin');
+			await update();
+			loaders.create = false;
+			status.create = true;
+			setTimeout(() => {
+				status.create = false;
+			}, 3000);
+		};
+	}
+
+	async function handleTrashForm(e) {
+		loaders.trash = true;
+		return async ({ update }) => {
+			//await invalidate('/project-admin');
+			await update();
+			loaders.trash = false;
+			status.trash = true;
+			setTimeout(() => {
+				status.trash = false;
+			}, 3000);
+		};
+	}
+
+	async function handleDeleteForm(e) {
+		loaders.delete = true;
+		return async ({ update }) => {
+			//await invalidate('/project-admin');
+			await update();
+			loaders.delete = false;
+			status.delete = true;
+			setTimeout(() => {
+				status.delete = false;
+			}, 3000);
+		};
+	}
 </script>
 
 <div
-	class="container mx-auto flex w-full flex-col space-y-6 space-x-0 pt-20 md:flex-row md:space-y-0 md:space-x-10 lg:space-x-20"
+	class="container mx-auto flex w-full flex-col space-y-6 space-x-0 px-5 py-10 md:flex-row md:space-y-0 md:space-x-10 lg:space-x-20"
 >
 	<div class="flex w-full md:w-1/2">
 		<form
@@ -53,49 +95,56 @@
 			action="?/createProject"
 			class="mb-3 flex w-full flex-col"
 			method="POST"
+			use:enhance={handleCreateForm}
 		>
 			<h2 class="mb-4 text-3xl">Create Project</h2>
-			<label for="title">Project Title</label><input
-				id="title"
-				class="input input-primary mb-3 w-full"
+			<Field
+				--label-bg-dark="#161515"
+				--label-bg-light="white"
 				name="title"
-				type="text"
-				placeholder="Project Title"
+				label="Title"
+				id="title"
+				{form}
 				required
 			/>
-			<label for="type">Project Type</label><input
-				id="type"
-				class="input input-primary mb-3 w-full"
+			<Field
+				--label-bg-dark="#161515"
+				--label-bg-light="white"
 				name="type"
-				type="text"
+				label="Project Type"
+				id="type"
+				{form}
 				required
-				placeholder="Project Type"
 			/>
-			<label for="year">Year</label><input
-				id="year"
-				class="input input-primary mb-3 w-full"
+			<Field
+				--label-bg-dark="#161515"
+				--label-bg-light="white"
 				name="year"
-				type="text"
-				placeholder="Year"
+				label="Year"
+				id="year"
+				{form}
 				required
 			/>
-			<label for="description">Description</label><textarea
+			<TextArea
+				--label-bg-dark="#161515"
+				--label-bg-light="white"
 				id="description"
-				class="textarea textarea-primary mb-3 w-full"
 				name="description"
-				placeholder="Description"
-				required
-			></textarea>
-			<label for="services">Services</label><textarea
+				label="Description"
+				{form}
+			/>
+			<TextArea
+				--label-bg-dark="#161515"
+				--label-bg-light="white"
 				id="services"
-				class="textarea textarea-primary mb-3 w-full"
 				name="services"
-				placeholder="Services"
-				required
-			></textarea>
+				label="Services"
+				{form}
+			/>
+
 			<label for="category">Category</label><select
 				id="category"
-				class="select select-primary mb-3 w-full"
+				class="select select-primary mb-3 w-full rounded-none"
 				name="category"
 				required
 			>
@@ -106,19 +155,27 @@
 
 			<label for="featured_image">Featured image</label><input
 				id="featured_image"
-				class="file-input mb-3"
+				class="file-input file-input-primary mb-3 w-full rounded-none"
 				name="featured_image"
 				type="file"
 			/>
 
 			<label for="images">Gallery</label><input
 				id="images"
-				class="file-input mb-3"
+				class="file-input file-input-primary mb-3 w-full rounded-none"
 				name="images"
 				multiple
 				type="file"
 			/>
-			<button class="btn btn-primary">Create</button>
+			<button class:btn-success={status.create === true} class="btn btn-primary"
+				>{#if status.create}Updated Successfully!{:else if loaders.create}
+					Creating...
+				{:else}
+					Create
+				{/if}
+				<span class:hidden={loaders.create === false} class="loading loading-spinner"
+				></span></button
+			>
 		</form>
 	</div>
 
@@ -126,7 +183,7 @@
 		{#each projects as project, i}
 			{@render project_card(project, i)}
 		{:else}
-			MuDataBase hamuna zvinu
+			No Projects found.
 		{/each}
 	</div>
 </div>
@@ -170,6 +227,7 @@
 					class="mb-3 flex w-full flex-col"
 					method="POST"
 					use:enhance={handleEditForm}
+					transition:slide
 				>
 					<input type="text" name="id" hidden value={item.id} />
 					<input type="text" name="currentImages" hidden value={JSON.stringify(item.images)} />
@@ -251,12 +309,23 @@
 				</form>
 			{/if}
 			<div class="card-actions justify-end">
-				<button onclick={() => (projects[i].edit = !projects[i].edit)} class="btn btn-primary"
-					>{projects[i].edit ? 'Cancel' : 'Edit'}</button
+				<button
+					class:btn-ghost={projects[i].edit}
+					class:btn-primary={!projects[i].edit}
+					onclick={() => (projects[i].edit = !projects[i].edit)}
+					class="btn">{projects[i].edit ? 'Cancel' : 'Edit'}</button
 				>
 				<form action="?/deleteProject" method="POST">
 					<input type="text" hidden name="id" value={item.id} />
-					<button class="btn btn-error">Delete</button>
+					<button class:btn-success={status.trash === true} class="btn btn-error"
+						>{#if status.trash}Trashed!{:else if loaders.trash}
+							Trashing...
+						{:else}
+							Trash
+						{/if}
+						<span class:hidden={loaders.trash === false} class="loading loading-spinner"
+						></span></button
+					>
 				</form>
 			</div>
 		</div>

@@ -14,7 +14,7 @@ export const actions: Actions = {
 		//get data from form
 		let formEntries = await request.formData();
 		let formData = Object.fromEntries(formEntries);
-		let file = formEntries.get('file');
+		let file = formEntries.get('file') as File;
 		formData = { ...formData, type: 'url' };
 		//upload files
 		if (file instanceof File && file.size) {

@@ -19,7 +19,7 @@
 <div class="form-control relative mb-5">
 	<input
 		placeholder={label}
-		type="text"
+		type="date"
 		{name}
 		{id}
 		bind:value

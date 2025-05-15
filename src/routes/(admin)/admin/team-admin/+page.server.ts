@@ -8,7 +8,7 @@ export const load = (async ({ fetch }) => {
 	return { members };
 }) satisfies PageServerLoad;
 
-export const actions = {
+export const actions: Actions = {
 	create: async ({ request, fetch }) => {
 		//get data from form
 		const formEntries = await request.formData();

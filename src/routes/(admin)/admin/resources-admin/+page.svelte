@@ -2,6 +2,9 @@
 	import DownloadCard from '$src/lib/cards/DownloadCard.svelte';
 	import { slide } from 'svelte/transition';
 	import type { PageData } from './$types';
+	import Field from '$src/lib/components/Field.svelte';
+	import TextArea from '$src/lib/components/TextArea.svelte';
+	import Date from '$src/lib/components/Date.svelte';
 
 	let { data, form }: { data: PageData; form: any } = $props();
 
@@ -24,42 +27,58 @@
 </script>
 
 <div
-	class="container mx-auto flex flex-col space-y-12 py-20 md:flex-row md:space-y-0 md:space-x-12 lg:space-x-20"
+	class="container mx-auto flex flex-col space-y-12 px-5 py-20 md:flex-row md:space-y-0 md:space-x-12 lg:space-x-20"
 >
 	<div class="w-1/2">
 		<form class="flex flex-col" action="?/create" enctype="multipart/form-data" method="POST">
 			<h2 class="mb-4 text-3xl">Resources</h2>
-			<label for="title">Title</label><input
-				class="input input-primary mb-3 w-full"
+
+			<Field
+				--label-bg-dark="#161515"
+				--label-bg-light="white"
 				name="title"
+				label="Title"
 				id="title"
-				type="text"
+				{form}
+				required
 			/>
-			<label for="content">Content</label><textarea
-				class="textarea textarea-primary mb-3 w-full"
-				name="content"
+
+			<TextArea
+				--label-bg-dark="#161515"
+				--label-bg-light="white"
 				id="content"
-			></textarea>
-			<label for="date">Date</label><input
-				class="input input-primary mb-3 w-full"
-				name="date"
-				id="date"
-				type="date"
+				name="content"
+				label="Content"
+				{form}
 			/>
-			<label for="url">URL</label><input
-				class="input input-primary mb-3 w-full"
+
+			<Date
+				--label-bg-dark="#161515"
+				--label-bg-light="white"
+				name="date"
+				label="Date"
+				id="date"
+				{form}
+				required
+			/>
+
+			<Field
+				--label-bg-dark="#161515"
+				--label-bg-light="white"
 				name="url"
+				label="URL"
 				id="url"
-				type="url"
+				{form}
+				required
 			/>
 			<label for="file"></label><input
-				class="file-input file-input-primary mb-3 w-full"
+				class="file-input file-input-primary mb-3 w-full rounded-none"
 				name="file"
 				id="file"
 				type="file"
 			/>
 			<label for="category">Choose a category</label><select
-				class="select select-primary mb-3 w-full"
+				class="select select-primary mb-3 w-full rounded-none"
 				name="category"
 				id="category"
 			>
