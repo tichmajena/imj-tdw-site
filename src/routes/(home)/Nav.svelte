@@ -37,13 +37,7 @@
 	data-theme={page.data.theme}
 	class="data-[theme=dark]:!bg-[#161515] data-[theme=light]:bg-white"
 >
-	<input
-		arial-label="Toggle Menu"
-		bind:checked={showMenuBool}
-		id="menu-toggle"
-		type="checkbox"
-		class="drawer-toggle peer"
-	/>
+	<input bind:checked={showMenuBool} id="menu-toggle" type="checkbox" class="drawer-toggle peer" />
 	<div class="absolute z-10 flex h-32 w-full items-center peer-checked:fixed peer-checked:bg-black">
 		<div class="container mx-auto flex flex-row items-center justify-between px-5 py-5">
 			<a aria-label="Back to Home Page" href="/" class="text-4xl font-bold"><Logo></Logo></a>
@@ -54,7 +48,11 @@
 					</div>
 				{/if}
 
-				<label class="ml-10 inline-flex pt-4 text-gray-500 hover:text-white" for="menu-toggle">
+				<label
+					arial-label="Toggle Menu"
+					class="ml-10 inline-flex pt-4 text-gray-500 hover:text-white"
+					for="menu-toggle"
+				>
 					{#if showMenuBool}
 						<IconMinus class="size-10" />
 					{:else}
