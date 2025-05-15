@@ -49,16 +49,16 @@
 
 <svelte:head>
 	<meta charset="utf-8" />
-	<meta name="description" content={metadescription} />
+	<meta name="description" content={entry_session.get(['subtitle'])} />
 	<!-- <meta
 		name="google-site-verification"
 		content="+nxGUDJ4QpAZ5l9Bsjdi102tLVC21AIh5d1Nl23908vVuFHs34="
 	/> -->
-	<title>{metaTitle}</title>
+	<title>{entry_session.get(['title'])}</title>
 	<!-- <meta name="robots" content="noindex,nofollow" /> -->
 </svelte:head>
 
-<OpenGraph
+<!-- <OpenGraph
 	{siteTitle}
 	{metadescription}
 	{siteUrl}
@@ -66,7 +66,7 @@
 	image={{ url: img1, alt: '' }}
 	squareImage={{ url: img3, alt: '' }}
 	ogLanguage={'en-ZW'}
-/>
+/> -->
 
 <!-- <ViewTransition></ViewTransition> -->
 {#if showLightbox}

@@ -5,10 +5,13 @@
 </script>
 
 <a
+	data-sveltekit-preload-data="hover"
+	data-sveltekit-preload-code="hover"
 	href="/projects/{project.id}"
 	class="group relative flex aspect-[3/4.3] w-full cursor-pointer flex-col overflow-hidden text-white"
 >
 	<img
+		fetchpriority="high"
 		src="{page.data.cloudfront}/fit-in/1600x600/{project.featured_image}"
 		alt=""
 		class="absolute inset-0 h-full w-full scale-110 object-cover transition-all duration-250 group-hover:md:-translate-x-5"

@@ -5,6 +5,16 @@
 	let project: Project = data.project;
 </script>
 
+<svelte:head>
+	<meta charset="utf-8" />
+	<meta name="description" content={project.description} />
+	<!-- <meta
+		name="google-site-verification"
+		content="+nxGUDJ4QpAZ5l9Bsjdi102tLVC21AIh5d1Nl23908vVuFHs34="
+	/> -->
+	<title>{project.title}</title>
+	<!-- <meta name="robots" content="noindex,nofollow" /> -->
+</svelte:head>
 <div class="w-full pt-6 pb-20 md:pt-0">
 	<div
 		class="container mx-auto mb-10 flex flex-col space-y-4 space-x-0 px-5 md:flex-row md:space-y-0 md:space-x-6"

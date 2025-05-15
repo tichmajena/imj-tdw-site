@@ -6,6 +6,7 @@
 	import { browser } from '$app/environment';
 	import Field from '$src/lib/components/Field.svelte';
 	import Password from '$src/lib/components/Password.svelte';
+	import Email from '$src/lib/components/Email.svelte';
 
 	let email = $state('');
 	let password = $state('');
@@ -54,9 +55,25 @@
 	{#if !data.user?.exists}
 		<div class="mx-auto max-w-screen-md">
 			<h2 class="mb-4 text-2xl">Login</h2>
-			<Field bind:value={email} id="email" label="Email" name="email" required />
+			<Email
+				--label-bg-dark="#161515"
+				--label-bg-light="white"
+				bind:value={email}
+				id="email"
+				label="Email"
+				name="email"
+				required
+			/>
 			<!-- <Field bind:value={username} id="username" label="Username" name="username" required /> -->
-			<Password bind:value={password} id="password" label="Password" name="password" required />
+			<Password
+				--label-bg-dark="#161515"
+				--label-bg-light="white"
+				bind:value={password}
+				id="password"
+				label="Password"
+				name="password"
+				required
+			/>
 			<button onclick={login} class="btn btn-primary">Login</button>
 			<!-- <button onclick={signup} class="btn btn-primary">Register</button> -->
 		</div>

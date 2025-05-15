@@ -140,7 +140,7 @@
 			{#each item.images as image}
 				<img
 					class="mr-1 mb-1 size-24 object-cover"
-					src="{data.cloudfront}/fit-in/150x150/{image}"
+					src="{data.cloudfront}/fit-in/300x0/{image}?webp"
 					alt=""
 				/>
 			{/each}

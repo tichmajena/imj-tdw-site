@@ -42,18 +42,7 @@
 	}
 </script>
 
-<svelte:head>
-	<meta charset="utf-8" />
-	<meta name="description" content={metadescription} />
-	<!-- <meta
-		name="google-site-verification"
-		content="+nxGUDJ4QpAZ5l9Bsjdi102tLVC21AIh5d1Nl23908vVuFHs34="
-	/> -->
-	<title>{metaTitle}</title>
-	<!-- <meta name="robots" content="noindex,nofollow" /> -->
-</svelte:head>
-
-<OpenGraph
+<!-- <OpenGraph
 	{siteTitle}
 	{metadescription}
 	{siteUrl}
@@ -61,8 +50,17 @@
 	image={{ url: img1, alt: '' }}
 	squareImage={{ url: img3, alt: '' }}
 	ogLanguage={'en-ZW'}
-/>
-
+/> -->
+<svelte:head>
+	<meta charset="utf-8" />
+	<meta name="description" content="Get in touch with us for business." />
+	<!-- <meta
+		name="google-site-verification"
+		content="+nxGUDJ4QpAZ5l9Bsjdi102tLVC21AIh5d1Nl23908vVuFHs34="
+	/> -->
+	<title>{entry_session.get(['title'])}</title>
+	<!-- <meta name="robots" content="noindex,nofollow" /> -->
+</svelte:head>
 <div class="demo-wrapper">
 	{#if data.user.exists === true}
 		<TextToolBar {entry_session} />

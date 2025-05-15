@@ -26,28 +26,18 @@
 			</svg>
 		</a>
 	</div>
-	<nav class="flex flex-col space-y-3 font-thin md:flex-row md:space-y-0 md:space-x-6 lg:space-x-8">
-		<div class="link link-hover text-stone-400 hover:text-white">
+	<nav
+		class="flex flex-col space-y-3 font-thin text-white md:flex-row md:space-y-0 md:space-x-6 lg:space-x-8"
+	>
+		<div class="link link-hover hover:text-white">
 			© Copyright Troika Design Workshop {new Date().getFullYear()}
 		</div>
-		<a href="https://turnbury.co.zw" class="link link-hover text-stone-400 hover:text-white"
-			>Visit Turnbury</a
-		>
-		<a href={page.data.socials.x} class="link link-hover text-stone-400 hover:text-white">X</a>
-		<a href={page.data.socials.linkedin} class="link link-hover text-stone-400 hover:text-white"
-			>Linkedin</a
-		>
-		<a href={page.data.socials.instagram} class="link link-hover text-stone-400 hover:text-white"
-			>Instagram</a
-		>
-		<a href={page.data.socials.facebook} class="link link-hover text-stone-400 hover:text-white"
-			>Facebook</a
-		>
-		<a href={page.data.socials.youtube} class="link link-hover text-stone-400 hover:text-white"
-			>Youtube</a
-		>
-		<a href={page.data.socials.houzz} class="link link-hover text-stone-400 hover:text-white"
-			>Houzz</a
-		>
+		<a href="https://turnbury.co.zw" class="link link-hover hover:text-white">Visit Turnbury</a>
+		<a href={page.data.socials.x} class="link link-hover hover:text-white">X</a>
+		<a href={page.data.socials.linkedin} class="link link-hover hover:text-white">Linkedin</a>
+		<a href={page.data.socials.instagram} class="link link-hover hover:text-white">Instagram</a>
+		<a href={page.data.socials.facebook} class="link link-hover hover:text-white">Facebook</a>
+		<a href={page.data.socials.youtube} class="link link-hover hover:text-white">Youtube</a>
+		<a href={page.data.socials.houzz} class="link link-hover hover:text-white">Houzz</a>
 	</nav>
 </div>

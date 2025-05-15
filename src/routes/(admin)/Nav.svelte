@@ -36,7 +36,7 @@
 
 <div
 	data-theme={page.data.theme}
-	class="data-[theme=dark]:!bg-[#161515] data-[theme=light]:bg-white"
+	class="page-wrapper data-[theme=dark]:!bg-[#161515] data-[theme=light]:bg-white"
 >
 	<input bind:checked={showMenuBool} id="menu-toggle" type="checkbox" class="drawer-toggle peer" />
 	<div class="z-10 flex h-32 w-full items-center bg-black peer-checked:fixed">

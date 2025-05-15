@@ -35,7 +35,7 @@
 
 <div
 	data-theme={page.data.theme}
-	class="data-[theme=dark]:!bg-[#161515] data-[theme=light]:bg-white"
+	class="page-wrapper data-[theme=dark]:!bg-[#161515] data-[theme=light]:bg-white"
 >
 	<input bind:checked={showMenuBool} id="menu-toggle" type="checkbox" class="drawer-toggle peer" />
 	<div class="absolute z-10 flex h-32 w-full items-center peer-checked:fixed peer-checked:bg-black">
@@ -53,6 +53,7 @@
 					class="ml-10 inline-flex pt-4 text-gray-500 hover:text-white"
 					for="menu-toggle"
 				>
+					<span class="sr-only">Toggle Menu</span>
 					{#if showMenuBool}
 						<IconMinus class="size-10" />
 					{:else}

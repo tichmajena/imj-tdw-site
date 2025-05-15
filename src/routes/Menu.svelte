@@ -9,7 +9,7 @@
 		{ href: '/downloads', text: 'Downloads' },
 		{ href: '/community', text: 'In the Community' },
 		{ href: '/contact', text: 'Contact' },
-		{ href: '/', text: 'Visit Turnbury' }
+		{ href: 'https://turnbury.co.zw', text: 'Visit Turnbury' }
 	];
 </script>
 
