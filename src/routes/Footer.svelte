@@ -27,9 +27,9 @@
 		</a>
 	</div>
 	<nav class="flex flex-col space-y-3 font-thin md:flex-row md:space-y-0 md:space-x-6 lg:space-x-8">
-		<a class="link link-hover text-stone-400 hover:text-white"
-			>© Copyright Troika Design Workshop {new Date().getFullYear()}</a
-		>
+		<div class="link link-hover text-stone-400 hover:text-white"></div>
+			© Copyright Troika Design Workshop {new Date().getFullYear()}
+		</div>
 		<a href="https://turnbury.co.zw" class="link link-hover text-stone-400 hover:text-white"
 			>Visit Turnbury</a
 		>

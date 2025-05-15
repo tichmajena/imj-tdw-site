@@ -37,10 +37,16 @@
 	data-theme={page.data.theme}
 	class="data-[theme=dark]:!bg-[#161515] data-[theme=light]:bg-white"
 >
-	<input bind:checked={showMenuBool} id="menu-toggle" type="checkbox" class="drawer-toggle peer" />
+	<input
+		arial-label="Toggle Menu"
+		bind:checked={showMenuBool}
+		id="menu-toggle"
+		type="checkbox"
+		class="drawer-toggle peer"
+	/>
 	<div class="absolute z-10 flex h-32 w-full items-center peer-checked:fixed peer-checked:bg-black">
 		<div class="container mx-auto flex flex-row items-center justify-between px-5 py-5">
-			<a href="/" class="text-4xl font-bold"><Logo></Logo></a>
+			<a aria-label="Back to Home Page" href="/" class="text-4xl font-bold"><Logo></Logo></a>
 			<div class="flex flex-row items-center space-x-2">
 				{#if !showMenuBool}
 					<div class="hidden space-x-6 md:flex">
