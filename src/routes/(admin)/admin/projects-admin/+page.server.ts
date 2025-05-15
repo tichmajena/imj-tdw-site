@@ -1,6 +1,7 @@
 import { AWS_BUCKET_NAME } from '$env/static/private';
 import { formatFileSize } from '$src/lib/js/utils';
-
+import { db } from '$src/lib/server/firebase-admin';
+import { FieldValue } from 'firebase-admin/firestore';
 import type { PageServerLoad, Actions } from './$types';
 
 export const load = (async ({ fetch }) => {
@@ -27,7 +28,11 @@ export const actions: Actions = {
 			images: [],
 			featured_image: 'home-sample.jpg',
 			index: 1,
-			is_featured: false
+			is_featured: false,
+			createdAt: FieldValue.serverTimestamp(),
+			updatedAt: FieldValue.serverTimestamp(),
+			status: 'published',
+			category: project.category
 		};
 
 		for (const file of featured) {
