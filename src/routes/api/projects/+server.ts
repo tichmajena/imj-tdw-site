@@ -1,6 +1,7 @@
 import { db } from '$src/lib/server/firebase-admin';
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
+import { FieldValue } from 'firebase-admin/firestore';
 
 export const GET: RequestHandler = async ({ url }) => {
 	const cat = url.searchParams.get('category') || 'project';
@@ -22,8 +23,15 @@ export const GET: RequestHandler = async ({ url }) => {
 
 	function extractor(chinhu: any) {
 		let unzippedDoc = chinhu.data();
+		console.log(Object.keys(unzippedDoc.createdAt));
+
 		let doc_id = chinhu.id;
-		let project = { ...unzippedDoc, id: doc_id };
+		let project = {
+			...unzippedDoc,
+			id: doc_id,
+			createdAt: unzippedDoc.createdAt.toDate(),
+			updatedAt: unzippedDoc.updatedAt.toDate()
+		};
 		projects.push(project);
 	}
 
@@ -32,7 +40,11 @@ export const GET: RequestHandler = async ({ url }) => {
 
 export const POST: RequestHandler = async ({ request }) => {
 	let project = await request.json();
-	await db.collection('projects').add(project);
+	await db.collection('projects').add({
+		...project,
+		createdAt: FieldValue.serverTimestamp(),
+		updatedAt: FieldValue.serverTimestamp()
+	});
 	return json({ success: true });
 };
 
@@ -40,7 +52,10 @@ export const PUT: RequestHandler = async ({ request, url }) => {
 	let project = await request.json();
 	let id = url.searchParams.get('id') as string;
 
-	await db.collection('projects').doc(id).set(project, { merge: true });
+	await db
+		.collection('projects')
+		.doc(id)
+		.set({ ...project, updatedAt: FieldValue.serverTimestamp() }, { merge: true });
 	return json({ success: true });
 };
 

@@ -30,6 +30,10 @@ declare global {
 		index: number;
 		is_featured: boolean;
 		edit?: boolean;
+		category: string;
+		status: 'published' | 'draft' | 'trashed';
+		createdAt?: any;
+		updatedAt?: any;
 	};
 
 	type team = {
