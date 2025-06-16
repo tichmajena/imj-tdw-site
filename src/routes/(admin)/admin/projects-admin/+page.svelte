@@ -27,6 +27,9 @@
 	let galleryComponent = $state();
 	let galleryBlobs = $state([]);
 
+	let currentIndex = $state(-1);
+	let currentPost = $state();
+
 	let project_sample = {
 		title: 'Gtel',
 		type: 'Office Building',
@@ -82,40 +85,66 @@
 
 		let featured = dataEntries.getAll('featured_image') as File[];
 		let gallery = dataEntries.getAll('images') as File[];
-		featured = featured.filter((file) => file?.size);
-		gallery = gallery.filter((file) => file?.size);
-		console.log({ gallery, featured });
+
+		let body: Project = {
+			title: project.title,
+			type: project.type,
+			year: +project.year,
+			description: project.description.replaceAll('\r\n', ' '),
+			services: project.services,
+			index: 1,
+			category: project.category,
+			status: project.status as 'published',
+			is_featured: false,
+			images: JSON.parse(project.currentImages as string)
+		};
+
+		if (project.replace) {
+			body.images = [];
+		}
 
 		try {
-			ProjectSchema.parse({ ...project, year: +project.year });
+			ProjectSchema.parse(body);
 		} catch (error) {
+			console.error(error);
+
 			const messages: any = zodValidationErrors(error);
 			const fields = project;
-			editForm = { ...form, messages, fields, success: false };
+			projects[tabview][currentIndex].form = { messages, fields, success: false };
 			cancel({ reset: false });
 			return;
 		}
 
+		body.services = project.services.split('\r\n');
+
+		console.log('featured', $state.snapshot(currentPost.featuredBlobs));
+
 		loaders.edit = true;
-		if (gallery.length || featured.length) {
-			console.log(formElement);
-			let formId = formElement.getAttribute('id');
-			console.log({ formId });
 
-			console.log({
-				data: { ...project, images: gallery, featured_image: featured },
-				form: formId
-			});
-
-			Uploader.postMessage({
-				type: 'update-project',
-				payload: {
-					data: { ...project, images: gallery, featured_image: featured },
-					form: formElement.id
-				}
-			});
-			cancel();
+		if (currentPost.featuredBlobs.length) {
+			for (const file of currentPost.featuredBlobs) {
+				body.featured_image = $state.snapshot(currentPost.featuredBlobs)[0];
+			}
+			await currentPost.featuredComponent.handleCreate();
 		}
+
+		if (currentPost.galleryBlobs.length) {
+			body.images = [...body.images, ...$state.snapshot(currentPost.galleryBlobs)];
+			await currentPost.galleryComponent.handleCreate();
+		}
+
+		let res = await fetch(`/api/projects?id=${project.id}`, {
+			method: 'PUT',
+			body: JSON.stringify(body)
+		});
+
+		console.log(res.status);
+		console.log(data.url);
+
+		await invalidateAll();
+		editUpdate();
+		cancel();
+		return;
 
 		return async ({ update }) => {
 			await invalidate('/project-admin');
@@ -123,6 +152,7 @@
 			editUpdate();
 		};
 	}
+
 	async function handleStatusForm({ cancel, formData, formElement }) {
 		loaders.edit = true;
 		return async ({ update }) => {
@@ -134,10 +164,12 @@
 	function editUpdate() {
 		loaders.edit = false;
 		status.edit = true;
+		projects = groupByStatus(data.projects);
 		setTimeout(() => {
 			status.edit = false;
-			projects = groupByStatus(data.projects);
-		}, 2000);
+			currentPost.featuredComponent.resetUploader();
+			currentPost.galleryComponent.resetUploader();
+		}, 3000);
 	}
 	async function handleCreateForm({ cancel, formData, formElement }) {
 		let dataEntries = formData;
@@ -196,6 +228,8 @@
 		projects = groupByStatus(data.projects);
 		setTimeout(() => {
 			status.create = false;
+			featuredComponent.resetUploader();
+			galleryComponent.resetUploader();
 		}, 3000);
 	}
 
@@ -605,15 +639,19 @@
 						type="checkbox"
 					/>
 
-					<button class:btn-success={status.edit === true} class="btn btn-primary"
-						>{#if status.edit}Updated Successfully!{:else if loaders.edit}
-							Updating...
+					<button
+						onclick={() => {
+							currentIndex = i;
+							currentPost = item;
+						}}
+						class:btn-success={status.edit === true && currentIndex === i}
+						class="btn btn-primary"
+						>{#if status.edit}Updated Successfully!{:else if loaders.edit && currentIndex === i}
+							Updating...<span class="loading loading-spinner"></span>
 						{:else}
 							Update
 						{/if}
-						<span class:hidden={loaders.edit === false} class="loading loading-spinner"
-						></span></button
-					>
+					</button>
 				</form>
 			{/if}
 			<div class="card-actions justify-end">
@@ -631,56 +669,56 @@
 						<form action="?/updateStatus" method="POST" use:enhance={handleStatusForm}>
 							<input type="text" hidden name="id" value={item.id} />
 							<input type="text" hidden name="status" value="published" />
-							<button class:btn-success={status.edit === true} class="btn btn-info"
-								>{#if status.edit}Published Successfully!{:else if loaders.edit}
-									Publish...
+							<button
+								class:btn-success={status.edit === true && currentIndex === i}
+								class="btn btn-info"
+								>{#if status.edit}Published Successfully!{:else if loaders.edit && currentIndex === i}
+									Publish...<span class="loading loading-spinner"></span>
 								{:else}
 									Publish
 								{/if}
-								<span class:hidden={loaders.edit === false} class="loading loading-spinner"
-								></span></button
-							>
+							</button>
 						</form>
 					{/if}
 					<form action="?/updateStatus" method="POST" use:enhance={handleTrashForm}>
 						<input type="text" hidden name="id" value={item.id} />
 						<input type="text" hidden name="status" value="trashed" />
-						<button class:btn-success={status.trash === true} class="btn btn-error"
-							>{#if status.trash}Trashed!{:else if loaders.trash}
-								Trashing...
+						<button
+							class:btn-success={status.trash === true && currentIndex === i}
+							class="btn btn-error"
+							>{#if status.trash}Trashed!{:else if loaders.trash === true && currentIndex === i}
+								Trashing...<span class="loading loading-spinner"></span>
 							{:else}
 								Trash
 							{/if}
-							<span class:hidden={loaders.trash === false} class="loading loading-spinner"
-							></span></button
-						>
+						</button>
 					</form>
 				{:else if item.status === 'trashed'}
 					<form action="?/updateStatus" method="POST" use:enhance={handleStatusForm}>
 						<input type="text" hidden name="id" value={item.id} />
 						<input type="text" hidden name="status" value="draft" />
-						<button class:btn-success={status.edit === true} class="btn btn-info"
-							>{#if status.edit}Restored Successfully!{:else if loaders.edit}
-								Restoring...
+						<button
+							class:btn-success={status.edit === true && currentIndex === i}
+							class="btn btn-info"
+							>{#if status.edit}Restored Successfully!{:else if loaders.edit && currentIndex === i}
+								Restoring...<span class="loading loading-spinner"></span>
 							{:else}
 								Restore
 							{/if}
-							<span class:hidden={loaders.edit === false} class="loading loading-spinner"
-							></span></button
-						>
+						</button>
 					</form>
 					<form action="?/deleteProject" method="POST" use:enhance={handleDeleteForm}>
 						<input type="text" hidden name="id" value={item.id} />
 						<input type="text" hidden name="status" value="trashed" />
-						<button class:btn-warning={status.delete === true} class="btn btn-error"
-							>{#if status.delete}Deleted Forever!{:else if loaders.delete}
-								Deleting...
+						<button
+							class:btn-warning={status.delete === true && currentIndex === i}
+							class="btn btn-error"
+							>{#if status.delete}Deleted Forever!{:else if loaders.delete === true && currentIndex === i}
+								Deleting...<span class="loading loading-spinner"></span>
 							{:else}
 								Delete forever
 							{/if}
-							<span class:hidden={loaders.delete === false} class="loading loading-spinner"
-							></span></button
-						>
+						</button>
 					</form>
 				{/if}
 			</div>
