@@ -497,13 +497,13 @@
 {#snippet project_card(item: Project, i: number)}
 	<div transition:scale class="card bg-base-300 mb-4 shadow-sm md:w-md lg:w-lg">
 		<figure>
-			<img src="{data.cloudfront}/fit-in/800x600/{item.featured_image}" alt={item.title} />
+			<img src="{data.cloudfront}/fit-in/800x600/{item.featured_image.name}" alt={item.title} />
 		</figure>
 		<div class="mt-2 flex w-full flex-wrap">
 			{#each item.images as image}
 				<img
 					class="mr-1 mb-1 size-24 object-cover"
-					src="{data.cloudfront}/fit-in/300x0/{image}?webp"
+					src="{data.cloudfront}/fit-in/300x0/{image.name}?webp"
 					alt=""
 				/>
 			{/each}
