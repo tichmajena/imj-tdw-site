@@ -26,9 +26,9 @@
 			<a
 				class="btn btn-circle btn-ghost btn-xl -mr-3 mb-12"
 				aria-label="Back to projects"
-				href="/projects"
+				href="/{project.category === 'project' ? 'projects' : 'community'}"
 			>
-				<span class="sr-only">Back to projects</span>
+				<span class="sr-only">Back to projects {project.category}</span>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					fill="none"

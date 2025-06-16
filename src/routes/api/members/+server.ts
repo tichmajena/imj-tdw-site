@@ -4,7 +4,7 @@ import { db } from '$src/lib/server/firebase-admin';
 
 export const GET: RequestHandler = async ({}) => {
 	const snapshots = await db.collection('members').get();
-	let members: team[] = [];
+	let members: Team[] = [];
 	snapshots.forEach((doc) => {
 		const member = { ...doc.data(), id: doc.id } as team;
 		members.push(member);

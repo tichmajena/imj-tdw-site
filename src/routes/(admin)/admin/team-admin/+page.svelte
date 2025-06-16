@@ -8,7 +8,7 @@
 
 	let { data, form }: { data: PageData; form: any } = $props();
 
-	let members = $state(data.members.map((eachMember: team) => ({ ...eachMember, edit: false })));
+	let members = $state(data.members.map((eachMember: Team) => ({ ...eachMember, edit: false })));
 </script>
 
 <div class="w-full">
@@ -72,7 +72,7 @@
 	</div>
 </div>
 
-{#snippet memberCard(team: team, i: number)}
+{#snippet memberCard(team: Team, i: number)}
 	<div>
 		<div class="card bg-base-300 w-96 shadow-sm lg:w-full">
 			<figure>

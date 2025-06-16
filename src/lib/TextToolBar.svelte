@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { fly, slide } from 'svelte/transition';
 	import Icon from '$lib/Icon.svelte';
 	import ArtworkImage from './components/ArtworkImage.svelte';
@@ -42,7 +42,7 @@
 	let brandName = $state('');
 	let imageUrl = $state('');
 	let galleryTab = $state('aws');
-	let Uploader;
+	let Uploader: UploaderClass = $state();
 	let currentImage = $state('');
 	let saving = $state(false);
 	let saved = $state(false);
@@ -401,14 +401,14 @@
 							</div>
 							<!--  -->
 							<ArtworkImage
-								on:saveSelected={(e) => {
-									console.log('save selected', e.detail);
-									currentImage = e.detail.image.name;
+								onSelect={(e) => {
+									console.log('save selected', e);
+									currentImage = e.image.name;
 									console.log(currentImage);
 								}}
 								{post}
-								bind:this={Uploader}
-								on:modal={() => (modals = true)}
+								bind:this={uploader}
+								name="grid_images"
 							/>
 
 							<div class="flex flex-col space-y-1">
@@ -572,16 +572,17 @@
 						<div transition:slide class="h-full w-full">
 							<!--  -->
 							<ArtworkImage
-								on:saveSelected={(e) => {
-									console.log('save selected', e.detail);
-									currentImage = e.detail.image.name;
+								onSelect={(e) => {
+									console.log('save selected', e);
+									currentImage = e.image.name || e.image.key;
 									console.log(currentImage);
 									if (!currentImage) return;
 									handle_image_change(currentImage);
 									row = false;
 								}}
-								bind:this={Uploader}
-								on:modal={() => (modals = true)}
+								blobs={imageBlobs}
+								name="row_image"
+								bind:this={uploader}
 							/>
 						</div>
 						<!-- <button
@@ -671,7 +672,7 @@
 		{:else if galleryTab === 'envato'}
 			<!-- <Envato on:select={handleSelectFeatured} /> -->
 		{:else if galleryTab === 'aws'}
-			<Gallery
+			<!-- <Gallery
 				on:select={(e) => {
 					console.log('selected', e.detail);
 					currentImage = e.detail.image.key;
@@ -687,7 +688,7 @@
 					Uploader.handleUpload();
 					modals = false;
 				}}
-			/>
+			/> -->
 		{/if}
 	</div>
 </div>

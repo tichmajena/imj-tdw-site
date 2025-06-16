@@ -11,8 +11,9 @@
 	import { onMount } from 'svelte';
 	import { ProjectSchema } from '$src/lib/js/zod';
 	import { zodValidationErrors } from '$src/lib/js/utils';
+	import ArtworkImage from '$src/lib/components/ArtworkImage.svelte';
 
-	let Uploader;
+	let Uploader: UploaderClass = $state();
 
 	let { data, form }: { data: PageData; form: any } = $props();
 	let loaders = $state({ edit: false, create: false, delete: false, trash: false });
@@ -20,6 +21,11 @@
 	let tabview = $state('published');
 	let createForm;
 	let editForm = null;
+
+	let featuredComponent = $state();
+	let featuredBlobs = $state([]);
+	let galleryComponent = $state();
+	let galleryBlobs = $state([]);
 
 	let project_sample = {
 		title: 'Gtel',
@@ -42,6 +48,7 @@
 	};
 
 	let projects = $state(groupByStatus(data.projects));
+	$inspect(projects.draft);
 
 	let categories = ['project', 'community'];
 	let statuses = ['published', 'draft', 'trashed'];
@@ -141,6 +148,9 @@
 		featured = featured.filter((file) => file?.size);
 		gallery = gallery.filter((file) => file?.size);
 
+		project.featured_image = { name: 'home-sample.jpg' };
+		project.images = [];
+
 		try {
 			ProjectSchema.parse({ ...project, year: +project.year });
 		} catch (error) {
@@ -151,20 +161,28 @@
 			return;
 		}
 		loaders.create = true;
-		if (gallery.length || featured.length) {
-			console.log(formElement);
-			let formId = formElement.getAttribute('id');
-			console.log({ formId });
 
-			Uploader.postMessage({
-				type: 'create-project',
-				payload: {
-					data: { ...project, images: gallery, featured_image: featured },
-					form: formId
-				}
-			});
-			cancel();
+		if (featuredBlobs.length) {
+			for (const file of featuredBlobs) {
+				project.featured_image = $state.snapshot(featuredBlobs)[0];
+			}
+			await featuredComponent.handleCreate();
 		}
+		if (galleryBlobs.length) {
+			project.images = $state.snapshot(galleryBlobs);
+			await galleryComponent.handleCreate();
+		}
+		console.log(project, gallery, featured);
+		let res = await fetch('/api/projects', { method: 'POST', body: JSON.stringify(project) });
+		console.log(res.status);
+		console.log(data.url);
+
+		await invalidateAll();
+		createUpdate();
+		formElement.reset();
+		cancel();
+		return;
+
 		return async ({ update }) => {
 			//await invalidate('/project-admin');
 			await update();
@@ -232,7 +250,15 @@
 
 	function groupByStatus(projects) {
 		return projects
-			.map((p: Project) => ({ ...p, edit: false }))
+			.map((p: Project) => ({
+				...p,
+				edit: false,
+				galleryComponent: null,
+				featuredComponent: null,
+				featuredBlobs: [],
+				galleryBlobs: [],
+				form: null
+			}))
 			.reduce(
 				(r, p) => {
 					r[p.status].push(p);
@@ -329,20 +355,25 @@
 					{/each}
 				</select>
 
-				<label for="featured_image">Featured image</label><input
-					id="featured_image"
-					class="file-input file-input-primary mb-3 w-full rounded-none"
-					name="featured_image"
-					type="file"
-				/>
-
-				<label for="images">Gallery</label><input
-					id="images"
-					class="file-input file-input-primary mb-3 w-full rounded-none"
-					name="images"
-					multiple
-					type="file"
-				/>
+				<div class="aspect-video">
+					<ArtworkImage
+						bind:blobs={featuredBlobs}
+						bind:this={featuredComponent}
+						name="featured_image"
+						upload={false}
+						label="Featured Image"
+					></ArtworkImage>
+				</div>
+				<div class="block aspect-video">
+					<ArtworkImage
+						bind:blobs={galleryBlobs}
+						bind:this={galleryComponent}
+						multiple
+						name="images"
+						upload={false}
+						label="Gallery"
+					></ArtworkImage>
+				</div>
 				<button class:btn-success={status.create === true} class="btn btn-primary"
 					>{#if status.create}Created Successfully!{:else if loaders.create}
 						Creating...
@@ -548,20 +579,25 @@
 						{/each}
 					</select>
 
-					<label for="featured_image">Featured image</label><input
-						id="featured_image"
-						class="file-input file-input-primary mb-3 w-full"
-						name="featured_image"
-						type="file"
-					/>
-
-					<label for="images">Gallery</label><input
-						id="images"
-						class="file-input file-input-primary mb-3 w-full"
-						name="images"
-						multiple
-						type="file"
-					/>
+					<div class="aspect-video">
+						<ArtworkImage
+							bind:blobs={item.featuredBlobs}
+							bind:this={item.featuredComponent}
+							name="featured_image-{i}"
+							upload={false}
+							label="Featured Image"
+						></ArtworkImage>
+					</div>
+					<div class="block aspect-[24/9]">
+						<ArtworkImage
+							bind:blobs={item.galleryBlobs}
+							bind:this={item.galleryComponent}
+							multiple
+							name="images-{i}"
+							upload={false}
+							label="Gallery"
+						></ArtworkImage>
+					</div>
 					<label for="replace">Replace Gallery</label><input
 						id="replace"
 						class="checkbox checkbox-primary mb-3"

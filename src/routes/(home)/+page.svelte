@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Text from '$lib/Text.svelte';
 	import StoryBlock from '$lib/StoryBlock.svelte';
 	import ListBlock from '$lib/ListBlock.svelte';
@@ -29,7 +29,7 @@
 	let page_json = $state(data.entry);
 	let showLightbox = $state(false);
 	let lightboxStart = $state(-1);
-	let Uploader;
+	let Uploader: UploaderClass = $state();
 
 	let entry_session = new EntrySession(page_json);
 	let galleryTab = 'aws';

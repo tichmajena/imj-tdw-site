@@ -7,7 +7,7 @@
 		{ href: '/about', text: 'About' },
 		{ href: '/projects', text: 'Projects' },
 		{ href: '/downloads', text: 'Downloads' },
-		{ href: '/community', text: 'In the Community' },
+		{ href: '/community', text: 'TDW In the Community' },
 		{ href: '/contact', text: 'Contact' },
 		{ href: 'https://turnbury.co.zw', text: 'Visit Turnbury' }
 	];

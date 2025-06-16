@@ -4,8 +4,16 @@ import type { PageServerLoad, Actions } from './$types';
 
 export const load = (async ({ fetch }) => {
 	let res = await fetch('/api/projects?category=all');
-	let projects = await res.json();
+	let projects: Project[] = await res.json();
 	console.log('console ran');
+	const res2 = await fetch('/api/media');
+	const media = await res2.json();
+	console.log(media[11]);
+
+	for (const project of projects) {
+		if (typeof project.featured_image === 'string') {
+		}
+	}
 
 	projects = projects.sort(
 		(a: Project, b: Project) => (new Date(b.createdAt) as any) - (new Date(a.createdAt) as any)

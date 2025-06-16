@@ -30,7 +30,7 @@
 	let page_json = $state(data.entry);
 	let showLightbox = $state(false);
 	let lightboxStart = $state(-1);
-	let Uploader;
+	let Uploader: UploaderClass = $state();
 
 	let entry_session = new EntrySession(page_json);
 	let galleryTab = 'aws';

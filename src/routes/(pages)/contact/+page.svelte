@@ -203,9 +203,6 @@
 						<a class="text-base-content no-underline" href="tel:+263 8677 008 490">
 							+263 8677 008 490
 						</a><br />
-						<a class="text-base-content no-underline" href="tel:+263 077 435 5470">
-							+263 077 435 5470
-						</a><br />
 					</div>
 				</div>
 				<div class="flex w-fit flex-row space-x-4">
@@ -224,6 +221,7 @@
 					</div>
 					<div class="mx-2 text-lg">
 						<div class="text-base-content">Mon-Fri 8:00 AM - 5:00 PM</div>
+						<div class="text-base-content">Closed on all public holidays.</div>
 					</div>
 				</div>
 				<div class="mt-6 flex">
