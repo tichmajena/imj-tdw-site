@@ -60,17 +60,17 @@ async function uploadFile(blobData: any) {
 
 	if (file instanceof File && file.size) {
 		//get signed url for the image
-		// const res = await sendHttpRequest(`/api/signing`, {
-		// 	method: 'POST',
-		// 	body: file?.name
-		// });
-		// const signedUrl = (await res) as { put: string };
+		const res = await sendHttpRequest(`/api/signing`, {
+			method: 'POST',
+			body: file?.name
+		});
+		const signedUrl = (await res) as { put: string };
 
 		//upload image to aws using signed url
-		// const response = (await sendHttpRequest(signedUrl.put, { method: 'PUT', body: file })) as {
-		// 	ok: boolean;
-		// };
-		let response = true;
+		const response = (await sendHttpRequest(signedUrl.put, { method: 'PUT', body: file })) as {
+			ok: boolean;
+		};
+		// let response = true;
 		console.log({ response });
 
 		if (response !== null) {
