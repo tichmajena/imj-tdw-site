@@ -91,7 +91,7 @@
 			type: project.type,
 			year: +project.year,
 			description: project.description.replaceAll('\r\n', ' '),
-			services: project.services,
+			services: project.services.split('\r\n'),
 			index: 1,
 			category: project.category,
 			status: project.status as 'published',
@@ -182,9 +182,10 @@
 
 		project.featured_image = { name: 'home-sample.jpg' };
 		project.images = [];
+		project = { ...project, year: +project.year, services: project.services.split('\r\n') };
 
 		try {
-			ProjectSchema.parse({ ...project, year: +project.year });
+			ProjectSchema.parse(project);
 		} catch (error) {
 			const messages: any = zodValidationErrors(error);
 			const fields = project;
@@ -587,9 +588,10 @@
 						id="services"
 						name="services"
 						label="Services"
-						value={item.services.join('\r\n')}
+						value={item?.services?.join('\r\n')}
 						{form}
 					/>
+
 					<label for="category">Category</label><select
 						id="category"
 						class="select select-primary mb-3 w-full rounded-none"

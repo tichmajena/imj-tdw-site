@@ -5,6 +5,22 @@ import type { PageServerLoad, Actions } from './$types';
 export const load = (async ({ fetch }) => {
 	let res = await fetch('/api/projects?category=all');
 	let projects: Project[] = await res.json();
+	for (const project of projects) {
+		console.log(project.services, project.title);
+		if (!project.services && false) {
+			const { images, featured_image, ...rest } = project;
+
+			//put PUT to edit data in firestore
+			let newServices = { services: [] };
+			let res = await fetch(`/api/projects?id=${project.id}`, {
+				method: 'PUT',
+				body: JSON.stringify(newServices)
+			});
+			let edits = await res.json();
+			console.log(project.title, edits);
+		}
+	}
+
 	console.log('console ran');
 	const res2 = await fetch('/api/media');
 	const media = await res2.json();

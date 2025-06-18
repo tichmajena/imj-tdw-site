@@ -34,16 +34,16 @@ export const ProjectSchema = z.object({
 		.refine((value) => !value || value.length > 10, {
 			message: 'If provided, the Description must be longer than 10 characters.'
 		}),
-	services: z
-		.string()
-		.optional()
-		.refine((value) => !value || value.length > 3, {
-			message: 'If provided, the Services must be longer than 3 characters.'
-		}),
+	//services: z
+	// .string()
+	// .optional()
+	// .refine((value) => !value || value.length > 3, {
+	// 	message: 'If provided, the Services must be longer than 3 characters.'
+	// }),
 
-	// services: z
-	// 	.array(z.string().min(1, { message: 'Each service must be at least 1 character long.' }))
-	// 	.optional(),
+	services: z
+		.array(z.string()) // no .min(1), so empty strings are allowed
+		.optional(),
 	category: z.string().min(3, { message: 'Category must be at least 3 characters long.' }),
 	status: z.enum(['published', 'draft', 'trashed'], {
 		message: "Status must be 'published', 'draft', or 'trashed'."

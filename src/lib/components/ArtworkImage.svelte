@@ -362,8 +362,8 @@
 				const reader = new FileReader();
 				reader.onloadend = async () => {
 					try {
-						// const res = await fetch('/api/signing', { method: 'POST', body: blobData.name });
-						// const url = await res.json();
+						const res = await fetch('/api/signing', { method: 'POST', body: blobData.name });
+						const url = await res.json();
 
 						// const response = await fetch(url.put, {
 						// 	method: 'PUT',
@@ -375,16 +375,16 @@
 						// 	lastModified: Date.now()
 						// });
 
-						// const response = await sendHttpRequest(url.put, {
-						// 	method: 'PUT',
-						// 	body: {
-						// 		file: new Blob([reader.result]),
-						// 		name: blobData.name,
-						// 		type: 'file',
-						// 		mime: blobData.data.type
-						// 	}
-						// });
-						let response = true;
+						const response = await sendHttpRequest(url.put, {
+							method: 'PUT',
+							body: {
+								file: new Blob([reader.result]),
+								name: blobData.name,
+								type: 'file',
+								mime: blobData.data.type
+							}
+						});
+
 						console.log({ response });
 						//const d = await response.text();
 						//console.log(d);
