@@ -12,7 +12,7 @@
 	href={page.data.socials.instagram}
 	target="_blank"
 	arial-label="instagram"
-	class="inline-flex size-7 text-gray-500 transition-all hover:text-white"
+	class="hover:text-primary inline-flex size-7 text-gray-500 transition-all"
 >
 	<span class="sr-only">Instagran</span><IconInstagram /></a
 >
@@ -20,7 +20,7 @@
 	arial-label="facebook"
 	href={page.data.socials.facebook}
 	target="_blank"
-	class="ml-4 inline-flex size-7 text-gray-500 transition-all hover:text-white"
+	class="hover:text-primary ml-4 inline-flex size-7 text-gray-500 transition-all"
 >
 	<span class="sr-only">Facebook</span><IconFacebook /></a
 >
@@ -28,12 +28,12 @@
 	arial-label="youtube"
 	href={page.data.socials.youtube}
 	target="_blank"
-	class="ml-4 inline-flex size-7 text-gray-500 transition-all hover:text-white"
+	class="hover:text-primary ml-4 inline-flex size-7 text-gray-500 transition-all"
 >
 	<span class="sr-only">Youtube</span><IconYoutube /></a
 >
-<!-- <a
+<a
 	href={page.data.socials.x}
 	target="_blank"
-	class="ml-4 inline-flex size-7 text-gray-500 transition-all hover:text-white"><IconX /></a
-> -->
+	class="hover:text-primary ml-4 inline-flex size-7 text-gray-500 transition-all"><IconX /></a
+>
