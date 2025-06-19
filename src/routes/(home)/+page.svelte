@@ -101,7 +101,7 @@
 
 	<div class="relative mx-auto h-screen w-full overflow-hidden">
 		<enhanced:img src={heroImage} class="h-full w-full object-cover" alt="" />
-		<div class="absolute inset-0 bg-black/80"></div>
+		<div class="absolute inset-0 bg-black/60"></div>
 		<div class="absolute bottom-0 w-full">
 			<h2 class="container mx-auto mb-40 px-5 text-4xl font-thin text-white md:text-6xl">
 				committed to delivering<br />the <span transition:fade class="font-bold">futur</span> of the
