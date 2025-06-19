@@ -12,7 +12,7 @@
 >
 	<img
 		fetchpriority="high"
-		src="{page.data.cloudfront}/fit-in/1600x600/{project.featured_image.name}"
+		src="{page.data.cloudfront}/fit-in/1600x0/{project.featured_image.name}"
 		alt=""
 		class="absolute inset-0 h-full w-full scale-110 object-cover transition-all duration-250 group-hover:md:-translate-x-5"
 	/>

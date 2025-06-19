@@ -19,7 +19,7 @@ export const load = (async ({ fetch }) => {
 	}
 
 	async function getProjects() {
-		const res = await fetch('/api/projects');
+		const res = await fetch('/api/projects?featured=true&limit=6');
 		const projects = await res.json();
 		console.log(projects);
 

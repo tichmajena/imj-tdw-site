@@ -5,7 +5,7 @@
 	let { member } = $props();
 </script>
 
-<div class="group relative flex aspect-square w-full flex-col overflow-hidden text-white">
+<div class="group relative flex aspect-[3/4] w-full flex-col overflow-hidden text-white">
 	<img
 		class="absolute h-full w-full object-cover object-center grayscale transition-all group-hover:scale-105 group-hover:grayscale-0"
 		src="{page.data.cloudfront}/fit-in/500x900/{member.image}"

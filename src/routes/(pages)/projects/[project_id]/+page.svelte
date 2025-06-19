@@ -55,12 +55,14 @@
 			</div>
 		</div>
 		<div class="flex flex-col justify-end sm:w-full md:w-2/12">
-			<div class="mb-2 block w-full font-medium">Service</div>
-			<ul>
-				{#each project.services as service}
-					<li class="font-thin">{service}</li>
-				{/each}
-			</ul>
+			{#if project.category === 'project'}
+				<div class="mb-2 block w-full font-medium">Service</div>
+				<ul>
+					{#each project.services as service}
+						<li class="font-thin">{service}</li>
+					{/each}
+				</ul>
+			{/if}
 		</div>
 	</div>
 	<div in:fly={{ delay: 600, y: 300, x: 0 }} class="container mx-auto min-h-[720px] px-5">

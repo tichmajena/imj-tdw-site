@@ -8,6 +8,11 @@
 
 	let { data, form }: { data: PageData; form: any } = $props();
 
+	let picBlobs = $state([]);
+	let picComponent = $state();
+	let currentIndex = $state();
+	let currentPost = $state();
+
 	let members = $state(data.members.map((eachMember: Team) => ({ ...eachMember, edit: false })));
 </script>
 
@@ -43,12 +48,16 @@
 					{form}
 				/>
 
-				<label for="image">Image</label><input
-					id="image"
-					name="image"
-					class="file-input file-input-primary mb-3 w-full rounded-none"
-					type="file"
-				/>
+				<div class="mb-8 aspect-square w-1/2 md:w-1/4">
+					<ArtworkImage
+						bind:blobs={picBlobs}
+						maxWidth={1600}
+						bind:this={picComponent}
+						name="image"
+						upload={false}
+						label="Profile Image"
+					/>
+				</div>
 
 				<TextArea
 					--label-bg-dark="#161515"
@@ -121,12 +130,17 @@
 							type="text"
 							value={team.department}
 						/>
-						<label for="image">Image</label><input
-							id="image"
-							name="image"
-							class="file-input file-input-primary mb-3 w-full"
-							type="file"
-						/>
+
+						<div class="mb-4 aspect-square md:w-1/4">
+							<ArtworkImage
+								bind:blobs={team.picBlobs}
+								maxWidth={1600}
+								bind:this={team.picComponent}
+								name="image"
+								upload={false}
+								label="Profile Image"
+							/>
+						</div>
 						<label for="bio">Bio</label><textarea
 							id="bio"
 							name="bio"

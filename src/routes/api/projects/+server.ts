@@ -6,10 +6,20 @@ import { FieldValue } from 'firebase-admin/firestore';
 export const GET: RequestHandler = async ({ url }) => {
 	const cat = url.searchParams.get('category') || 'project';
 	const status = url.searchParams.get('status') || 'published';
+	const featured = url.searchParams.get('featured');
+	const limit = url.searchParams.get('limit') || '20';
 
 	let zvinhu: any = [];
 	if (cat === 'all') {
 		zvinhu = await db.collection('projects').get();
+	} else if (featured) {
+		zvinhu = await db
+			.collection('projects')
+			.where('status', '==', status)
+			.where('category', '==', cat)
+			.where('is_featured', '==', true)
+			.limit(+6)
+			.get();
 	} else {
 		zvinhu = await db
 			.collection('projects')

@@ -23,7 +23,7 @@
 	// import HeroSlide from '$lib/components/HeroSlide.svelte';
 	import StoryVideo from '$lib/StoryVideo.svelte';
 	import ProjectCard from '$lib/cards/ProjectCard.svelte';
-	import heroImage from '$lib/assets/home-sample.jpg?enhanced';
+	import heroImage from '$lib/assets/tdw-landing.jpg?enhanced';
 
 	let { data } = $props();
 	let page_json = $state(data.entry);
@@ -212,10 +212,10 @@
 		</div>-->
 	</Svedit>
 	<div class="relative container mx-auto mb-20 overflow-hidden px-5">
-		<div class="grid w-full grid-cols-1 gap-6 md:grid-cols-3">
+		<div class="grid w-full grid-cols-1 gap-6 md:grid-cols-2">
 			{#await data.projects}
 				{#each { length: 3 } as _}
-					<div class="h-96 w-full animate-pulse bg-gray-600"></div>
+					<div class="aspect-[4/3] w-full animate-pulse bg-gray-600"></div>
 				{/each}
 			{:then projects_}
 				{#each projects_ as project}

@@ -5,7 +5,7 @@
 
 <div class="flex-flex-col container mx-auto px-5">
 	<div class="mb-20 text-white">
-		<div class="mb-8 block text-4xl font-thin md:text-6xl">Let's work together</div>
+		<div class="mb-8 block text-4xl font-thin md:text-6xl">Contact us</div>
 		<a
 			href="/contact"
 			class="btn btn-xl btn-primary btn-outline rounded-xl border-white font-thin text-white hover:bg-stone-900"
