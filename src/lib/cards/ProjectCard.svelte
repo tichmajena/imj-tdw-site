@@ -8,13 +8,13 @@
 	data-sveltekit-preload-data="hover"
 	data-sveltekit-preload-code="hover"
 	href="/projects/{project.id}"
-	class="group relative flex aspect-[4/3] w-full cursor-pointer flex-col overflow-hidden text-white"
+	class="group relative flex aspect-[400/267] w-full cursor-pointer flex-col overflow-hidden text-white"
 >
 	<img
 		fetchpriority="high"
 		src="{page.data.cloudfront}/fit-in/1600x0/{project.featured_image.name}"
 		alt=""
-		class="absolute inset-0 h-full w-full scale-110 object-cover transition-all duration-250 group-hover:md:-translate-x-5"
+		class="absolute inset-0 h-full w-full object-cover transition-all duration-250"
 	/>
 
 	<div

@@ -221,7 +221,7 @@
 					</div>
 					<div class="mx-2 text-lg">
 						<div class="text-base-content">Mon-Fri 8:00 AM - 5:00 PM</div>
-						<div class="text-base-content">Closed on all public holidays.</div>
+						<div class="text-base-content">Closed on public holidays.</div>
 					</div>
 				</div>
 				<div class="mt-6 flex">
