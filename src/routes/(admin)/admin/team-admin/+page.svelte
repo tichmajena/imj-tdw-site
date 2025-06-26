@@ -5,6 +5,8 @@
 	import placeholder from '$lib/assets/placeholder-3.png';
 	import Field from '$src/lib/components/Field.svelte';
 	import TextArea from '$src/lib/components/TextArea.svelte';
+	import ArtworkImage from '$src/lib/components/ArtworkImage.svelte';
+	import { flip } from 'svelte/animate';
 
 	let { data, form }: { data: PageData; form: any } = $props();
 
@@ -14,6 +16,9 @@
 	let currentPost = $state();
 
 	let members = $state(data.members.map((eachMember: Team) => ({ ...eachMember, edit: false })));
+	let reorderList = $state([]);
+	let reorder = $state(false);
+	let reordering = $state(false);
 </script>
 
 <div class="w-full">
@@ -70,13 +75,68 @@
 				<button class="btn btn-primary">Submit</button>
 			</form>
 		</div>
-
-		<div class="grid-col-1 grid h-screen w-full gap-4 overflow-auto p-3 md:w-1/2 lg:grid-cols-2">
-			{#each members as team, i}
-				{@render memberCard(team, i)}
+		<div class="w-full md:w-1/2">
+			{#if !reorder}
+				<button
+					onclick={() => {
+						reorderList = members;
+						reorder = true;
+					}}
+					class="btn btn-primary btn-wide mb-4 block"
+					>Reorder
+				</button>
 			{:else}
-				Database is empty
-			{/each}
+				<button
+					onclick={() => {
+						members = reorderList;
+						reorder = false;
+					}}
+					class="btn btn-success btn-wide mb-4 block"
+					>Finish Reorder
+				</button>
+			{/if}
+
+			{#if reorder}
+				<div class="flex flex-col space-y-3">
+					{#each reorderList as team, ii (team.id)}
+						<div animate:flip={{ duration: 300 }} class="">
+							{@render memberCardSmall(team, ii)}
+						</div>{/each}
+					<button
+						onclick={async () => {
+							reordering = true;
+							const batchSize = 10;
+							const batches = [];
+							for (let i = 0; i < reorderList.length; i += batchSize) {
+								batches.push(reorderList.slice(i, i + batchSize));
+							}
+							for (const batch of batches) {
+								await Promise.all(
+									batch.map((member, idx) =>
+										fetch(`/api/members?id=${member.id}`, {
+											method: 'PUT',
+											headers: { 'Content-Type': 'application/json' },
+											body: JSON.stringify({ order: reorderList.indexOf(member) })
+										})
+									)
+								);
+							}
+
+							reordering = false;
+						}}
+						class="btn btn-primary"
+					>
+						Save Order <span class:hidden={!reordering} class="loading loading-spinner"></span>
+					</button>
+				</div>
+			{:else}<div class="grid-col-1 grid h-screen w-full gap-4 overflow-auto p-3 lg:grid-cols-2">
+					{#each members as team, i}
+						{@render memberCard(team, i)}
+					{:else}
+						Database is empty
+					{/each}
+				</div>
+			{/if}
 		</div>
 	</div>
 </div>
@@ -161,6 +221,63 @@
 					</form>
 				</div>
 			</div>
+		</div>
+	</div>
+{/snippet}
+
+{#snippet memberCardSmall(team: Team, ii: number)}
+	<div class="flex items-center space-x-4">
+		<div class="flex flex-col">
+			<button
+				type="button"
+				onclick={() => {
+					[reorderList[ii], reorderList[ii - 1]] = [reorderList[ii - 1], reorderList[ii]];
+				}}
+				aria-label="Move"
+				disabled={reorderList.length === 1 || ii === 0}
+				class="btn btn-info btn-xs btn-ghost"
+				><svg
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke-width="1.5"
+					stroke="currentColor"
+					class="size-4"
+				>
+					<path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
+				</svg>
+			</button><button
+				type="button"
+				onclick={() => {
+					[reorderList[ii], reorderList[ii + 1]] = [reorderList[ii + 1], reorderList[ii]];
+				}}
+				aria-label="Move"
+				disabled={reorderList.length === 1 || ii === reorderList.length - 1}
+				class="btn btn-info btn-xs btn-ghost"
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke-width="1.5"
+					stroke="currentColor"
+					class="size-4"
+				>
+					<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+				</svg>
+			</button>
+		</div>
+		<figure class="h-32 w-32 overflow-hidden">
+			{#if team.image}
+				<img src="{data.cloudfront}/fit-in/300x0/{team.image}" alt={team.name} />
+			{:else}
+				<img src={placeholder} alt={team.name} />
+			{/if}
+		</figure>
+		<div>
+			<h2 class="card-title">{team.name}</h2>
+			<p>{team.position}</p>
+			<p>{team.department}</p>
 		</div>
 	</div>
 {/snippet}

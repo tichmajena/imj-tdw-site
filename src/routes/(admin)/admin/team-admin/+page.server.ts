@@ -79,7 +79,7 @@ export const actions: Actions = {
 			position: formData.position,
 			department: formData.department,
 			content: formData.content
-		} as team;
+		} as Team;
 
 		if (file instanceof File && file.size) {
 			//get signed url for the image
