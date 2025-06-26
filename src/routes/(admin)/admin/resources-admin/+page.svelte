@@ -187,6 +187,7 @@
 				{#if resources[resourseIndex].edit === true}
 					<form
 						transition:slide
+						use:enhance={handleEditForm}
 						class="flex flex-col"
 						action="?/update"
 						enctype="multipart/form-data"

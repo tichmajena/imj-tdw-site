@@ -36,6 +36,14 @@
 				</div>
 			</div>
 		</div>
+	{:else if resource.featured_image.name}
+		<div class="group relative aspect-square w-full transition-all duration-400">
+			<img
+				src="{page.data.cloudfront}/fit-in/300x0/{resource.featured_image.name}"
+				alt={resource.title}
+				class="absolute h-full bg-black object-contain object-left"
+			/>
+		</div>
 	{:else}
 		<div
 			class="pdf group relative flex aspect-[3/3.6] w-full items-center justify-center border-2 border-slate-600 transition-all duration-400 hover:bg-stone-300"
