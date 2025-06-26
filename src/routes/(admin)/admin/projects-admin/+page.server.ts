@@ -6,12 +6,13 @@ export const load = (async ({ fetch }) => {
 	let res = await fetch('/api/projects?category=all');
 	let projects: Project[] = await res.json();
 	for (const project of projects) {
-		console.log(project.services, project.title);
-		if (!project.services && false) {
+		if (project.services[0] && false) {
 			const { images, featured_image, ...rest } = project;
 
 			//put PUT to edit data in firestore
-			let newServices = { services: [] };
+			let newServices = { services: project.services[0].split('\n') };
+			console.log({ newServices });
+
 			let res = await fetch(`/api/projects?id=${project.id}`, {
 				method: 'PUT',
 				body: JSON.stringify(newServices)
@@ -25,11 +26,6 @@ export const load = (async ({ fetch }) => {
 	const res2 = await fetch('/api/media');
 	const media = await res2.json();
 	console.log(media[11]);
-
-	for (const project of projects) {
-		if (typeof project.featured_image === 'string') {
-		}
-	}
 
 	projects = projects.sort(
 		(a: Project, b: Project) => (new Date(b.createdAt) as any) - (new Date(a.createdAt) as any)

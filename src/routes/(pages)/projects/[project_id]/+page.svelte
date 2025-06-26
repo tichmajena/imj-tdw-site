@@ -25,36 +25,36 @@
 	>
 		<div class="flex flex-col sm:w-full md:w-2/12">
 			<div class="mb-4 flex flex-col justify-end md:h-40">
-				<div class="mb-4 flex w-full justify-start md:justify-end">
-					<a
-						class="btn btn-circle btn-ghost btn-xl -ml-5 transition-all hover:ml-0 md:-mr-5 md:hover:mr-0"
-						aria-label="Back to projects"
-						href="/{project.category === 'project' ? 'projects' : 'community'}"
-					>
-						<span class="sr-only">Back to projects {project.category}</span>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke-width="1.5"
-							stroke="currentColor"
-							class="size-6"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18"
-							/>
-						</svg>
-					</a>
-				</div>
 				<div class="md:text-right">{project.type}</div>
 			</div>
 
 			<div class="font-thin md:text-right">{project.year}</div>
+			<div class="mt-4 flex w-full justify-start md:justify-end">
+				<a
+					class="btn btn-circle btn-ghost btn-xl -ml-5 transition-all hover:ml-0 md:-mr-5 md:hover:mr-0"
+					aria-label="Back to projects"
+					href="/{project.category === 'project' ? 'projects' : 'community'}"
+				>
+					<span class="sr-only">Back to projects {project.category}</span>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+						class="size-6"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18"
+						/>
+					</svg>
+				</a>
+			</div>
 		</div>
 		<div class=" flex sm:w-full md:w-8/12">
-			<div class="hidden h-full md:flex"></div>
+			<div class="hidden h-full border-l border-purple-600 md:flex"></div>
 			<div class="sm:w-full md:w-5/6 md:pl-6">
 				<div class="mb-4 flex items-end md:h-40">
 					<h1 class="text-4xl font-thin md:text-6xl">
@@ -69,10 +69,8 @@
 				<div class="mb-4 flex items-end md:h-40">
 					<div class="block w-full font-medium">Service</div>
 				</div>
-				{#if dev}
-					{JSON.stringify(project.services)}
-				{/if}
-				<ul class="flex flex-col">
+
+				<ul class="flex flex-col space-y-2">
 					{#each project.services as service}
 						<li class="font-thin">{service}</li>
 					{/each}
