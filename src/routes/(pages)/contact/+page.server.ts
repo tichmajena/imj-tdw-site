@@ -29,8 +29,14 @@ export const load = (async ({ fetch }) => {
 export const actions: Actions = {
 	default: async ({ request, fetch }) => {
 		const formData = await request.formData();
+		const mi = formData.get('mi');
+
+		if (!mi) {
+			fail(401, { success: false });
+		}
 		const contactData = Object.fromEntries(formData);
 		// console.log(contactData);
+
 		try {
 			ContactMessage.parse(contactData);
 		} catch (error) {

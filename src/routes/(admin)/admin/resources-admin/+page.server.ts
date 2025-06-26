@@ -6,6 +6,16 @@ import { ResourceSchema } from '$lib/js/zod';
 export const load = (async ({ fetch }) => {
 	const res = await fetch('/api/resources', { method: 'GET' });
 	const resources = await res.json();
+
+	// Set featured_img: false for all resources
+	// for (const resource of resources) {
+	// 	await fetch(`/api/resources?id=${resource.id}`, {
+	// 		method: 'PUT',
+	// 		headers: { 'Content-Type': 'application/json' },
+	// 		body: JSON.stringify({ featured_image: false })
+	// 	});
+	// 	console.log(`Updated resource ${resource.id} to set featured_image: false`);
+	// }
 	return { resources };
 }) satisfies PageServerLoad;
 

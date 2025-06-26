@@ -5,8 +5,16 @@
 	import Field from '$src/lib/components/Field.svelte';
 	import TextArea from '$src/lib/components/TextArea.svelte';
 	import Date from '$src/lib/components/Date.svelte';
+	import { enhance } from '$app/forms';
+	import { invalidateAll } from '$app/navigation';
+	import ArtworkImage from '$src/lib/components/ArtworkImage.svelte';
 
 	let { data, form }: { data: PageData; form: any } = $props();
+	let loaders = $state({ edit: false, create: false, delete: false, trash: false });
+	let status = $state({ edit: false, create: false, delete: false, trash: false });
+
+	let currentIndex = $state(-1);
+	let currentPost = $state();
 
 	let resource = {
 		title: 'Issue 1',
@@ -20,17 +28,84 @@
 
 	let resources = $state(
 		data.resources.map((item: typeof resource) => {
-			let newObj = { ...item, edit: false };
+			let newObj = { ...item, edit: false, featuredComponent: null, featuredBlobs: [] };
 			return newObj;
 		})
 	);
+	let featuredComponent = $state();
+	let featuredBlobs = $state([]);
+
+	async function handleCreateForm({ cancel, formData, formElement }) {
+		let dataEntries = formData;
+		let resource = Object.fromEntries(dataEntries);
+
+		resource.featured_image = false;
+
+		loaders.create = true;
+
+		if (featuredBlobs.length) {
+			for (const file of featuredBlobs) {
+				resource.featured_image = $state.snapshot(featuredBlobs)[0];
+			}
+			await featuredComponent.handleCreate();
+		}
+
+		let res = await fetch('/api/resources', { method: 'POST', body: JSON.stringify(resource) });
+		console.log(res.status);
+		console.log(data.url);
+
+		await invalidateAll();
+		createUpdate();
+		formElement.reset();
+		cancel();
+		return;
+
+		return async ({ update }) => {
+			//await invalidate('/project-admin');
+			await update();
+			createUpdate();
+		};
+	}
+
+	async function handleEditForm({ cancel, formData, formElement }) {
+		loaders.edit = true;
+
+		let body = { featured_image: false };
+
+		if (currentPost.featuredBlobs.length) {
+			for (const file of currentPost.featuredBlobs) {
+				body.featured_image = $state.snapshot(currentPost.featuredBlobs)[0];
+			}
+			await currentPost.featuredComponent.handleCreate();
+		}
+
+		let dataEntries = formData;
+
+		let res = await fetch(`/api/resources?id=${formData.get('id')}`, {
+			method: 'PUT',
+			body: JSON.stringify(body)
+		});
+		console.log(res.status);
+
+		return async ({ update }) => {
+			await invalidateAll();
+			await update({ reset: false });
+			loaders.edit = false;
+		};
+	}
 </script>
 
 <div
 	class="container mx-auto flex flex-col space-y-12 px-5 py-20 md:flex-row md:space-y-0 md:space-x-12 lg:space-x-20"
 >
 	<div class="w-1/2">
-		<form class="flex flex-col" action="?/create" enctype="multipart/form-data" method="POST">
+		<form
+			use:enhance={handleCreateForm}
+			class="flex flex-col"
+			action="?/create"
+			enctype="multipart/form-data"
+			method="POST"
+		>
 			<h2 class="mb-4 text-3xl">Resources</h2>
 
 			<Field
@@ -87,6 +162,15 @@
 				<option value="video">Video</option>
 				<option value="news">News</option>
 			</select>
+			<div class="mb-4 aspect-square">
+				<ArtworkImage
+					bind:blobs={featuredBlobs}
+					bind:this={featuredComponent}
+					name="featured_image"
+					upload={false}
+					label="Featured Image"
+				></ArtworkImage>
+			</div>
 			{#if form && form.success}
 				Zvafaya
 			{:else if form && !form.success}
@@ -153,12 +237,33 @@
 							<option value="video">Video</option>
 							<option value="news">News</option>
 						</select>
+						<div class="mb-4 aspect-square">
+							<ArtworkImage
+								bind:blobs={resource.featuredBlobs}
+								bind:this={resource.featuredComponent}
+								name="featured_image-{resourseIndex}"
+								upload={false}
+								label="Featured Image"
+							></ArtworkImage>
+						</div>
 						{#if form && form.success}
 							Zvafaya
 						{:else if form && !form.success}
 							Zvadhakwa
 						{/if}
-						<button class="btn btn-primary">Submit</button>
+						<button
+							onclick={() => {
+								currentIndex = resourseIndex;
+								currentPost = resource;
+							}}
+							class="btn btn-primary"
+						>
+							{#if status.edit}Updated Successfully!{:else if loaders.edit && currentIndex === resourseIndex}
+								Updating...<span class="loading loading-spinner"></span>
+							{:else}
+								Update
+							{/if}
+						</button>
 					</form>
 				{/if}
 				<div class="mb- flex space-x-4">

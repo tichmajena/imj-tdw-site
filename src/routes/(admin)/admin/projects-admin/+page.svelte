@@ -289,9 +289,9 @@
 				...p,
 				edit: false,
 				galleryComponent: null,
+				galleryBlobs: [],
 				featuredComponent: null,
 				featuredBlobs: [],
-				galleryBlobs: [],
 				form: null
 			}))
 			.reduce(
