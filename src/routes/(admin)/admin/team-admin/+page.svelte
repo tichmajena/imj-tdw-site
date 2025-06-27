@@ -15,7 +15,14 @@
 	let currentIndex = $state();
 	let currentPost = $state();
 
-	let members = $state(data.members.map((eachMember: Team) => ({ ...eachMember, edit: false })));
+	let members = $state(
+		data.members.map((eachMember: Team) => ({
+			...eachMember,
+			edit: false,
+			featuredBlobs: [],
+			featuredComponent: undefined
+		}))
+	);
 	let reorderList = $state([]);
 	let reorder = $state(false);
 	let reordering = $state(false);
@@ -193,9 +200,9 @@
 
 						<div class="mb-4 aspect-square md:w-1/4">
 							<ArtworkImage
-								bind:blobs={team.picBlobs}
+								bind:blobs={team.featuredBlobs}
 								maxWidth={1600}
-								bind:this={team.picComponent}
+								bind:this={team.featuredComponent}
 								name="image"
 								upload={false}
 								label="Profile Image"
