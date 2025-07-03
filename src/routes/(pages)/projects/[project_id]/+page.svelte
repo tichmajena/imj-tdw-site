@@ -2,6 +2,7 @@
 	import { fly, slide } from 'svelte/transition';
 	import type { PageData } from './$types';
 	import { dev } from '$app/environment';
+	import { blurhash } from '$src/lib/js/utils';
 
 	let { data }: { data: PageData } = $props();
 	console.log(data);
@@ -82,12 +83,33 @@
 		<div class="carousel carousel-center w-full space-x-4">
 			{#each project.images as image}
 				{#if image === project.featured_image}
+					<img
+						width={image.width}
+						height={image.height}
+						src={blurhash(image)}
+						class="absolute inset-0 z-10 hidden h-full w-full"
+						alt={image.name}
+					/>
 					<div class="carousel-item">
-						<img
+						<picture>
+							<source
+								srcset="{data.cloudfront}/fit-in/1920x/{image.name} 1920w,
+   {data.cloudfront}/fit-in/1440x/{image.name} 1440w,
+   {data.cloudfront}/fit-in/1024x/{image.name} 1024w"
+								media="(min-width: 1024px)"
+							/>
+							<source
+								srcset="{data.cloudfront}/fit-in/768x/{image.name} 768w,
+   {data.cloudfront}/fit-in/480x/{image.name} 480w"
+								media="(max-width: 1023px)"
+							/>
+							<img src="{data.cloudfront}/fit-in/768x/{image.name}" alt={project.title} />
+						</picture>
+						<!-- <img
 							src="{data.cloudfront}/fit-in/1280x720/{image.name}"
 							class=""
 							alt={project.title}
-						/>
+						/> -->
 					</div>
 				{/if}
 			{/each}
@@ -95,10 +117,31 @@
 				{#if image !== project.featured_image}
 					<div class="carousel-item">
 						<img
+							width={image.width}
+							height={image.height}
+							src="{data.cloudfront}/fit-in/1920x0/{image.name}"
+							class="relative z-10 hidden h-full w-full"
+							alt={image.name}
+						/>
+						<picture>
+							<source
+								srcset="{data.cloudfront}/fit-in/1920x0/{image.name} 1920w,
+   {data.cloudfront}/fit-in/1440x0/{image.name} 1440w,
+   {data.cloudfront}/fit-in/1024x0/{image.name} 1024w"
+								media="(min-width: 1024px)"
+							/>
+							<source
+								srcset="{data.cloudfront}/fit-in/768x0/{image.name} 768w,
+   {data.cloudfront}/fit-in/480x/{image.name} 480w"
+								media="(max-width: 1023px)"
+							/>
+							<img src="{data.cloudfront}/fit-in/768x0/{image.name}" alt={project.title} />
+						</picture>
+						<!-- <img
 							src="{data.cloudfront}/fit-in/1280x720/{image.name}"
 							class=""
 							alt={project.title}
-						/>
+						/> -->
 					</div>
 				{/if}
 			{/each}

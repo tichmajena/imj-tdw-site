@@ -13,6 +13,8 @@ export const actions: Actions = {
 		//get data from form
 		const formEntries = await request.formData();
 		const formData = Object.fromEntries(formEntries);
+		console.log({ formData });
+
 		const file = formEntries.get('image') as File;
 
 		if (file instanceof File && file.size) {
@@ -62,7 +64,7 @@ export const actions: Actions = {
 	deleteMember: async ({ request, fetch }) => {
 		let dataEntries = await request.formData();
 		let id = dataEntries.get('id');
-		const res = await fetch('api/members?id=' + id, { method: 'DELETE' });
+		const res = await fetch('/api/members?id=' + id, { method: 'DELETE' });
 		const result = await res.json();
 		return result;
 	},
@@ -78,10 +80,15 @@ export const actions: Actions = {
 			name: formData.fullname,
 			position: formData.position,
 			department: formData.department,
-			content: formData.content
+			content: formData.bio,
+			order: formData.order
 		} as Team;
 
 		if (file instanceof File && file.size) {
+			body = { ...body, image: file.name };
+		}
+
+		if (file instanceof File && file.size && false) {
 			//get signed url for the image
 			const res = await fetch(`/api/signing?bucket=${AWS_BUCKET_NAME}`, {
 				method: 'POST',
@@ -112,6 +119,9 @@ export const actions: Actions = {
 
 			body = { ...body, image: file.name };
 		}
+		console.log(':::::::::::::::::::::::::::::::::');
+		console.log(body);
+		console.log(file);
 
 		const res = await fetch(`/api/members?id=${formData.id}`, {
 			method: 'PUT',

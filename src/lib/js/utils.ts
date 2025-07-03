@@ -1,3 +1,6 @@
+import { browser } from '$app/environment';
+import { decode } from 'blurhash';
+
 export function slugify(str = 's') {
 	if (!str) return '';
 	str = str.replace(/^\s+|\s+$/g, '');
@@ -75,4 +78,21 @@ export function zodValidationErrors(error: any) {
 		messages[path[0]].msg.push(message);
 	});
 	return messages;
+}
+export function blurhash(photo) {
+	if (!browser) return;
+	if (!photo.blur_hash) return;
+	const { hash, w, h } = photo.blur_hash;
+	const pixels = decode(hash, w, h, 1);
+	// draw it on canvas
+
+	const canvas = document.createElement('canvas');
+	canvas.width = w;
+	canvas.height = h;
+	const ctx = canvas.getContext('2d');
+	const imageData = ctx.createImageData(w, h);
+	imageData.data.set(pixels);
+	ctx.putImageData(imageData, 0, 0);
+	//hash = document.getElementById('hash');
+	return canvas.toDataURL();
 }

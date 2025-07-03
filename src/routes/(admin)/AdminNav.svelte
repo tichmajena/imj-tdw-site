@@ -39,7 +39,9 @@
 							<a href="/admin/resources-admin">Resources</a>
 						</li>
 						<li>
-							<a class="btn btn-primary" href="/logout">Logout</a>
+							<a data-sveltekit-preload-data="false" class="btn btn-primary" href="/logout"
+								>Logout</a
+							>
 						</li>
 					</ul>
 				</div>

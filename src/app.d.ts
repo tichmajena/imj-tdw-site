@@ -44,6 +44,7 @@ declare global {
 		content?: string;
 		image?: string;
 		edit?: boolean;
+		order: string | number;
 	};
 
 	type Blurhash = { hash: string; w: number; h: number } | null;

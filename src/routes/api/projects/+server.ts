@@ -33,7 +33,6 @@ export const GET: RequestHandler = async ({ url }) => {
 
 	function extractor(chinhu: any) {
 		let unzippedDoc = chinhu.data();
-		console.log(Object.keys(unzippedDoc.createdAt));
 
 		let doc_id = chinhu.id;
 		let project = {

@@ -51,7 +51,6 @@
 	};
 
 	let projects = $state(groupByStatus(data.projects));
-	$inspect(projects.draft);
 
 	let categories = ['project', 'community'];
 	let statuses = ['published', 'draft', 'trashed'];

@@ -7,6 +7,8 @@
 	import TextArea from '$src/lib/components/TextArea.svelte';
 	import ArtworkImage from '$src/lib/components/ArtworkImage.svelte';
 	import { flip } from 'svelte/animate';
+	import { enhance } from '$app/forms';
+	import { invalidateAll } from '$app/navigation';
 
 	let { data, form }: { data: PageData; form: any } = $props();
 
@@ -16,16 +18,54 @@
 	let currentPost = $state();
 
 	let members = $state(
-		data.members.map((eachMember: Team) => ({
-			...eachMember,
-			edit: false,
-			featuredBlobs: [],
-			featuredComponent: undefined
-		}))
+		data.members
+			.sort((a, b) => a.order - b.order)
+			.map((eachMember: Team) => ({
+				...eachMember,
+				edit: false,
+				featuredBlobs: [],
+				featuredComponent: undefined
+			}))
 	);
 	let reorderList = $state([]);
 	let reorder = $state(false);
 	let reordering = $state(false);
+	let creating = $state(false);
+
+	async function handleEditForm({ formData, cancel }) {
+		const formData_ = Object.fromEntries(formData);
+		creating = true;
+		console.log({ currentPost, formData_ });
+		let body = {
+			name: formData_.fullname,
+			position: formData_.position,
+			department: formData_.department,
+			content: formData_.bio,
+			order: formData_.order
+		} as Team;
+
+		if (currentPost.featuredBlobs.length) {
+			const file = $state.snapshot(currentPost.featuredBlobs)[0];
+			body = { ...body, image: file.name };
+
+			await currentPost.featuredComponent.handleCreate();
+		}
+		console.log(body);
+
+		const res = await fetch(`/api/members?id=${formData_.id}`, {
+			method: 'PUT',
+			body: JSON.stringify(body)
+		});
+		let result = await res.json();
+		console.log({ result });
+		cancel();
+		await invalidateAll();
+		return;
+		return async ({ update }) => {
+			await update({ reset: false });
+			creating = false;
+		};
+	}
 </script>
 
 <div class="w-full">
@@ -166,13 +206,14 @@
 				{:else}
 					<form
 						transition:slide
+						use:enhance={handleEditForm}
 						class="flex flex-col"
 						action="?/update"
 						method="POST"
 						enctype="multipart/form-data"
 					>
 						<h2 class="mb-4 text-2xl">Edit Member</h2>
-
+						<input name="order" hidden type="text" value={team.order ?? i} />
 						<input type="text" hidden name="id" value={team.id} />
 						<label for="fullName"></label><input
 							id="fullName"
@@ -215,7 +256,10 @@
 							placeholder="Bio"
 							value={team.content}
 						></textarea>
-						<button class="btn btn-secondary">Update</button>
+						<button onclick={() => (currentPost = team)} class="btn btn-secondary"
+							>Update <span class:hidden={creating === false} class="loading loading-spinner"
+							></span>
+						</button>
 					</form>
 				{/if}
 				<div class="card-actions justify-end">

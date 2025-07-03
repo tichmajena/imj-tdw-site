@@ -11,21 +11,17 @@ export const load = (async ({ fetch }) => {
 
 			//put PUT to edit data in firestore
 			let newServices = { services: project.services[0].split('\n') };
-			console.log({ newServices });
 
 			let res = await fetch(`/api/projects?id=${project.id}`, {
 				method: 'PUT',
 				body: JSON.stringify(newServices)
 			});
 			let edits = await res.json();
-			console.log(project.title, edits);
 		}
 	}
 
-	console.log('console ran');
 	const res2 = await fetch('/api/media');
 	const media = await res2.json();
-	console.log(media[11]);
 
 	projects = projects.sort(
 		(a: Project, b: Project) => (new Date(b.createdAt) as any) - (new Date(a.createdAt) as any)

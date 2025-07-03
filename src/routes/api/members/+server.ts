@@ -3,18 +3,31 @@ import type { RequestHandler } from './$types';
 import { db } from '$src/lib/server/firebase-admin';
 
 export const GET: RequestHandler = async ({}) => {
-	const snapshots = await db.collection('members').orderBy('order', 'asc').get();
+	// .orderBy('order', 'asc')
+	const snapshots = await db.collection('members').get();
 	let members: Team[] = [];
 	snapshots.forEach((doc) => {
 		const member = { ...doc.data(), id: doc.id } as Team;
 		members.push(member);
 	});
+	console.log(members.map((m) => m.name));
+
 	return json(members);
 };
 export const POST: RequestHandler = async ({ request }) => {
-	const data = await request.json();
-	await db.collection('members').add(data);
-	return json({ success: true });
+	try {
+		const data = await request.json();
+		console.log({ data });
+
+		await db.collection('members').add(data);
+		console.log('zvafaya');
+
+		return json({ success: true });
+	} catch (error) {
+		console.log('Zvadhakwa', error);
+
+		return json({ success: false });
+	}
 };
 
 export const DELETE: RequestHandler = async ({ url }) => {

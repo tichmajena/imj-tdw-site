@@ -1,5 +1,6 @@
 <script>
 	import { page } from '$app/state';
+	import { blurhash } from '../js/utils';
 
 	let { project } = $props();
 </script>
@@ -11,11 +12,37 @@
 	class="group relative flex aspect-[400/267] w-full cursor-pointer flex-col overflow-hidden text-white"
 >
 	<img
+		width={project.featured_image.width}
+		height={project.featured_image.height}
+		src={blurhash(project.featured_image)}
+		class="absolute inset-0 z-10 hidden h-full w-full"
+		alt={project.featured_image.name}
+	/>
+	<!-- <img
 		fetchpriority="high"
 		src="{page.data.cloudfront}/fit-in/1600x0/{project.featured_image.name}"
 		alt=""
 		class="absolute inset-0 h-full w-full object-cover transition-all duration-250"
-	/>
+	/> -->
+	<picture>
+		<source
+			srcset="
+{page.data.cloudfront}/fit-in/1920x0/{project.featured_image.name} 1920w,
+{page.data.cloudfront}/fit-in/1440x0/{project.featured_image.name} 1440w,
+{page.data.cloudfront}/fit-in/1024x0/{project.featured_image.name} 1024w"
+			media="(min-width: 1024px)"
+		/>
+		<source
+			srcset="
+{page.data.cloudfront}/fit-in/768x0/{project.featured_image.name} 768w,
+{page.data.cloudfront}/fit-in/480x0/{project.featured_image.name} 480w"
+			media="(max-width: 1023px)"
+		/>
+		<img
+			src="{page.data.cloudfront}/fit-in/768x0/{project.featured_image.name}"
+			alt={project.title}
+		/>
+	</picture>
 
 	<div
 		class="absolute bottom-0 h-1/2 w-full bg-linear-to-t from-black/70 via-black/50 to-transparent transition-all duration-250 md:opacity-100"
