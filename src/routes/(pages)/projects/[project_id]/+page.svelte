@@ -115,15 +115,15 @@
 			{/each}
 			{#each project.images as image}
 				{#if image !== project.featured_image}
-					<div class="carousel-item">
-						<img
+					<div class="carousel-item h-[600px]">
+						<!-- <img
 							width={image.width}
 							height={image.height}
 							src="{data.cloudfront}/fit-in/1920x0/{image.name}"
 							class="relative z-10 hidden h-full w-full"
 							alt={image.name}
 						/>
-						<picture>
+						<picture class="ob">
 							<source
 								srcset="{data.cloudfront}/fit-in/1920x0/{image.name} 1920w,
    {data.cloudfront}/fit-in/1440x0/{image.name} 1440w,
@@ -136,12 +136,12 @@
 								media="(max-width: 1023px)"
 							/>
 							<img src="{data.cloudfront}/fit-in/768x0/{image.name}" alt={project.title} />
-						</picture>
-						<!-- <img
+						</picture> -->
+						<img
 							src="{data.cloudfront}/fit-in/1280x720/{image.name}"
 							class=""
 							alt={project.title}
-						/> -->
+						/>
 					</div>
 				{/if}
 			{/each}

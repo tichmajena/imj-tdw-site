@@ -3,7 +3,7 @@ import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = async () => {
-	let zvinhu = await db.collection('resources').get();
+	let zvinhu = await db.collection('resources').orderBy('order', 'asc').get();
 	let resources: any[] = [];
 
 	zvinhu.forEach(extractor);

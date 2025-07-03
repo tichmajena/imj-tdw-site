@@ -3,8 +3,8 @@ import type { RequestHandler } from './$types';
 import { db } from '$src/lib/server/firebase-admin';
 
 export const GET: RequestHandler = async ({}) => {
-	// .orderBy('order', 'asc')
-	const snapshots = await db.collection('members').get();
+	//
+	const snapshots = await db.collection('members').orderBy('order', 'asc').get();
 	let members: Team[] = [];
 	snapshots.forEach((doc) => {
 		const member = { ...doc.data(), id: doc.id } as Team;
