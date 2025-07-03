@@ -32,7 +32,7 @@
 			<div class="font-thin md:text-right">{project.year}</div>
 			<div class="mt-4 flex w-full justify-start md:justify-end">
 				<a
-					class="btn btn-circle btn-ghost btn-xl -ml-5 transition-all hover:ml-0 md:-mr-5 md:hover:mr-0"
+					class="btn btn-circle btn-ghost btn-xl -ml-5 transition-all delay-100 hover:ml-0 md:-mr-5 md:hover:mr-0"
 					aria-label="Back to projects"
 					href="/{project.category === 'project' ? 'projects' : 'community'}"
 				>

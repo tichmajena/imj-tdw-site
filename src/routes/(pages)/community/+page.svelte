@@ -19,6 +19,8 @@
 	const siteTitle = 'Troika Design Workshop';
 	const metaTitle = 'About Us';
 	const metadescription = '';
+
+	let projects = data.projectData.sort((a, b) => b.year - a.year);
 </script>
 
 <svelte:head>
@@ -67,7 +69,7 @@
 
 	<div class="w-full pt-6 pb-20">
 		<div class="container mx-auto grid w-full grid-cols-1 gap-6 px-5 md:grid-cols-2">
-			{#each data.projectData as project}
+			{#each projects as project}
 				<ProjectCard {project}></ProjectCard>
 			{/each}
 		</div>

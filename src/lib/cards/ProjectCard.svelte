@@ -24,8 +24,9 @@
 		alt=""
 		class="absolute inset-0 h-full w-full object-cover transition-all duration-250"
 	/> -->
-	<picture>
+	<picture class="h-full w-full object-center">
 		<source
+			class="h-full w-full object-cover"
 			srcset="
 {page.data.cloudfront}/fit-in/1920x0/{project.featured_image.name} 1920w,
 {page.data.cloudfront}/fit-in/1440x0/{project.featured_image.name} 1440w,
@@ -33,12 +34,14 @@
 			media="(min-width: 1024px)"
 		/>
 		<source
+			class="h-full w-full object-cover"
 			srcset="
 {page.data.cloudfront}/fit-in/768x0/{project.featured_image.name} 768w,
 {page.data.cloudfront}/fit-in/480x0/{project.featured_image.name} 480w"
 			media="(max-width: 1023px)"
 		/>
 		<img
+			class="h-full w-full object-cover"
 			src="{page.data.cloudfront}/fit-in/768x0/{project.featured_image.name}"
 			alt={project.title}
 		/>

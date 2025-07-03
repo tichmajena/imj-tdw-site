@@ -39,7 +39,7 @@
 	{:else if resource.featured_image.name}
 		<div class="group relative aspect-square w-full transition-all duration-400">
 			<img
-				src="{page.data.cloudfront}/fit-in/300x0/{resource.featured_image.name}"
+				src="{page.data.cloudfront}/fit-in/600x0/{resource.featured_image.name}"
 				alt={resource.title}
 				class="absolute h-full bg-black object-contain object-left"
 			/>
