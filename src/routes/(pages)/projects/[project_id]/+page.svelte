@@ -91,7 +91,7 @@
 						alt={image.name}
 					/>
 					<div class="carousel-item">
-						<picture>
+						<!-- <picture>
 							<source
 								srcset="{data.cloudfront}/fit-in/1920x/{image.name} 1920w,
    {data.cloudfront}/fit-in/1440x/{image.name} 1440w,
@@ -104,12 +104,12 @@
 								media="(max-width: 1023px)"
 							/>
 							<img src="{data.cloudfront}/fit-in/768x/{image.name}" alt={project.title} />
-						</picture>
-						<!-- <img
+						</picture> -->
+						<img
 							src="{data.cloudfront}/fit-in/1280x720/{image.name}"
 							class=""
 							alt={project.title}
-						/> -->
+						/>
 					</div>
 				{/if}
 			{/each}
