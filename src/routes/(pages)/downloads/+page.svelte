@@ -68,10 +68,10 @@
 
 	<div class="w-full pt-6 pb-6">
 		<div class="container mx-auto mb-6 px-5">
-			<h3 class="text-xl font-thin md:text-4xl">Futur Build</h3>
+			<h3 class="text-xl font-thin md:text-4xl">Company Profile & Brochures</h3>
 		</div>
 		<div class=" container mx-auto mb-20 grid grid-cols-2 gap-8 px-5 md:grid-cols-3 lg:grid-cols-4">
-			{#each data.downloads.futurBuild as resource}
+			{#each data.downloads.corporate as resource}
 				<DownloadCard {resource} />
 			{/each}
 		</div>
@@ -79,10 +79,10 @@
 
 	<div class="w-full pt-6 pb-20">
 		<div class="container mx-auto mb-6 px-5">
-			<h3 class="text-xl font-thin md:text-4xl">Corporate Information</h3>
+			<h3 class="text-xl font-thin md:text-4xl">Futur Build</h3>
 		</div>
 		<div class=" container mx-auto mb-20 grid grid-cols-2 gap-8 px-5 md:grid-cols-3 lg:grid-cols-4">
-			{#each data.downloads.corporate as resource}
+			{#each data.downloads.futurBuild as resource}
 				<DownloadCard {resource} />
 			{/each}
 		</div>

@@ -5,6 +5,8 @@ import type { PageServerLoad, Actions } from './$types';
 export const load = (async ({ fetch }) => {
 	const res = await fetch('/api/members');
 	const members = await res.json();
+	console.log(members.map((m) => m.order));
+
 	return { members };
 }) satisfies PageServerLoad;
 
