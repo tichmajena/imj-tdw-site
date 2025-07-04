@@ -6,5 +6,5 @@ export const GET: RequestHandler = async ({ params }) => {
 	const snapshot = await db.collection('projects').doc(params.project_id).get();
 	let doc = snapshot.data();
 
-	return json({ ...doc, id: doc?.id });
+	return json({ ...doc, id: snapshot?.id });
 };

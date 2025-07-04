@@ -9,7 +9,7 @@
 	{#if resource.type === 'image'}
 		<div class="group relative aspect-[735/1000] w-full transition-all duration-400">
 			<img
-				src="{page.data.cloudfront}/fit-in/300x500/{resource.file}"
+				src="{page.data.cloudfront}/fit-in/600x0/{resource.file}"
 				alt=""
 				class="absolute h-full bg-black object-contain object-left"
 			/>
