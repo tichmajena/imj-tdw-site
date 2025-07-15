@@ -35,7 +35,7 @@
 	async function handleEditForm({ formData, cancel }) {
 		const formData_ = Object.fromEntries(formData);
 		creating = true;
-		console.log({ currentPost, formData_ });
+		//console.log({ currentPost, formData_ });
 		let body = {
 			name: formData_.fullname,
 			position: formData_.position,
@@ -50,14 +50,14 @@
 
 			await currentPost.featuredComponent.handleCreate();
 		}
-		console.log(body);
+		// console.log(body);
 
 		const res = await fetch(`/api/members?id=${formData_.id}`, {
 			method: 'PUT',
 			body: JSON.stringify(body)
 		});
 		let result = await res.json();
-		console.log({ result });
+		// console.log({ result });
 		cancel();
 		await invalidateAll();
 		return;

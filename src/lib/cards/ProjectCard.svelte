@@ -28,21 +28,21 @@
 		<source
 			class="h-full w-full object-cover"
 			srcset="
-{page.data.cloudfront}/fit-in/1920x0/{project.featured_image.name} 1920w,
-{page.data.cloudfront}/fit-in/1440x0/{project.featured_image.name} 1440w,
-{page.data.cloudfront}/fit-in/1024x0/{project.featured_image.name} 1024w"
+{page.data.cloudfront}/fit-in/1920x0/{project.featured_image.name}?webp 1920w,
+{page.data.cloudfront}/fit-in/1440x0/{project.featured_image.name}?webp 1440w,
+{page.data.cloudfront}/fit-in/1024x0/{project.featured_image.name}?webp 1024w"
 			media="(min-width: 1024px)"
 		/>
 		<source
 			class="h-full w-full object-cover"
 			srcset="
-{page.data.cloudfront}/fit-in/768x0/{project.featured_image.name} 768w,
-{page.data.cloudfront}/fit-in/480x0/{project.featured_image.name} 480w"
+{page.data.cloudfront}/fit-in/768x0/{project.featured_image.name}?webp 768w,
+{page.data.cloudfront}/fit-in/480x0/{project.featured_image.name}?webp 480w"
 			media="(max-width: 1023px)"
 		/>
 		<img
 			class="h-full w-full object-cover"
-			src="{page.data.cloudfront}/fit-in/768x0/{project.featured_image.name}"
+			src="{page.data.cloudfront}/fit-in/768x0/{project.featured_image.name}?webp"
 			alt={project.title}
 		/>
 	</picture>

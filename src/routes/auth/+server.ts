@@ -16,7 +16,7 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
 			status: 200
 		});
 	} catch (error) {
-		console.log(error);
+		// console.log(error);
 
 		return json({
 			status: 500
@@ -25,7 +25,7 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
 };
 
 export const DELETE: RequestHandler = async ({ cookies }) => {
-	console.log({ cookies });
+	// console.log({ cookies });
 
 	cookies.delete('session', { path: '/' });
 

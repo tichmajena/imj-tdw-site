@@ -87,7 +87,7 @@ class UploaderWorker {
 		};
 		// this.blobs = { ...this.blobs, [image.name]: image };
 
-		console.log(file);
+		// console.log(file);
 
 		if (!this.selected[this.activeId]) this.selected = { ...this.selected, [this.activeId]: [] };
 		this.selected[this.activeId].push(image);
@@ -102,12 +102,12 @@ class UploaderWorker {
 				confirm: true
 			}
 		};
-		console.log(this.selected);
+		// console.log(this.selected);
 	}
 
 	terminateWorker() {
 		this.worker.terminate();
-		console.log('Worker terminated.');
+		// console.log('Worker terminated.');
 	}
 
 	launchFilePicker() {
@@ -124,9 +124,9 @@ export function setUploader(worker: string | URL) {
 }
 
 export function getUploader(source: string) {
-	console.log(WORKER_KEY, source);
+	//(WORKER_KEY, source);
 	const worker = getContext<ReturnType<typeof setUploader>>(WORKER_KEY);
-	console.log(worker);
+	//console.log(worker);
 
 	return worker;
 }

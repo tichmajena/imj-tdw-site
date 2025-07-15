@@ -31,13 +31,13 @@ async function sendHttpRequest(
 			if (xhr.status >= 400) {
 				reject(null);
 			} else {
-				console.log(xhr.response);
+				//console.log(xhr.response);
 
 				resolve(xhr.response);
 			}
 		};
 		xhr.onerror = () => {
-			console.log('Bhaiz');
+			//console.log('Bhaiz');
 
 			reject('Something went wrong');
 		};

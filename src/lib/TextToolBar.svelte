@@ -59,7 +59,7 @@
 
 	function handle_class_change(classes) {
 		const selected_block_path = entry_session.selected_block_path;
-		console.log(selected_block_path);
+		// console.log(selected_block_path);
 
 		if (selected_block_path) {
 			entry_session.set([...selected_block_path, 'classes'], classes);
@@ -68,7 +68,7 @@
 
 	function handle_type_change(type, append) {
 		const selected_block_path = entry_session.selected_block_path;
-		console.log(selected_block_path);
+		// console.log(selected_block_path);
 
 		if (selected_block_path) {
 			entry_session.set([...selected_block_path, 'type'], type);
@@ -106,7 +106,7 @@
 
 	function handle_save_grid(grid) {
 		const selected_block_path = entry_session.selected_block_path;
-		console.log(selected_block_path);
+		// console.log(selected_block_path);
 
 		if (selected_block_path) {
 			entry_session.set([...selected_block_path, 'images'], grid);
@@ -152,7 +152,7 @@
 		saving = true;
 		const id = entry_session.entry.id;
 		const session = JSON.stringify({ ...entry_session.entry, id });
-		console.log({ id, session, method: id.trim() ? 'PUT' : 'POST' });
+		// console.log({ id, session, method: id.trim() ? 'PUT' : 'POST' });
 
 		const res = await fetch(`/api/pages/?route=${$page.url.pathname.replaceAll('/', '_-_')}`, {
 			method: id.trim() ? 'PUT' : 'POST',
@@ -170,7 +170,7 @@
 
 	function lightboxEditorInit() {
 		const block = entry_session.get_selected_block();
-		console.log(block);
+		// console.log(block);
 
 		imageGrid = block?.images || [];
 	}
@@ -340,7 +340,7 @@
 	{#if s === 'container' && (b === 'lightbox_grid' || b === 'team_grid')}
 		<div
 			onclick={() => {
-				console.log({ lightboxEditor });
+				// console.log({ lightboxEditor });
 
 				lightboxEditor = !lightboxEditor;
 			}}
@@ -402,9 +402,9 @@
 							<!--  -->
 							<ArtworkImage
 								onSelect={(e) => {
-									console.log('save selected', e);
+									// console.log('save selected', e);
 									currentImage = e.image.name;
-									console.log(currentImage);
+									// console.log(currentImage);
 								}}
 								{post}
 								bind:this={uploader}
@@ -573,9 +573,9 @@
 							<!--  -->
 							<ArtworkImage
 								onSelect={(e) => {
-									console.log('save selected', e);
+									// console.log('save selected', e);
 									currentImage = e.image.name || e.image.key;
-									console.log(currentImage);
+									// console.log(currentImage);
 									if (!currentImage) return;
 									handle_image_change(currentImage);
 									row = false;

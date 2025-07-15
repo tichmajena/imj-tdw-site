@@ -47,7 +47,7 @@ export async function PresignedGET(key: string, bucket = BUCKET) {
 }
 
 export async function signedURL(key: string, bucket = BUCKET) {
-	console.log(':::Signing', key, bucket);
+	//console.log(':::Signing', key, bucket);
 	const { PutObjectCommand, GetObjectCommand, DeleteObjectCommand } = await import(
 		'@aws-sdk/client-s3'
 	);
@@ -102,7 +102,7 @@ export async function sendMail(payload: { body: string; subject: string }) {
 
 	const command = new SendEmailCommand(params);
 	try {
-		console.log({ payload, command });
+		//console.log({ payload, command });
 
 		const data = await client.send(command);
 		return data;

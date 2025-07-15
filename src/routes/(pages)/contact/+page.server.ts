@@ -4,7 +4,7 @@ import { sendMail } from '$lib/server/aws';
 import { ContactMessage } from '$src/lib/js/zod';
 import { zodValidationErrors } from '$src/lib/js/utils';
 import { fail } from '@sveltejs/kit';
-
+export const prerender = false;
 export const load = (async ({ fetch }) => {
 	async function getGallery() {
 		const res = await fetch('/api/media');
@@ -12,7 +12,7 @@ export const load = (async ({ fetch }) => {
 		return media;
 	}
 	async function getPage(route: string) {
-		const res = await fetch('/api/page?route=' + route);
+		const res = await fetch('/api/page/' + route);
 		const page = await res.json();
 		return page;
 	}

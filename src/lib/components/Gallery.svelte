@@ -21,7 +21,7 @@
 
 <button
 	onclick={() => {
-		console.log(Uploader);
+		// console.log(Uploader);
 		Uploader.launchFilePicker();
 	}}
 	class="my-6 flex w-full items-center justify-center rounded-lg border-2 border-dashed border-blue-600 py-4 text-2xl text-blue-600"
@@ -69,7 +69,7 @@
 					} else {
 						Uploader.selectFiles(image);
 						Uploader.modals = false;
-						console.log(Uploader);
+						// console.log(Uploader);
 					}
 
 					//Uploader.selectFiles(image);

@@ -115,7 +115,7 @@
 		if (entry_session.selection?.type === 'text') {
 			plain_text = entry_session.get_selected_plain_text();
 			html = plain_text;
-			console.log('selected_plain_text', plain_text);
+			//console.log('selected_plain_text', plain_text);
 		} else if (entry_session.selection?.type === 'container') {
 			const selected_blocks = entry_session.get_selected_blocks();
 			json_data = selected_blocks;
@@ -137,7 +137,7 @@
 		navigator.clipboard
 			.write([clipboard_item_raw])
 			.then(() => {
-				console.log('Data copied to clipboard successfully');
+				//console.log('Data copied to clipboard successfully');
 			})
 			.catch((err) => {
 				console.error('Failed to copy data: ', err);
@@ -214,7 +214,7 @@
 			e.stopPropagation();
 		} else if (e.key === 'Enter' && (e.ctrlKey || e.metaKey) && e.shiftKey) {
 			const path = selection?.path;
-			console.log(path);
+			//console.log(path);
 			if (path?.includes('items')) {
 				const items = entry_session.get([path[0], path[1], 'items']);
 				entry_session.set(
@@ -238,14 +238,14 @@
 			e.shiftKey
 		) {
 			const path = selection?.path;
-			console.log(path);
+			//console.log(path);
 			if (path?.includes('items')) {
 				let items = entry_session.get([path[0], path[1], 'items']);
-				console.log('before', items);
+				//console.log('before', items);
 
 				if (items.length > 1) {
 					items.pop();
-					console.log('after', items);
+					//console.log('after', items);
 					entry_session.set([path[0], path[1], 'items'], items);
 				} else if (items.length === 1)
 					entry_session.set(
@@ -291,7 +291,7 @@
 			// a bit of schema introspection. E.g. to determine the default_block_type
 			// based on a certain context
 			if (path.at(-1) === 'items') {
-				console.log('Inserting list');
+				// console.log('Inserting list');
 
 				entry_session.insert_blocks([
 					{

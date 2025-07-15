@@ -5,7 +5,7 @@ import type { PageServerLoad, Actions } from './$types';
 export const load = (async ({ fetch }) => {
 	const res = await fetch('/api/members');
 	const members = await res.json();
-	console.log(members.map((m) => m.order));
+	//console.log(members.map((m) => m.order));
 
 	return { members };
 }) satisfies PageServerLoad;
@@ -15,7 +15,7 @@ export const actions: Actions = {
 		//get data from form
 		const formEntries = await request.formData();
 		const formData = Object.fromEntries(formEntries);
-		console.log({ formData });
+		//console.log({ formData });
 
 		const file = formEntries.get('image') as File;
 
@@ -121,9 +121,9 @@ export const actions: Actions = {
 
 			body = { ...body, image: file.name };
 		}
-		console.log(':::::::::::::::::::::::::::::::::');
-		console.log(body);
-		console.log(file);
+		//console.log(':::::::::::::::::::::::::::::::::');
+		//console.log(body);
+		//console.log(file);
 
 		const res = await fetch(`/api/members?id=${formData.id}`, {
 			method: 'PUT',

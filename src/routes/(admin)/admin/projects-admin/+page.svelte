@@ -61,7 +61,7 @@
 		// listen for messages
 		Uploader.addEventListener('message', (e) => {
 			const { type, payload } = e.data;
-			console.log(type, payload);
+			// console.log(type, payload);
 
 			if (type === 'create-project-done') {
 				invalidateAll().then((e) => {
@@ -116,7 +116,7 @@
 
 		body.services = project.services.split('\r\n');
 
-		console.log('featured', $state.snapshot(currentPost.featuredBlobs));
+		// console.log('featured', $state.snapshot(currentPost.featuredBlobs));
 
 		loaders.edit = true;
 
@@ -137,8 +137,8 @@
 			body: JSON.stringify(body)
 		});
 
-		console.log(res.status);
-		console.log(data.url);
+		// console.log(res.status);
+		// console.log(data.url);
 
 		await invalidateAll();
 		editUpdate();
@@ -204,10 +204,10 @@
 			project.images = $state.snapshot(galleryBlobs);
 			await galleryComponent.handleCreate();
 		}
-		console.log(project, gallery, featured);
+		// console.log(project, gallery, featured);
 		let res = await fetch('/api/projects', { method: 'POST', body: JSON.stringify(project) });
-		console.log(res.status);
-		console.log(data.url);
+		// console.log(res.status);
+		// console.log(data.url);
 
 		await invalidateAll();
 		createUpdate();
@@ -662,7 +662,7 @@
 						class:btn-primary={!projects[item.status][i].edit}
 						onclick={() => {
 							projects[item.status][i].edit = !projects[item.status][i].edit;
-							console.log(projects[item.status][i].edit);
+							// console.log(projects[item.status][i].edit);
 						}}
 						class="btn">{projects[item.status][i].edit ? 'Cancel' : 'Edit'}</button
 					>

@@ -5,7 +5,7 @@ export const load = (async () => {
 	return {};
 	let pages: any = [];
 	const snaps = await db.collection('pages').get();
-	console.log(pages.length);
+	//console.log(pages.length);
 	snaps.forEach((item) => {
 		pages.push({ ...item.data(), id: item.id });
 	});
@@ -34,7 +34,7 @@ export const load = (async () => {
 		entry.body = entry.body.map((block: any) => {
 			let image = block.image;
 			if (block.image.indexOf('cloudfront')) {
-				console.log(block.image);
+				// console.log(block.image);
 				if (!toUpdate.includes(page.id)) toUpdate.push(page.id);
 
 				image = block.image.split('/')[block.image.split('/').length - 1];
@@ -62,9 +62,9 @@ export const load = (async () => {
 		// 	}
 		// });
 		i++;
-		console.log(i + ' out of ' + pages.length + ' set', page.route);
+		//console.log(i + ' out of ' + pages.length + ' set', page.route);
 	}
 	// await batch.commit();
-	console.log({ toUpdate });
+	// console.log({ toUpdate });
 	return {};
 }) satisfies PageServerLoad;

@@ -10,21 +10,22 @@ export const GET: RequestHandler = async ({}) => {
 		const member = { ...doc.data(), id: doc.id } as Team;
 		members.push(member);
 	});
-	console.log(members.map((m) => m.name));
+	// console.log(members.map((m) => m.name));
 
 	return json(members);
 };
+
 export const POST: RequestHandler = async ({ request }) => {
 	try {
 		const data = await request.json();
-		console.log({ data });
+		// console.log({ data });
 
 		await db.collection('members').add(data);
-		console.log('zvafaya');
+		// console.log('zvafaya');
 
 		return json({ success: true });
 	} catch (error) {
-		console.log('Zvadhakwa', error);
+		// console.log('Zvadhakwa', error);
 
 		return json({ success: false });
 	}

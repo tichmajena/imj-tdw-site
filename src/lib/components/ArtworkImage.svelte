@@ -407,14 +407,14 @@
 								ext: imageKey.split('.')[imageKey.split('.').length - 1],
 								status: 'published'
 							};
-							console.log('POSTING TO GALLERY', payload);
+							// console.log('POSTING TO GALLERY', payload);
 
 							const res = await fetch('/api/media', {
 								method: 'POST',
 								body: JSON.stringify([payload])
 							});
 
-							console.log(await res.json());
+							// console.log(await res.json());
 
 							// UPLOADS[file.name] = { key: file.name, src: url.get, size: file.blob.size };
 						}
@@ -427,8 +427,8 @@
 
 						resolve(result);
 					} catch (err) {
-						console.log(err);
-						console.log(err?.msg);
+						// console.log(err);
+						// console.log(err?.msg);
 
 						resolve({ ok: false, error: err });
 					}
@@ -463,7 +463,7 @@
 
 			featuredImageModel = model;
 		} else if (source === 'envato') {
-			console.log(image, e.detail);
+			// console.log(image, e.detail);
 			const { thumbnail, medium, large, larger, name } = image;
 
 			let model = {
@@ -529,22 +529,22 @@
 				});
 			}
 			xhr.onload = () => {
-				console.log(xhr.status);
+				// console.log(xhr.status);
 
 				if (xhr.status >= 400) {
 					reject(null);
 				} else {
-					console.log(xhr);
+					// console.log(xhr);
 
 					resolve(xhr);
 				}
 			};
 			xhr.onerror = () => {
-				console.log('Bhaiz');
+				// console.log('Bhaiz');
 
 				reject('Something went wrong');
 			};
-			console.log(payload);
+			// console.log(payload);
 
 			xhr.send(payload);
 		});
@@ -585,7 +585,7 @@
 	$effect(() => {
 		if (uid in (Uploader?.selected || {})) {
 			Uploader.selected[uid].forEach((blob) => {
-				console.log(blobs);
+				// console.log(blobs);
 
 				if (!blobKeys.includes(blob.name)) {
 					if (multiple) {
@@ -781,17 +781,17 @@
 					type="button"
 					onclick={() => {
 						if (loaders.save || featuredSaveCheck) return;
-						console.log(blobs, key);
+						// console.log(blobs, key);
 
 						blobs = blobs.filter((blob_) => blob_.name !== key);
-						console.log(blobs);
+						// console.log(blobs);
 
 						delete Uploader.blobs[key];
 						delete Uploader.progress[key];
-						console.log(blob.origin);
+						// console.log(blob.origin);
 
 						if (blob.origin === 'gallery') {
-							console.log(Uploader.selected[uid]);
+							// console.log(Uploader.selected[uid]);
 
 							Uploader.selected[uid] = Uploader.selected[uid].filter((item) => item.name !== key);
 						}

@@ -3,6 +3,8 @@ import { redirect } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { read } from '$app/server';
 
+export const prerender = false;
+
 export const GET: RequestHandler = async ({ params, fetch, setHeaders }) => {
 	let res = await fetch(`/api/signing?bucket=${AWS_BUCKET_NAME2}`, {
 		method: 'POST',

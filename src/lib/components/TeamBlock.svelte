@@ -14,7 +14,7 @@
 	const lightbox = getLightbox();
 
 	function select(i) {
-		console.log(i);
+		// console.log(i);
 
 		if (!document.startViewTransition) {
 			lightbox.launch(i, block.images);
@@ -31,14 +31,14 @@
 	);
 
 	onNavigate((navigation) => {
-		console.log(navigation.to?.params.member);
+		// console.log(navigation.to?.params.member);
 		if (!document.startViewTransition) return;
 
 		return new Promise((resolve) => {
 			document.startViewTransition(async () => {
 				selected = navigation.to?.params.member;
 				resolve();
-				console.log('resolved');
+				// console.log('resolved');
 				await navigation.complete;
 			});
 		});
@@ -76,7 +76,7 @@
 			<div class="mb-2 aspect-square w-full">
 				<img
 					class="h-full w-full"
-					src="{$page.data.cloudfront}/fit-in/300x300/{member.url}"
+					src="{$page.data.cloudfront}/fit-in/300x300/{member.url}?webp"
 					alt={member.title}
 				/>
 			</div>

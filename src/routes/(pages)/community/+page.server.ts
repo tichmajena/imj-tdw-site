@@ -1,4 +1,4 @@
-import { db } from '$src/lib/server/firebase-admin';
+import { getPage, getProjects } from '$src/lib/server/firebase-admin';
 import type { PageServerLoad } from './$types';
 
 export const load = (async ({ fetch }) => {
@@ -16,14 +16,8 @@ export const load = (async ({ fetch }) => {
 	let entry = JSON.parse(page?.entry || JSON.stringify(page_json));
 	entry = { ...entry, id: page?.id || '' };
 
-	const res = await fetch('/api/projects?category=community');
-	const projectData = await res.json();
-	// console.log({ projectData });
-
-	async function getPage(route: string) {
-		const res = await fetch('/api/page?route=' + route);
-		const page = await res.json();
-		return page;
-	}
-	return { projectData, entry };
+	return {
+		projectData: await getProjects({ cat: 'community', status: 'published', featured: false }),
+		entry
+	};
 }) satisfies PageServerLoad;

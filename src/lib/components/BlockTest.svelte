@@ -16,7 +16,7 @@
 	const lightbox = getLightbox();
 
 	function select(i) {
-		console.log(i);
+		// console.log(i);
 
 		if (!document.startViewTransition) {
 			lightbox.launch(i, block.images);
@@ -37,7 +37,7 @@
 				hovered = i;
 				fired = i;
 				resolve();
-				console.log('resolved');
+				// console.log('resolved');
 				await navigation.complete;
 			});
 		});
@@ -134,7 +134,7 @@
 			class="card flex h-full w-full items-center justify-center overflow-hidden rounded-lg bg-teal-700"
 		>
 			<img
-				src="{$page.data.cloudfront}/fit-in/1000x1000/{item.url}"
+				src="{$page.data.cloudfront}/fit-in/1000x0/{item.url}?webp"
 				alt=""
 				class="h-full w-full object-cover object-center"
 			/>
@@ -188,7 +188,7 @@
 		class="group card relative flex aspect-square w-full items-center justify-center overflow-hidden rounded-none bg-teal-700 md:w-full"
 	>
 		<img
-			src="{$page.data.cloudfront}/fit-in/400x400/{item.url}"
+			src="{$page.data.cloudfront}/fit-in/400x400/{item.url}?webp"
 			alt={item.alt}
 			class="relative z-0 h-full w-full object-cover object-center"
 		/>

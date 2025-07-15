@@ -9,7 +9,7 @@
 	{#if resource.type === 'image'}
 		<div class="group relative aspect-[735/1000] w-full transition-all duration-400">
 			<img
-				src="{page.data.cloudfront}/fit-in/600x0/{resource.file}"
+				src="{page.data.cloudfront}/fit-in/600x0/{resource.file}?webp"
 				alt=""
 				class="absolute h-full bg-black object-contain object-left"
 			/>
@@ -39,7 +39,7 @@
 	{:else if resource.featured_image.name}
 		<div class="group relative aspect-square w-full transition-all duration-400">
 			<img
-				src="{page.data.cloudfront}/fit-in/600x0/{resource.featured_image.name}"
+				src="{page.data.cloudfront}/fit-in/600x0/{resource.featured_image.name}?webp"
 				alt={resource.title}
 				class="absolute h-full bg-black object-contain object-left"
 			/>

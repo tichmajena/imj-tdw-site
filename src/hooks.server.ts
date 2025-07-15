@@ -6,7 +6,8 @@ export const handle: Handle = async ({ event, resolve }) => {
 	/** @type {String|null} */
 	let theme = 'light';
 
-	const newTheme = event.url.searchParams.get('theme');
+	const newTheme = null;
+	//const newTheme = event.url.searchParams.get('theme');
 	const cookieTheme = event.cookies.get('colortheme');
 	const session = event.cookies.get('session') as string;
 

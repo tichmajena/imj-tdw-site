@@ -7,7 +7,7 @@
 		return new Promise((resolve) => {
 			document.startViewTransition(async () => {
 				resolve();
-				console.log('resolved');
+				// console.log('resolved');
 				await navigation.complete;
 			});
 		});

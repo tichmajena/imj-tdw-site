@@ -297,11 +297,11 @@ export default class EntrySession {
     const path = this.selection.path;
     const container = [...this.get(path)];
     const { start, end } = this.get_selection_range();
-    console.log({ start, end });
+    //console.log({ start, end });
 
-    console.log(path);
+    //console.log(path);
     // container.classes.push(classes);
-    console.log(container);
+    //console.log(container);
 
     //this.set(path, container);
   }

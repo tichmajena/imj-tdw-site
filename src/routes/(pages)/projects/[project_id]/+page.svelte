@@ -106,7 +106,7 @@
 							<img src="{data.cloudfront}/fit-in/768x/{image.name}" alt={project.title} />
 						</picture> -->
 						<img
-							src="{data.cloudfront}/fit-in/1280x720/{image.name}"
+							src="{data.cloudfront}/fit-in/1280x720/{image.name}?webp"
 							class=""
 							alt={project.title}
 						/>
@@ -138,7 +138,7 @@
 							<img src="{data.cloudfront}/fit-in/768x0/{image.name}" alt={project.title} />
 						</picture> -->
 						<img
-							src="{data.cloudfront}/fit-in/1280x720/{image.name}"
+							src="{data.cloudfront}/fit-in/1280x720/{image.name}?webp"
 							class=""
 							alt={project.title}
 						/>

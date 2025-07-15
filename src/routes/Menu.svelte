@@ -32,12 +32,8 @@
 </nav>
 
 {#snippet themeToggle()}
-	<form
-		use:enhance
-		action="/?/setTheme&theme={page.data.theme === 'dark' ? 'light' : 'dark'}"
-		method="post"
-		class=" inline-flex"
-	>
+	<!-- action="/?/setTheme&theme={page.data.theme === 'dark' ? 'light' : 'dark'}" -->
+	<form use:enhance method="post" class=" inline-flex">
 		<button
 			class="the-drop swap swap-rotate relative -mb-5 ml-6 flex size-6 items-center justify-center !rounded-full border-0 ring-0 outline-none hover:bg-transparent"
 		>

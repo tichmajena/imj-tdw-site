@@ -87,18 +87,18 @@ export const actions: Actions = {
 		try {
 			ResourceSchema.parse(body);
 		} catch (error) {
-			console.log(error);
+			//console.log(error);
 			return { success: false };
 		}
 		//save resource to database
 		try {
 			const res = await fetch('/api/resources', { method: 'POST', body: JSON.stringify(body) });
-			console.log(res);
+			//console.log(res);
 			if (!res.ok) throw new Error('Wauraya');
 
 			return { success: true };
 		} catch (error) {
-			console.log(error);
+			//console.log(error);
 			return { success: false };
 		}
 	},
@@ -106,7 +106,7 @@ export const actions: Actions = {
 	delete: async ({ request, fetch }) => {
 		const formEntries = await request.formData();
 		const id = formEntries.get('id');
-		console.log(`/api/resources?id=${id}`);
+		//console.log(`/api/resources?id=${id}`);
 
 		const res = await fetch(`/api/resources?id=${id}`, { method: 'DELETE' });
 	},
@@ -169,12 +169,12 @@ export const actions: Actions = {
 				method: 'PUT',
 				body: JSON.stringify(body)
 			});
-			console.log(res);
+			// console.log(res);
 			if (!res.ok) throw new Error('Wauraya');
 
 			return { success: true };
 		} catch (error) {
-			console.log(error);
+			// console.log(error);
 			return { success: false };
 		}
 	}

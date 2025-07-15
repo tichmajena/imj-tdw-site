@@ -44,14 +44,22 @@
 			{#each project.images as image}
 				{#if image === project.featured_image}
 					<div class="carousel-item">
-						<img src="{data.cloudfront}/fit-in/1280x720/{image}" class="" alt={project.title} />
+						<img
+							src="{data.cloudfront}/fit-in/1280x720/{image}?webp"
+							class=""
+							alt={project.title}
+						/>
 					</div>
 				{/if}
 			{/each}
 			{#each project.images as image}
 				{#if image !== project.featured_image}
 					<div class="carousel-item">
-						<img src="{data.cloudfront}/fit-in/1280x720/{image}" class="" alt={project.title} />
+						<img
+							src="{data.cloudfront}/fit-in/1280x720/{image}?webp"
+							class=""
+							alt={project.title}
+						/>
 					</div>
 				{/if}
 			{/each}

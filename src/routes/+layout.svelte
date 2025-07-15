@@ -18,7 +18,7 @@
 	let releaseModal = $state(false);
 
 	onMount(() => {
-		console.log(':::USER', data.user.exists);
+		// console.log(':::USER', data.user.exists);
 
 		if (data.user.exists) {
 			Uploader = setUploader(AWSWorker);

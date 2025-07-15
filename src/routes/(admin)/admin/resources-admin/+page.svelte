@@ -56,8 +56,8 @@
 		}
 
 		let res = await fetch('/api/resources', { method: 'POST', body: JSON.stringify(resource) });
-		console.log(res.status);
-		console.log(data.url);
+		//console.log(res.status);
+		//console.log(data.url);
 
 		await invalidateAll();
 		createUpdate();
@@ -90,7 +90,7 @@
 			method: 'PUT',
 			body: JSON.stringify(body)
 		});
-		console.log(res.status);
+		//console.log(res.status);
 
 		return async ({ update }) => {
 			await invalidateAll();

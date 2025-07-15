@@ -100,7 +100,11 @@
 	{/if}
 
 	<div class="relative mx-auto h-screen w-full overflow-hidden">
-		<enhanced:img src={heroImage} class="h-full w-full object-cover object-top" alt="" />
+		<img
+			src="{data.cloudfront}/fit-in/1920x0/tdw-landing.jpg?webp"
+			class="h-full w-full object-cover object-top"
+			alt=""
+		/>
 		<div class="absolute inset-0 bg-black/60"></div>
 		<div class="absolute bottom-0 w-full">
 			<h2 class="container mx-auto mb-40 px-5 text-4xl font-thin text-white md:text-6xl">
@@ -211,7 +215,7 @@
 			</div>
 		</div>-->
 	</Svedit>
-	<div class="relative container mx-auto mb-20 overflow-hidden px-5">
+	<!-- <div class="relative container mx-auto mb-20 overflow-hidden px-5">
 		<div class="grid w-full grid-cols-1 gap-6 md:grid-cols-2">
 			{#await data.projects}
 				{#each { length: 3 } as _}
@@ -222,6 +226,13 @@
 					<ProjectCard {project}></ProjectCard>
 				{/each}
 			{/await}
+		</div>
+	</div> -->
+	<div class="relative container mx-auto mb-20 overflow-hidden px-5">
+		<div class="grid w-full grid-cols-1 gap-6 md:grid-cols-2">
+			{#each data.projects as project}
+				<ProjectCard {project}></ProjectCard>
+			{/each}
 		</div>
 	</div>
 	<!-- <button onclick={test} class="btn">Test</button>

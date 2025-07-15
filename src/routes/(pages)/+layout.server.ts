@@ -1,10 +1,6 @@
 import type { LayoutServerLoad } from './$types';
+export const prerender = true;
 
 export const load = (async () => {
-	async function getGallery() {
-		return [];
-	}
-	return {
-		gallery: getGallery()
-	};
+	return {};
 }) satisfies LayoutServerLoad;
