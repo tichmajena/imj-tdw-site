@@ -2,13 +2,14 @@ import { AWS_CLOUDFRONT } from '$env/static/private';
 import type { Handle } from '@sveltejs/kit';
 import admin from '$lib/server/firebase-admin';
 import { ratelimit, redis } from '$lib/server/redis';
+import { building } from '$app/environment';
 export const handle: Handle = async ({ event, resolve }) => {
 	/** @type {String|null} */
 	let theme = 'light';
 
 	// Ratelimit for crawlers and bruteforce protection
 	const userAgent = event.request.headers.get('user-agent') || '';
-	const ip = event.getClientAddress();
+	const ip = building ? '' : event.getClientAddress();
 
 	// Simple bot/crawler detection (adjust as needed)
 	const isCrawler = /bot|crawl|spider|slurp|bing|duckduck|baidu|yandex/i.test(userAgent);
@@ -21,7 +22,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	const { success, remaining, reset } = await ratelimit.create.limit(ratelimitKey);
 
-	if (!success) {
+	if (!success && !building) {
 		return new Response('Too Many Requests', {
 			status: 429,
 			headers: {
