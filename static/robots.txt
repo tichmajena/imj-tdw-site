@@ -1,0 +1,18 @@
+User-agent: *
+Disallow: /account
+Disallow: /terms
+Disallow: /privacy
+Disallow: /auth
+Disallow: /api
+Disallow: /checkout
+Disallow: /search
+Disallow: /shopdetail
+Disallow: /shopdetails
+Disallow: /product/edit
+Disallow: /admin
+
+
+
+
+User-agent: GPTBot
+Disallow: /
