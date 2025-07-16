@@ -13,23 +13,21 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	// Simple bot/crawler detection (adjust as needed)
 	const isCrawler = /bot|crawl|spider|slurp|bing|duckduck|baidu|yandex/i.test(userAgent);
+	const ratelimitKey = isCrawler ? `ratelimit:crawler:${ip}` : `ratelimit:user:${ip}`;
 	if (isCrawler) {
 		// For crawlers, we can allow more requests
 		console.log(`Crawler detected: ${userAgent} from IP: ${ip}`);
-	}
+		const { success, remaining, reset } = await ratelimit.create.limit(ratelimitKey);
 
-	const ratelimitKey = isCrawler ? `ratelimit:crawler:${ip}` : `ratelimit:user:${ip}`;
-
-	const { success, remaining, reset } = await ratelimit.create.limit(ratelimitKey);
-
-	if (!success && !building) {
-		return new Response('Too Many Requests', {
-			status: 429,
-			headers: {
-				'Retry-After': String(reset),
-				'X-RateLimit-Remaining': String(remaining)
-			}
-		});
+		if (!success && !building) {
+			return new Response('Too Many Requests', {
+				status: 429,
+				headers: {
+					'Retry-After': String(reset),
+					'X-RateLimit-Remaining': String(remaining)
+				}
+			});
+		}
 	}
 
 	const newTheme = null;
