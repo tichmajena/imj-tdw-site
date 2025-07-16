@@ -5,7 +5,6 @@
 	import { blurhash } from '$src/lib/js/utils';
 
 	let { data }: { data: PageData } = $props();
-	console.log(data);
 	let project: Project = data.project;
 </script>
 

@@ -50,7 +50,7 @@
 
 				<label
 					arial-label="Toggle Menu"
-					class="ml-10 inline-flex pt-4 text-gray-300 hover:text-white"
+					class="-mt-3 ml-10 inline-flex pt-4 text-gray-300 hover:text-white"
 					for="menu-toggle"
 				>
 					<span class="sr-only">Toggle Menu</span>

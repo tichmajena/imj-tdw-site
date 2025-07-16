@@ -100,11 +100,31 @@
 	{/if}
 
 	<div class="relative mx-auto h-screen w-full overflow-hidden">
-		<img
+		<!-- <img
 			src="{data.cloudfront}/fit-in/1920x0/tdw-landing.jpg?webp"
 			class="h-full w-full object-cover object-top"
 			alt=""
-		/>
+		/> -->
+		<picture class="h-full w-full object-center">
+			<source
+				srcset="
+			{data.cloudfront}/fit-in/1920x0/tdw-landing.jpg?webp 1920w,
+			{data.cloudfront}/fit-in/1440x0/tdw-landing.jpg?webp 1440w,
+			{data.cloudfront}/fit-in/1024x0/tdw-landing.jpg?webp 1024w"
+				media="(min-width: 1024px)"
+			/>
+			<source
+				srcset="
+			{data.cloudfront}/fit-in/768x0/tdw-landing.jpg?webp 768w,
+			{data.cloudfront}/fit-in/480x0/tdw-landing.jpg?webp 480w"
+				media="(max-width: 1023px)"
+			/>
+			<img
+				class="h-full w-full object-cover object-center"
+				src="{data.cloudfront}/fit-in/768x0/tdw-landing.jpg?webp"
+				alt="Troika Design Workshop"
+			/>
+		</picture>
 		<div class="absolute inset-0 bg-black/60"></div>
 		<div class="absolute bottom-0 w-full">
 			<h2 class="container mx-auto mb-40 px-5 text-4xl font-thin text-white md:text-6xl">

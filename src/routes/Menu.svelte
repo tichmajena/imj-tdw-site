@@ -14,9 +14,11 @@
 </script>
 
 <nav
-	class="container mx-auto mt-24 flex w-full flex-col items-end pr-5 text-white md:flex-row md:justify-between"
+	class="container mx-auto mt-16 flex w-full flex-col items-end pr-5 text-white md:mt-24 md:flex-row md:justify-between"
 >
-	<ul class="mb-8 flex w-full flex-col space-y-8 pl-4 text-4xl md:mb-0 md:w-1/2">
+	<ul
+		class="mb-16 flex w-full flex-col space-y-4 pl-4 text-2xl md:mb-0 md:w-1/2 md:space-y-8 md:text-4xl"
+	>
 		{#each menuItems as { href, text }, i}
 			<li transition:slide={{ duration: 200, delay: 100 * i }}>
 				<a {href} class="font-light text-gray-300 transition-all hover:font-bold hover:text-white"

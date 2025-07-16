@@ -48,7 +48,7 @@
 					</div>
 				{/if}
 
-				<label class="ml-10 inline-flex pt-4 text-gray-500 hover:text-white" for="menu-toggle"
+				<label class="-mt-3 ml-10 inline-flex pt-4 text-gray-500 hover:text-white" for="menu-toggle"
 					>{#if showMenuBool}
 						<IconMinus class="size-10" />
 					{:else}
