@@ -43,7 +43,7 @@
 			<a href="/" class="text-4xl font-bold"><Logo></Logo></a>
 			<div class="flex flex-row items-center space-x-2">
 				{#if !showMenuBool}
-					<div class="hidden space-x-6 md:flex">
+					<div class="-mt-3 hidden space-x-6 md:flex">
 						<Socials />
 					</div>
 				{/if}

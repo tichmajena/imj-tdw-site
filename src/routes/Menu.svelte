@@ -14,7 +14,7 @@
 </script>
 
 <nav
-	class="container mx-auto mt-16 flex w-full flex-col items-end pr-5 text-white md:mt-24 md:flex-row md:justify-between"
+	class="container mx-auto mt-16 flex w-full flex-col items-end pr-5 text-white md:mt-36 md:flex-row md:justify-between"
 >
 	<ul
 		class="mb-16 flex w-full flex-col space-y-4 pl-4 text-2xl md:mb-0 md:w-1/2 md:space-y-8 md:text-4xl"
@@ -27,9 +27,9 @@
 			</li>
 		{/each}
 	</ul>
-	<div class="-mt-2 flex w-full items-center justify-end space-x-6 md:w-1/2">
+	<div class="-mt-4 flex w-full items-center justify-end space-x-6 md:w-1/2">
 		<Socials />
-		{@render themeToggle()}
+		<!-- {@render themeToggle()} -->
 	</div>
 </nav>
 

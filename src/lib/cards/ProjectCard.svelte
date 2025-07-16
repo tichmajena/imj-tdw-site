@@ -28,9 +28,9 @@
 		<source
 			class="h-full w-full object-cover"
 			srcset="
-			{page.data.cloudfront}/fit-in/1920x0/{project.featured_image.name}?webp 1920w,
-			{page.data.cloudfront}/fit-in/1440x0/{project.featured_image.name}?webp 1440w,
-			{page.data.cloudfront}/fit-in/1024x0/{project.featured_image.name}?webp 1024w"
+			{page.data.cloudfront}/fit-in/1024x0/{project.featured_image.name}?webp 1920w,
+			{page.data.cloudfront}/fit-in/768x0/{project.featured_image.name}?webp 1440w,
+			{page.data.cloudfront}/fit-in/540x0/{project.featured_image.name}?webp 1024w"
 			media="(min-width: 1024px)"
 		/>
 		<source
@@ -52,13 +52,13 @@
 	></div>
 
 	<div
-		class="absolute bottom-0 left-0 flex w-auto origin-bottom-left flex-col-reverse p-2 transition-all duration-250 md:flex-col md:p-5"
+		class="absolute bottom-0 left-0 flex w-auto origin-bottom-left flex-col-reverse p-2 transition-all duration-250 md:flex-col md:p-6"
 	>
 		<div class="w-full">
 			<h3 class="text-xl font-thin md:mb-2 md:text-4xl">{project.title}</h3>
 		</div>
 		<div class="w-full">
-			<h4 class="text-sm font-thin">{project.year}</h4>
+			<h4 class="text-sm font-thin md:text-xl">{project.year}</h4>
 		</div>
 	</div>
 </a>
