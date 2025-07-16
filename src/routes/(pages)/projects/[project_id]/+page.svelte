@@ -3,9 +3,19 @@
 	import type { PageData } from './$types';
 	import { dev } from '$app/environment';
 	import { blurhash } from '$src/lib/js/utils';
+	import ProjectSlider from '$src/lib/components/ProjectSlider.svelte';
 
 	let { data }: { data: PageData } = $props();
 	let project: Project = data.project;
+
+	let slides = $derived(
+		project.images.map((image, i) => ({
+			title: project.title + ' ' + (i + 1),
+			slug: '',
+			image: image,
+			description: ''
+		}))
+	);
 </script>
 
 <svelte:head>
@@ -78,19 +88,21 @@
 			{/if}
 		</div>
 	</div>
-	<div in:fly={{ delay: 600, y: 300, x: 0 }} class="container mx-auto min-h-[720px] px-5">
-		<div class="carousel carousel-center w-full space-x-4">
-			{#each project.images as image}
-				{#if image === project.featured_image}
-					<img
-						width={image.width}
-						height={image.height}
-						src={blurhash(image)}
-						class="absolute inset-0 z-10 hidden h-full w-full"
-						alt={image.name}
-					/>
-					<div class="carousel-item">
-						<!-- <picture>
+	<!-- Carousel -->
+	{#if false}
+		<div in:fly={{ delay: 600, y: 300, x: 0 }} class="container mx-auto min-h-[720px] px-5">
+			<div class="carousel carousel-center w-full space-x-4">
+				{#each project.images as image}
+					{#if image === project.featured_image}
+						<img
+							width={image.width}
+							height={image.height}
+							src={blurhash(image)}
+							class="absolute inset-0 z-10 hidden h-full w-full"
+							alt={image.name}
+						/>
+						<div class="carousel-item">
+							<!-- <picture>
 							<source
 								srcset="{data.cloudfront}/fit-in/1920x/{image.name} 1920w,
    {data.cloudfront}/fit-in/1440x/{image.name} 1440w,
@@ -104,18 +116,18 @@
 							/>
 							<img src="{data.cloudfront}/fit-in/768x/{image.name}" alt={project.title} />
 						</picture> -->
-						<img
-							src="{data.cloudfront}/fit-in/1280x720/{image.name}?webp"
-							class=""
-							alt={project.title}
-						/>
-					</div>
-				{/if}
-			{/each}
-			{#each project.images as image}
-				{#if image !== project.featured_image}
-					<div class="carousel-item h-[600px]">
-						<!-- <img
+							<img
+								src="{data.cloudfront}/fit-in/1280x720/{image.name}?webp"
+								class=""
+								alt={project.title}
+							/>
+						</div>
+					{/if}
+				{/each}
+				{#each project.images as image}
+					{#if image !== project.featured_image}
+						<div class="carousel-item h-[600px]">
+							<!-- <img
 							width={image.width}
 							height={image.height}
 							src="{data.cloudfront}/fit-in/1920x0/{image.name}"
@@ -136,14 +148,16 @@
 							/>
 							<img src="{data.cloudfront}/fit-in/768x0/{image.name}" alt={project.title} />
 						</picture> -->
-						<img
-							src="{data.cloudfront}/fit-in/1280x720/{image.name}?webp"
-							class=""
-							alt={project.title}
-						/>
-					</div>
-				{/if}
-			{/each}
+							<img
+								src="{data.cloudfront}/fit-in/1280x720/{image.name}?webp"
+								class=""
+								alt={project.title}
+							/>
+						</div>
+					{/if}
+				{/each}
+			</div>
 		</div>
-	</div>
+	{/if}
+	<ProjectSlider {slides} />
 </div>

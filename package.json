@@ -59,6 +59,8 @@
 		"@fontsource/open-sans": "^5.2.5",
 		"@fontsource/roboto": "^5.2.5",
 		"@googlemaps/js-api-loader": "^1.16.8",
+		"@splidejs/splide-extension-auto-scroll": "^0.5.3",
+		"@splidejs/svelte-splide": "^0.2.9",
 		"@upstash/ratelimit": "^2.0.5",
 		"@upstash/redis": "^1.35.1",
 		"blurhash": "^2.0.5",

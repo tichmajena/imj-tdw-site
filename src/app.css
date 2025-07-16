@@ -25,3 +25,9 @@ body {
 	--color-primary: oklch(0.72 0.1614 130.85);
 	--color-primary-content: #ffffff;
 }
+
+.splide__slide {
+	background-color: blue;
+	min-width: 100px;
+	min-height: 100px;
+}
