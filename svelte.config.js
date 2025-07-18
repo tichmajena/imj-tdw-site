@@ -3,7 +3,12 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 const config = {
 	preprocess: vitePreprocess(),
-	kit: { adapter: adapter(), alias: { $icons: 'src/icons', $src: 'src' } },
+	kit: {
+		adapter: adapter({
+			edge: false
+		}),
+		alias: { $icons: 'src/icons', $src: 'src' }
+	},
 	vitePlugin: {
 		inspector: {
 			// change shortcut
