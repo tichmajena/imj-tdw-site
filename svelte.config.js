@@ -5,7 +5,7 @@ const config = {
 	preprocess: vitePreprocess(),
 	kit: {
 		adapter: adapter({
-			edge: false
+			runtime: 'nodejs22.x'
 		}),
 		alias: { $icons: 'src/icons', $src: 'src' }
 	},
