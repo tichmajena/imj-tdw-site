@@ -44,6 +44,13 @@
 		media="(max-width: 1023px)"
 	/>
 	<img
+		onerror={(e) => {
+			console.log(e);
+			console.log(`${page.data.cloudfront}/fit-in/770x0/${image.name}`);
+
+			//e.target.src = `${page.data.cloudfront}/fit-in/770x0/${image.name}`;
+		}}
+		fetchpriority="high"
 		width={w}
 		height={h}
 		class="h-[40vh] w-auto object-contain md:h-[80vh]"
