@@ -633,7 +633,7 @@
 							label="Gallery"
 						></ArtworkImage>
 					</div>
-					<label for="replace">Replace Gallery</label><input
+					<label class="pr-2" for="replace">Replace Gallery</label><input
 						id="replace"
 						class="checkbox checkbox-primary mb-3"
 						name="replace"

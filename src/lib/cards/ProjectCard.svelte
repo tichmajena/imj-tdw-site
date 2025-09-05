@@ -3,6 +3,7 @@
 	import { blurhash } from '../js/utils';
 
 	let { project } = $props();
+	let imageFailed = $state(0);
 </script>
 
 <a
@@ -24,6 +25,7 @@
 		alt=""
 		class="absolute inset-0 h-full w-full object-cover transition-all duration-250"
 	/> -->
+
 	<picture class="h-full w-full object-center">
 		<source
 			class="h-full w-full object-cover"
@@ -40,6 +42,7 @@
 			{page.data.cloudfront}/fit-in/480x0/{project.featured_image.name}?webp 480w"
 			media="(max-width: 1023px)"
 		/>
+
 		<img
 			class="h-full w-full object-cover"
 			src="{page.data.cloudfront}/fit-in/768x0/{project.featured_image.name}?webp"

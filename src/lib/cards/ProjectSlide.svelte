@@ -10,6 +10,12 @@
 	}
 	let w = $derived(image.width || 1920);
 	let h = $derived(image.height || 1080);
+	let imageFailed = $state(0);
+	let fitIn1920 = $state('/fit-in/1920x0/');
+	let fitIn1440 = $state('/fit-in/1440x0/');
+	let fitIn1024 = $state('/fit-in/1024x0/');
+	let fitIn768 = $state('/fit-in/768x0/');
+	let fitIn480 = $state('/fit-in/480x0/');
 </script>
 
 <!-- <div class="relative aspect-[400/627] h-full bg-sky-400"> -->
@@ -32,29 +38,26 @@
 <picture>
 	<source
 		srcset="
-			{page.data.cloudfront}/fit-in/1920x0/{image.name}?webp 1920w,
-			{page.data.cloudfront}/fit-in/1440x0/{image.name}?webp 1440w,
-			{page.data.cloudfront}/fit-in/1024x0/{image.name}?webp 1024w"
+			{page.data.cloudfront}{fitIn1920}{image.name}?webp 1920w,
+			{page.data.cloudfront}{fitIn1440}{image.name}?webp 1440w,
+			{page.data.cloudfront}{fitIn1024}{image.name}?webp 1024w"
 		media="(min-width: 1024px)"
 	/>
 	<source
 		srcset="
-			{page.data.cloudfront}/fit-in/768x0/{image.name}?webp 768w,
-			{page.data.cloudfront}/fit-in/480x0/{image.name}?webp 480w"
+			{page.data.cloudfront}{fitIn768}{image.name}?webp 768w,
+			{page.data.cloudfront}{fitIn480}{image.name}?webp 480w"
 		media="(max-width: 1023px)"
 	/>
 	<img
 		onerror={(e) => {
-			console.log(e);
-			console.log(`${page.data.cloudfront}/fit-in/770x0/${image.name}`);
-
 			//e.target.src = `${page.data.cloudfront}/fit-in/770x0/${image.name}`;
 		}}
 		fetchpriority="high"
 		width={w}
 		height={h}
 		class="h-[40vh] w-auto object-contain md:h-[80vh]"
-		src="{page.data.cloudfront}/fit-in/768x0/{image.name}?webp"
+		src="{page.data.cloudfront}/{image.name}?webp"
 		alt={title}
 	/>
 </picture>

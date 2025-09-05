@@ -10,6 +10,7 @@ export const GET: RequestHandler = async ({ params, fetch, setHeaders }) => {
 		method: 'POST',
 		body: params.file_name
 	});
+
 	const urls = await res.json();
 	const res2 = await fetch(urls.get);
 	const pdfData = await res2.blob();

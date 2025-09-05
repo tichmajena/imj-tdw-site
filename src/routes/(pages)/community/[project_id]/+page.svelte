@@ -42,24 +42,83 @@
 	<div class="container mx-auto px-5">
 		<div class="carousel carousel-center w-full space-x-4">
 			{#each project.images as image}
+				{@const failed = { times: 0 }}
 				{#if image === project.featured_image}
 					<div class="carousel-item">
-						<img
-							src="{data.cloudfront}/fit-in/1280x720/{image}?webp"
-							class=""
-							alt={project.title}
-						/>
+						{#if failed.times === 0}
+							<img
+								src="{data.cloudfront}/fit-in/1280x720/{image}?webp"
+								onerror={() => {
+									console.log('failed', image);
+									failed.times = 1;
+								}}
+								class=""
+								alt={project.title}
+							/>
+						{:else if failed.times === 1}
+							<img
+								src="{data.cloudfront}/fit-in/1281x720/{image}?webp"
+								onerror={() => {
+									console.log('failed', image);
+									failed.times = 2;
+								}}
+								class=""
+								alt={project.title}
+							/>
+						{:else if failed.times === 2}
+							<img
+								src="{data.cloudfront}/fit-in/1282x720/{image}?webp"
+								onerror={() => {
+									console.log('failed', image);
+									failed.times = 3;
+								}}
+								class=""
+								alt={project.title}
+							/>
+						{:else if failed.times <= 3}
+							<img src="{data.cloudfront}/{image}?webp" class="" alt={project.title} />
+						{/if}
 					</div>
 				{/if}
 			{/each}
 			{#each project.images as image}
+				{@const failed = { times: 0 }}
+
 				{#if image !== project.featured_image}
 					<div class="carousel-item">
-						<img
-							src="{data.cloudfront}/fit-in/1280x720/{image}?webp"
-							class=""
-							alt={project.title}
-						/>
+						{#if failed.times === 0}
+							<img
+								src="{data.cloudfront}/fit-in/1280x720/{image}?webp"
+								onerror={() => {
+									console.log('failed', image);
+									failed.times = 1;
+								}}
+								class=""
+								alt={project.title}
+							/>
+						{:else if failed.times === 1}
+							<img
+								src="{data.cloudfront}/fit-in/1281x720/{image}?webp"
+								onerror={() => {
+									console.log('failed', image);
+									failed.times = 2;
+								}}
+								class=""
+								alt={project.title}
+							/>
+						{:else if failed.times === 2}
+							<img
+								src="{data.cloudfront}/fit-in/1282x720/{image}?webp"
+								onerror={() => {
+									console.log('failed', image);
+									failed.times = 3;
+								}}
+								class=""
+								alt={project.title}
+							/>
+						{:else if failed.times <= 3}
+							<img src="{data.cloudfront}/{image}?webp" class="" alt={project.title} />
+						{/if}
 					</div>
 				{/if}
 			{/each}

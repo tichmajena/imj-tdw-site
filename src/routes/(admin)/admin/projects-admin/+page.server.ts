@@ -181,9 +181,11 @@ export const actions: Actions = {
 				body = { ...body, featured_image: file.name };
 			}
 		}
+
 		if (project.replace) {
 			body.images = [];
 		}
+
 		for (const file of gallery) {
 			if (file instanceof File && file.size) {
 				//get signed url for the image
