@@ -34,33 +34,56 @@
 		alt=""
 		class="absolute inset-0 h-full w-full object-cover transition-all duration-250"
 	/> -->
-
-<picture>
-	<source
-		srcset="
+{#key imageFailed}
+	<picture>
+		<source
+			srcset="
 			{page.data.cloudfront}{fitIn1920}{image.name}?webp 1920w,
 			{page.data.cloudfront}{fitIn1440}{image.name}?webp 1440w,
 			{page.data.cloudfront}{fitIn1024}{image.name}?webp 1024w"
-		media="(min-width: 1024px)"
-	/>
-	<source
-		srcset="
+			media="(min-width: 1024px)"
+		/>
+		<source
+			srcset="
 			{page.data.cloudfront}{fitIn768}{image.name}?webp 768w,
 			{page.data.cloudfront}{fitIn480}{image.name}?webp 480w"
-		media="(max-width: 1023px)"
-	/>
-	<img
-		onerror={(e) => {
-			//e.target.src = `${page.data.cloudfront}/fit-in/770x0/${image.name}`;
-		}}
-		fetchpriority="high"
-		width={w}
-		height={h}
-		class="h-[40vh] w-auto object-contain md:h-[80vh]"
-		src="{page.data.cloudfront}/{image.name}?webp"
-		alt={title}
-	/>
-</picture>
+			media="(max-width: 1023px)"
+		/>
+		<img
+			onerror={(e) => {
+				console.log('Failed', { fitIn1024, fitIn768, fitIn480, fitIn1920, imageFailed, title });
+				if (imageFailed < 3) imageFailed++;
+				if (imageFailed === 1) {
+					fitIn1920 = '/fit-in/1921x0/';
+					fitIn1440 = '/fit-in/1441x0/';
+					fitIn1024 = '/fit-in/1025x0/';
+					fitIn768 = '/fit-in/769x0/';
+					fitIn480 = '/fit-in/481x0/';
+				} else if (imageFailed === 2) {
+					fitIn1920 = '/fit-in/1922x0/';
+					fitIn1440 = '/fit-in/1442x0/';
+					fitIn1024 = '/fit-in/1026x0/';
+					fitIn768 = '/fit-in/770x0/';
+					fitIn480 = '/fit-in/482x0/';
+				} else if (imageFailed === 3) {
+					fitIn1920 = '/';
+					fitIn1440 = '/';
+					fitIn1024 = '/';
+					fitIn768 = '/';
+					fitIn480 = '/';
+				}
+
+				//e.target.src = `${page.data.cloudfront}/fit-in/770x0/${image.name}`;
+			}}
+			fetchpriority="high"
+			width={w}
+			height={h}
+			class="h-[40vh] w-auto object-contain md:h-[80vh]"
+			src="{page.data.cloudfront}/{image.name}?webp"
+			alt={title}
+		/>
+	</picture>
+{/key}
 
 <!-- </div> -->
 <!-- <img
