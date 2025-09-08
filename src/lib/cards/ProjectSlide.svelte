@@ -53,11 +53,19 @@
 			media="(max-width: 1023px)"
 		/>
 		<img
+			onload={(e) => {
+				//console.log(e);
+
+				zvaramba = false;
+			}}
 			onerror={async (e) => {
-				console.log('Failed', { fitIn1024, fitIn768, fitIn480, fitIn1920, imageFailed, title });
+				zvaramba = true;
+
+				//console.log(e);
+
+				//console.log('Failed', { fitIn1024, fitIn768, fitIn480, fitIn1920, imageFailed, title });
 				if (imageFailed < 4) {
 					imageFailed++;
-					zvaramba = true;
 				} else {
 					zvaramba = true;
 				}
@@ -67,21 +75,18 @@
 					fitIn1024 = '/fit-in/1025x0/';
 					fitIn768 = '/fit-in/769x0/';
 					fitIn480 = '/fit-in/481x0/';
-					zvaramba = false;
 				} else if (imageFailed === 2) {
 					fitIn1920 = '/fit-in/1922x0/';
 					fitIn1440 = '/fit-in/1442x0/';
 					fitIn1024 = '/fit-in/1026x0/';
 					fitIn768 = '/fit-in/770x0/';
 					fitIn480 = '/fit-in/482x0/';
-					zvaramba = false;
 				} else if (imageFailed === 3) {
 					fitIn1920 = '/';
 					fitIn1440 = '/';
 					fitIn1024 = '/';
 					fitIn768 = '/';
 					fitIn480 = '/';
-					zvaramba = false;
 				} else if (imageFailed === 4) {
 					// do nothing more
 					await fetch('/api/invalidate', {
@@ -99,11 +104,12 @@
 					if (imageRetry < 3) {
 						imageFailed = 0;
 						imageRetry++;
-						zvaramba = false;
 					} else {
 						zvaramba = true;
 					}
 					console.log('Invalidation requested');
+				} else {
+					console.error(title);
 				}
 
 				//e.target.src = `${page.data.cloudfront}/fit-in/770x0/${image.name}`;
@@ -114,7 +120,7 @@
 			class:w-0={zvaramba}
 			class="h-[40vh] w-auto overflow-hidden object-contain md:h-[80vh]"
 			src="{page.data.cloudfront}/{image.name}?webp"
-			alt={title}
+			alt="{zvaramba}-{title}"
 		/>
 	</picture>
 {/key}

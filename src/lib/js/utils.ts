@@ -79,6 +79,7 @@ export function zodValidationErrors(error: any) {
 	});
 	return messages;
 }
+
 export function blurhash(photo) {
 	if (!browser) return;
 	if (!photo.blur_hash) return;
