@@ -120,7 +120,7 @@
 				media="(max-width: 1023px)"
 			/>
 			<img
-				class="h-full w-full object-cover object-center"
+				class="h-full w-full object-cover object-[65%_100%] md:object-center"
 				src="{data.cloudfront}/fit-in/768x0/tdw-landing.jpg?webp"
 				alt="Troika Design Workshop"
 			/>

@@ -179,7 +179,7 @@
 				{/key}
 			</div>
 
-			<div class="flex w-full flex-col md:w-1/3 lg:w-1/2">
+			<div class="mb-20 flex w-full flex-col md:w-1/3 lg:w-1/2">
 				<div class="flex w-fit flex-row space-x-4">
 					<div class="w-6">
 						<Location />

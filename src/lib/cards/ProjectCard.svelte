@@ -117,7 +117,7 @@
 	</picture>
 
 	<div
-		class="absolute bottom-0 h-1/2 w-full bg-linear-to-t from-black/70 via-black/50 to-transparent transition-all duration-250 md:opacity-100"
+		class="absolute bottom-0 h-5/6 w-full bg-linear-to-t from-black/70 via-black/50 to-transparent transition-all duration-250 md:h-1/2 md:opacity-100"
 	></div>
 
 	<div
