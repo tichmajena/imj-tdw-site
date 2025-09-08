@@ -3,6 +3,6 @@ import type { PageServerLoad } from './$types';
 
 export const load = (async ({ fetch }) => {
 	const res = await fetch('/auth', { method: 'DELETE' });
-	if (res.status === 200) redirect(301, '/admin');
+	if (res.status === 200) redirect(301, '/');
 	return {};
 }) satisfies PageServerLoad;
