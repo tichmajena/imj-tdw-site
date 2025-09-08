@@ -7,7 +7,8 @@ import {
 	AWS_ACCESSKEY,
 	AWS_REGION,
 	AWS_SECRETKEY,
-	EMAIL_TO
+	EMAIL_TO,
+	AWS_CLOUDFRONT_DRISTIBUTION
 } from '$env/static/private';
 
 const REGION = AWS_REGION;
@@ -110,4 +111,32 @@ export async function sendMail(payload: { body: string; subject: string }) {
 		console.error(':::Error sending mail', error.$response);
 		return null;
 	}
+}
+
+import { CloudFrontClient, CreateInvalidationCommand } from '@aws-sdk/client-cloudfront';
+
+export async function invalidateCache(items: string[]) {
+	console.log('Invalidating cache for items:', items);
+
+	const client = new CloudFrontClient({
+		credentials: {
+			accessKeyId: ACCESS_KEY,
+			secretAccessKey: SECRET
+			//sessionToken: crypto.randomUUID()
+		},
+		region: REGION
+	});
+	const params = {
+		DistributionId: AWS_CLOUDFRONT_DRISTIBUTION,
+		InvalidationBatch: {
+			Paths: {
+				Quantity: 1,
+				Items: items
+			},
+			CallerReference: `${Date.now()}` // ensures uniqueness
+		}
+	};
+	const command = new CreateInvalidationCommand(params);
+	const response = await client.send(command);
+	console.log('Invalidation created with ID:', response?.Invalidation?.Id);
 }

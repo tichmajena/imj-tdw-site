@@ -67,7 +67,7 @@
 			<div class="hidden h-full border-l border-purple-600 md:flex"></div>
 			<div class="sm:w-full md:w-5/6 md:pl-6">
 				<div class="mb-4 flex items-end md:h-48">
-					<h1 class="text-4xl font-thin md:text-6xl">
+					<h1 class=" text-3xl font-thin md:text-4xl lg:text-5xl">
 						{project.title}
 					</h1>
 				</div>

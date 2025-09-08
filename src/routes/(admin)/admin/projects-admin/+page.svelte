@@ -12,6 +12,8 @@
 	import { ProjectSchema } from '$src/lib/js/zod';
 	import { zodValidationErrors } from '$src/lib/js/utils';
 	import ArtworkImage from '$src/lib/components/ArtworkImage.svelte';
+	import Thumbnail from './Thumbnail.svelte';
+	import FeaturedImage from './FeaturedImage.svelte';
 
 	let Uploader: UploaderClass = $state();
 
@@ -497,15 +499,11 @@
 {#snippet project_card(item: Project, i: number)}
 	<div transition:scale class="card bg-base-300 mb-4 shadow-sm md:w-md lg:w-lg">
 		<figure>
-			<img src="{data.cloudfront}/fit-in/800x600/{item.featured_image.name}" alt={item.title} />
+			<FeaturedImage cloudfront={data.cloudfront} image={item.featured_image} alt={item.title} />
 		</figure>
 		<div class="mt-2 flex w-full flex-wrap">
 			{#each item.images as image}
-				<img
-					class="mr-1 mb-1 size-24 object-cover"
-					src="{data.cloudfront}/fit-in/300x0/{image.name}?webp"
-					alt=""
-				/>
+				<Thumbnail cloudfront={data.cloudfront} {image} />
 			{/each}
 		</div>
 		<div class="card-body">

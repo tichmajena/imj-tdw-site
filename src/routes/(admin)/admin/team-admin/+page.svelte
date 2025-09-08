@@ -9,6 +9,7 @@
 	import { flip } from 'svelte/animate';
 	import { enhance } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
+	import Thumbnail from '../projects-admin/Thumbnail.svelte';
 
 	let { data, form }: { data: PageData; form: any } = $props();
 
@@ -66,6 +67,10 @@
 			creating = false;
 		};
 	}
+
+	let imageFailed = $state(0);
+	let imageRetry = $state(0);
+	let zvaramba = $state(false);
 </script>
 
 <div class="w-full">
@@ -191,13 +196,32 @@
 {#snippet memberCard(team: Team, i: number)}
 	<div>
 		<div class="card bg-base-300 w-96 shadow-sm lg:w-full">
-			<figure>
-				{#if team.image}
-					<img src="{data.cloudfront}/{team.image}" alt={team.name} />
-				{:else}
-					<img src={placeholder} alt={team.name} />
-				{/if}
-			</figure>
+			{#key imageRetry}
+				<figure>
+					{#if team.image}
+						<img
+							onerror={async () => {
+								await fetch('/api/invalidate', {
+									method: 'POST',
+									headers: { 'Content-Type': 'application/json' },
+									body: JSON.stringify([`/${image.name}`])
+								});
+								if (imageRetry < 3) {
+									imageFailed = 0;
+									imageRetry++;
+									zvaramba = false;
+								} else {
+									zvaramba = true;
+								}
+							}}
+							src="{data.cloudfront}/{team.image}"
+							alt={team.name}
+						/>
+					{:else}
+						<img src={placeholder} alt={team.name} />
+					{/if}
+				</figure>
+			{/key}
 			<div class="card-body">
 				{#if members[i].edit === false}
 					<h2 class="card-title">{team.name}</h2>
@@ -321,6 +345,7 @@
 		<figure class="h-32 w-32 overflow-hidden">
 			{#if team.image}
 				<img src="{data.cloudfront}/fit-in/300x0/{team.image}" alt={team.name} />
+				<Thumbnail cloudfront={data.cloudfront} image={team.image} />
 			{:else}
 				<img src={placeholder} alt={team.name} />
 			{/if}
