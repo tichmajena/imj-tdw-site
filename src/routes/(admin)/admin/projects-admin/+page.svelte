@@ -462,7 +462,7 @@
 						{@render project_card(project, i)}
 					</div>
 				{:else}
-					{@render data_not_found('projects')}
+					{@render data_not_found('puplished projects')}
 				{/each}
 			</div>
 		{:else if tabview === 'draft'}
@@ -472,7 +472,7 @@
 						{@render project_card(project, i)}
 					</div>
 				{:else}
-					{@render data_not_found('projects')}
+					{@render data_not_found('draft projects')}
 				{/each}
 			</div>
 		{:else if tabview === 'trashed'}
@@ -482,7 +482,7 @@
 						{@render project_card(project, i)}
 					</div>
 				{:else}
-					{@render data_not_found('projects')}
+					{@render data_not_found('trashed projects')}
 				{/each}
 			</div>
 		{/if}

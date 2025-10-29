@@ -7,15 +7,24 @@
 	import Field from '$src/lib/components/Field.svelte';
 	import Password from '$src/lib/components/Password.svelte';
 	import Email from '$src/lib/components/Email.svelte';
+	import { slide } from 'svelte/transition';
 
 	let email = $state('');
 	let password = $state('');
+	let confirmPassword = $state('');
 	let username = $state('');
 	let signupForm = $state(false);
-	let error = $state(true);
+	let error = $state(false);
+	let errorMessage = $state('An error occured.');
 	let loading = $state(false);
 
 	async function login() {
+		if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+			error = true;
+			loading = false;
+			errorMessage = 'Please enter a valid email address.';
+			return;
+		}
 		loading = true;
 		const { auth } = await import('$lib/js/firebase');
 		const { signInWithEmailAndPassword } = await import('firebase/auth');
@@ -34,11 +43,47 @@
 
 	async function signup() {
 		loading = true;
-		const { auth } = (await import('$lib/js/firebase')).default;
 
-		const { createUserWithEmailAndPassword, updateProfile, getIdToken } = (
-			await import('firebase/auth')
-		).default;
+		if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+			error = true;
+			loading = false;
+			errorMessage = 'Please enter a valid email address.';
+			return;
+		}
+
+		if (password.length < 8) {
+			error = true;
+			loading = false;
+			errorMessage = 'Password should be 8 characters or more.';
+			return;
+		}
+
+		if (confirmPassword !== password) {
+			error = true;
+			loading = false;
+			errorMessage = 'Passwords do not match';
+			return;
+		}
+
+		if (/\s/.test(username)) {
+			error = true;
+			loading = false;
+			errorMessage = 'Spaces not allowed in "Username".';
+			return;
+		}
+
+		if (!/^[a-zA-Z0-9]+$/.test(username)) {
+			error = true;
+			loading = false;
+			errorMessage = 'Only letters and numbers allowed in "Username".';
+			return;
+		}
+
+		const { auth } = await import('$lib/js/firebase');
+
+		const { createUserWithEmailAndPassword, updateProfile, getIdToken } = await import(
+			'firebase/auth'
+		);
 
 		try {
 			const userRecord = await createUserWithEmailAndPassword(auth, email, password);
@@ -63,7 +108,7 @@
 <!-- <pre>{JSON.stringify(data, null, 2)}</pre> -->
 <div class="flex min-h-[50vh] w-full items-center justify-center">
 	{#if !data.user?.exists || signupForm}
-		<div class="mx-auto max-w-screen-md">
+		<div class="mx-auto w-full max-w-screen-sm">
 			<h2 class="mb-4 text-2xl">Login</h2>
 			<Email
 				--label-bg-dark="#161515"
@@ -94,6 +139,41 @@
 				name="password"
 				required
 			/>
+			{#if signupForm}
+				<Password
+					--label-bg-dark="#161515"
+					--label-bg-light="white"
+					bind:value={confirmPassword}
+					id="confirmPassword"
+					label="Confirm Password"
+					name="confirmPassword"
+					required
+				/>
+			{/if}
+			{#if error}
+				<div
+					transition:slide
+					class=" border-error content-error bg-error-content text-error my-4 rounded-lg border-2 p-4 text-center"
+				>
+					<span class="flex items-center justify-center"
+						><svg
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke-width="1.5"
+							stroke="currentColor"
+							class="-mt-1 mr-4 size-6"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
+							/>
+						</svg>
+						<span> {errorMessage} </span>
+					</span>
+				</div>
+			{/if}
 			{#if signupForm}
 				<div class="flex flex-col">
 					<button onclick={signup} class="btn btn-primary mb-4"

@@ -1,6 +1,7 @@
 import { S3Client } from '@aws-sdk/client-s3';
 import { SESv2Client, SendEmailCommand } from '@aws-sdk/client-sesv2';
 import type { SendEmailCommandInput } from '@aws-sdk/client-sesv2';
+import { CloudFrontClient, CreateInvalidationCommand } from '@aws-sdk/client-cloudfront';
 
 import {
 	AWS_BUCKET_NAME,
@@ -107,13 +108,11 @@ export async function sendMail(payload: { body: string; subject: string }) {
 
 		const data = await client.send(command);
 		return data;
-	} catch (error) {
+	} catch (error: any) {
 		console.error(':::Error sending mail', error.$response);
 		return null;
 	}
 }
-
-import { CloudFrontClient, CreateInvalidationCommand } from '@aws-sdk/client-cloudfront';
 
 export async function invalidateCache(items: string[]) {
 	console.log('Invalidating cache for items:', items);
