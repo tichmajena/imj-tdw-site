@@ -90,7 +90,7 @@
 						method: 'POST',
 						headers: { 'Content-Type': 'application/json' },
 						body: JSON.stringify([
-							`/${image.name}`
+							`/${project.featured_image.name}`
 							// `/fit-in/1280x720/${image.name}`,
 							// `/fit-in/1440x0/${image.name}`,
 							// `/fit-in/1024x0/${image.name}`,
